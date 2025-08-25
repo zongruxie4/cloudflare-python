@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Mapping, Optional, cast
+from typing import List, Type, Optional, cast
 
 import httpx
 
@@ -47,7 +47,7 @@ from .settings import (
     AsyncSettingsResourceWithStreamingResponse,
 )
 from ......_types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
-from ......_utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from ......_utils import is_given, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ......_compat import cached_property
 from .asset_upload import (
     AssetUploadResource,
@@ -172,10 +172,9 @@ class ScriptsResource(SyncAPIResource):
         body = deepcopy_minimal(
             {
                 "metadata": metadata,
-                "files": files,
             }
         )
-        extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>"]])
+        extracted_files = [("files", file) for file in files] if is_given(files) else []
         if extracted_files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.
@@ -190,7 +189,7 @@ class ScriptsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                multipart_syntax='json',
+                multipart_syntax="json",
                 post_parser=ResultWrapper[ScriptUpdateResponse]._unwrapper,
             ),
             cast_to=cast(Type[ScriptUpdateResponse], ResultWrapper[ScriptUpdateResponse]),
@@ -402,10 +401,9 @@ class AsyncScriptsResource(AsyncAPIResource):
         body = deepcopy_minimal(
             {
                 "metadata": metadata,
-                "files": files,
             }
         )
-        extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>"]])
+        extracted_files = [("files", file) for file in files] if is_given(files) else []
         if extracted_files:
             # It should be noted that the actual Content-Type header that will be
             # sent to the server will contain a `boundary` parameter, e.g.
@@ -420,7 +418,7 @@ class AsyncScriptsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                multipart_syntax='json',
+                multipart_syntax="json",
                 post_parser=ResultWrapper[ScriptUpdateResponse]._unwrapper,
             ),
             cast_to=cast(Type[ScriptUpdateResponse], ResultWrapper[ScriptUpdateResponse]),

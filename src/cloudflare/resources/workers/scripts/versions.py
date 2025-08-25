@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Mapping, cast
+from typing import List, Type, cast
 
 import httpx
 
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
-from ...._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from ...._utils import is_given, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -97,10 +97,10 @@ class VersionsResource(SyncAPIResource):
         body = deepcopy_minimal(
             {
                 "metadata": metadata,
-                "files": files,
             }
         )
-        extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>"]])
+        extracted_files = [("files", file) for file in files] if is_given(files) else []
+
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -299,10 +299,9 @@ class AsyncVersionsResource(AsyncAPIResource):
         body = deepcopy_minimal(
             {
                 "metadata": metadata,
-                "files": files,
             }
         )
-        extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>"]])
+        extracted_files = [("files", file) for file in files] if is_given(files) else []
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
