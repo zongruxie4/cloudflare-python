@@ -103,9 +103,11 @@ if TYPE_CHECKING:
         bot_management,
         cloudforce_one,
         dcv_delegation,
+        email_security,
         load_balancers,
         cloud_connector,
         durable_objects,
+        r2_data_catalog,
         request_tracers,
         security_center,
         brand_protection,
@@ -207,6 +209,7 @@ if TYPE_CHECKING:
     from .resources.secrets_store.secrets_store import SecretsStoreResource, AsyncSecretsStoreResource
     from .resources.waiting_rooms.waiting_rooms import WaitingRoomsResource, AsyncWaitingRoomsResource
     from .resources.cloudforce_one.cloudforce_one import CloudforceOneResource, AsyncCloudforceOneResource
+    from .resources.email_security.email_security import EmailSecurityResource, AsyncEmailSecurityResource
     from .resources.load_balancers.load_balancers import LoadBalancersResource, AsyncLoadBalancersResource
     from .resources.origin_post_quantum_encryption import (
         OriginPostQuantumEncryptionResource,
@@ -214,6 +217,7 @@ if TYPE_CHECKING:
     )
     from .resources.cloud_connector.cloud_connector import CloudConnectorResource, AsyncCloudConnectorResource
     from .resources.durable_objects.durable_objects import DurableObjectsResource, AsyncDurableObjectsResource
+    from .resources.r2_data_catalog.r2_data_catalog import R2DataCatalogResource, AsyncR2DataCatalogResource
     from .resources.request_tracers.request_tracers import RequestTracersResource, AsyncRequestTracersResource
     from .resources.security_center.security_center import SecurityCenterResource, AsyncSecurityCenterResource
     from .resources.brand_protection.brand_protection import BrandProtectionResource, AsyncBrandProtectionResource
@@ -460,6 +464,12 @@ class Cloudflare(SyncAPIClient):
         from .resources.dns import DNSResource
 
         return DNSResource(self)
+
+    @cached_property
+    def email_security(self) -> EmailSecurityResource:
+        from .resources.email_security import EmailSecurityResource
+
+        return EmailSecurityResource(self)
 
     @cached_property
     def email_routing(self) -> EmailRoutingResource:
@@ -712,6 +722,12 @@ class Cloudflare(SyncAPIClient):
         from .resources.r2 import R2Resource
 
         return R2Resource(self)
+
+    @cached_property
+    def r2_data_catalog(self) -> R2DataCatalogResource:
+        from .resources.r2_data_catalog import R2DataCatalogResource
+
+        return R2DataCatalogResource(self)
 
     @cached_property
     def workers_for_platforms(self) -> WorkersForPlatformsResource:
@@ -1306,6 +1322,12 @@ class AsyncCloudflare(AsyncAPIClient):
         return AsyncDNSResource(self)
 
     @cached_property
+    def email_security(self) -> AsyncEmailSecurityResource:
+        from .resources.email_security import AsyncEmailSecurityResource
+
+        return AsyncEmailSecurityResource(self)
+
+    @cached_property
     def email_routing(self) -> AsyncEmailRoutingResource:
         from .resources.email_routing import AsyncEmailRoutingResource
 
@@ -1556,6 +1578,12 @@ class AsyncCloudflare(AsyncAPIClient):
         from .resources.r2 import AsyncR2Resource
 
         return AsyncR2Resource(self)
+
+    @cached_property
+    def r2_data_catalog(self) -> AsyncR2DataCatalogResource:
+        from .resources.r2_data_catalog import AsyncR2DataCatalogResource
+
+        return AsyncR2DataCatalogResource(self)
 
     @cached_property
     def workers_for_platforms(self) -> AsyncWorkersForPlatformsResource:
@@ -2078,6 +2106,12 @@ class CloudflareWithRawResponse:
         return DNSResourceWithRawResponse(self._client.dns)
 
     @cached_property
+    def email_security(self) -> email_security.EmailSecurityResourceWithRawResponse:
+        from .resources.email_security import EmailSecurityResourceWithRawResponse
+
+        return EmailSecurityResourceWithRawResponse(self._client.email_security)
+
+    @cached_property
     def email_routing(self) -> email_routing.EmailRoutingResourceWithRawResponse:
         from .resources.email_routing import EmailRoutingResourceWithRawResponse
 
@@ -2328,6 +2362,12 @@ class CloudflareWithRawResponse:
         from .resources.r2 import R2ResourceWithRawResponse
 
         return R2ResourceWithRawResponse(self._client.r2)
+
+    @cached_property
+    def r2_data_catalog(self) -> r2_data_catalog.R2DataCatalogResourceWithRawResponse:
+        from .resources.r2_data_catalog import R2DataCatalogResourceWithRawResponse
+
+        return R2DataCatalogResourceWithRawResponse(self._client.r2_data_catalog)
 
     @cached_property
     def workers_for_platforms(self) -> workers_for_platforms.WorkersForPlatformsResourceWithRawResponse:
@@ -2669,6 +2709,12 @@ class AsyncCloudflareWithRawResponse:
         return AsyncDNSResourceWithRawResponse(self._client.dns)
 
     @cached_property
+    def email_security(self) -> email_security.AsyncEmailSecurityResourceWithRawResponse:
+        from .resources.email_security import AsyncEmailSecurityResourceWithRawResponse
+
+        return AsyncEmailSecurityResourceWithRawResponse(self._client.email_security)
+
+    @cached_property
     def email_routing(self) -> email_routing.AsyncEmailRoutingResourceWithRawResponse:
         from .resources.email_routing import AsyncEmailRoutingResourceWithRawResponse
 
@@ -2919,6 +2965,12 @@ class AsyncCloudflareWithRawResponse:
         from .resources.r2 import AsyncR2ResourceWithRawResponse
 
         return AsyncR2ResourceWithRawResponse(self._client.r2)
+
+    @cached_property
+    def r2_data_catalog(self) -> r2_data_catalog.AsyncR2DataCatalogResourceWithRawResponse:
+        from .resources.r2_data_catalog import AsyncR2DataCatalogResourceWithRawResponse
+
+        return AsyncR2DataCatalogResourceWithRawResponse(self._client.r2_data_catalog)
 
     @cached_property
     def workers_for_platforms(self) -> workers_for_platforms.AsyncWorkersForPlatformsResourceWithRawResponse:
@@ -3260,6 +3312,12 @@ class CloudflareWithStreamedResponse:
         return DNSResourceWithStreamingResponse(self._client.dns)
 
     @cached_property
+    def email_security(self) -> email_security.EmailSecurityResourceWithStreamingResponse:
+        from .resources.email_security import EmailSecurityResourceWithStreamingResponse
+
+        return EmailSecurityResourceWithStreamingResponse(self._client.email_security)
+
+    @cached_property
     def email_routing(self) -> email_routing.EmailRoutingResourceWithStreamingResponse:
         from .resources.email_routing import EmailRoutingResourceWithStreamingResponse
 
@@ -3510,6 +3568,12 @@ class CloudflareWithStreamedResponse:
         from .resources.r2 import R2ResourceWithStreamingResponse
 
         return R2ResourceWithStreamingResponse(self._client.r2)
+
+    @cached_property
+    def r2_data_catalog(self) -> r2_data_catalog.R2DataCatalogResourceWithStreamingResponse:
+        from .resources.r2_data_catalog import R2DataCatalogResourceWithStreamingResponse
+
+        return R2DataCatalogResourceWithStreamingResponse(self._client.r2_data_catalog)
 
     @cached_property
     def workers_for_platforms(self) -> workers_for_platforms.WorkersForPlatformsResourceWithStreamingResponse:
@@ -3853,6 +3917,12 @@ class AsyncCloudflareWithStreamedResponse:
         return AsyncDNSResourceWithStreamingResponse(self._client.dns)
 
     @cached_property
+    def email_security(self) -> email_security.AsyncEmailSecurityResourceWithStreamingResponse:
+        from .resources.email_security import AsyncEmailSecurityResourceWithStreamingResponse
+
+        return AsyncEmailSecurityResourceWithStreamingResponse(self._client.email_security)
+
+    @cached_property
     def email_routing(self) -> email_routing.AsyncEmailRoutingResourceWithStreamingResponse:
         from .resources.email_routing import AsyncEmailRoutingResourceWithStreamingResponse
 
@@ -4105,6 +4175,12 @@ class AsyncCloudflareWithStreamedResponse:
         from .resources.r2 import AsyncR2ResourceWithStreamingResponse
 
         return AsyncR2ResourceWithStreamingResponse(self._client.r2)
+
+    @cached_property
+    def r2_data_catalog(self) -> r2_data_catalog.AsyncR2DataCatalogResourceWithStreamingResponse:
+        from .resources.r2_data_catalog import AsyncR2DataCatalogResourceWithStreamingResponse
+
+        return AsyncR2DataCatalogResourceWithStreamingResponse(self._client.r2_data_catalog)
 
     @cached_property
     def workers_for_platforms(self) -> workers_for_platforms.AsyncWorkersForPlatformsResourceWithStreamingResponse:
