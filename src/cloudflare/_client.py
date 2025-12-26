@@ -94,6 +94,7 @@ if TYPE_CHECKING:
         custom_pages,
         dns_firewall,
         healthchecks,
+        realtime_kit,
         security_txt,
         abuse_reports,
         email_routing,
@@ -204,6 +205,7 @@ if TYPE_CHECKING:
     from .resources.connectivity.connectivity import ConnectivityResource, AsyncConnectivityResource
     from .resources.dns_firewall.dns_firewall import DNSFirewallResource, AsyncDNSFirewallResource
     from .resources.healthchecks.healthchecks import HealthchecksResource, AsyncHealthchecksResource
+    from .resources.realtime_kit.realtime_kit import RealtimeKitResource, AsyncRealtimeKitResource
     from .resources.abuse_reports.abuse_reports import AbuseReportsResource, AsyncAbuseReportsResource
     from .resources.email_routing.email_routing import EmailRoutingResource, AsyncEmailRoutingResource
     from .resources.magic_transit.magic_transit import MagicTransitResource, AsyncMagicTransitResource
@@ -826,6 +828,12 @@ class Cloudflare(SyncAPIClient):
         from .resources.snippets import SnippetsResource
 
         return SnippetsResource(self)
+
+    @cached_property
+    def realtime_kit(self) -> RealtimeKitResource:
+        from .resources.realtime_kit import RealtimeKitResource
+
+        return RealtimeKitResource(self)
 
     @cached_property
     def calls(self) -> CallsResource:
@@ -1690,6 +1698,12 @@ class AsyncCloudflare(AsyncAPIClient):
         return AsyncSnippetsResource(self)
 
     @cached_property
+    def realtime_kit(self) -> AsyncRealtimeKitResource:
+        from .resources.realtime_kit import AsyncRealtimeKitResource
+
+        return AsyncRealtimeKitResource(self)
+
+    @cached_property
     def calls(self) -> AsyncCallsResource:
         from .resources.calls import AsyncCallsResource
 
@@ -2482,6 +2496,12 @@ class CloudflareWithRawResponse:
         return SnippetsResourceWithRawResponse(self._client.snippets)
 
     @cached_property
+    def realtime_kit(self) -> realtime_kit.RealtimeKitResourceWithRawResponse:
+        from .resources.realtime_kit import RealtimeKitResourceWithRawResponse
+
+        return RealtimeKitResourceWithRawResponse(self._client.realtime_kit)
+
+    @cached_property
     def calls(self) -> calls.CallsResourceWithRawResponse:
         from .resources.calls import CallsResourceWithRawResponse
 
@@ -3091,6 +3111,12 @@ class AsyncCloudflareWithRawResponse:
         return AsyncSnippetsResourceWithRawResponse(self._client.snippets)
 
     @cached_property
+    def realtime_kit(self) -> realtime_kit.AsyncRealtimeKitResourceWithRawResponse:
+        from .resources.realtime_kit import AsyncRealtimeKitResourceWithRawResponse
+
+        return AsyncRealtimeKitResourceWithRawResponse(self._client.realtime_kit)
+
+    @cached_property
     def calls(self) -> calls.AsyncCallsResourceWithRawResponse:
         from .resources.calls import AsyncCallsResourceWithRawResponse
 
@@ -3698,6 +3724,12 @@ class CloudflareWithStreamedResponse:
         from .resources.snippets import SnippetsResourceWithStreamingResponse
 
         return SnippetsResourceWithStreamingResponse(self._client.snippets)
+
+    @cached_property
+    def realtime_kit(self) -> realtime_kit.RealtimeKitResourceWithStreamingResponse:
+        from .resources.realtime_kit import RealtimeKitResourceWithStreamingResponse
+
+        return RealtimeKitResourceWithStreamingResponse(self._client.realtime_kit)
 
     @cached_property
     def calls(self) -> calls.CallsResourceWithStreamingResponse:
@@ -4315,6 +4347,12 @@ class AsyncCloudflareWithStreamedResponse:
         from .resources.snippets import AsyncSnippetsResourceWithStreamingResponse
 
         return AsyncSnippetsResourceWithStreamingResponse(self._client.snippets)
+
+    @cached_property
+    def realtime_kit(self) -> realtime_kit.AsyncRealtimeKitResourceWithStreamingResponse:
+        from .resources.realtime_kit import AsyncRealtimeKitResourceWithStreamingResponse
+
+        return AsyncRealtimeKitResourceWithStreamingResponse(self._client.realtime_kit)
 
     @cached_property
     def calls(self) -> calls.AsyncCallsResourceWithStreamingResponse:
