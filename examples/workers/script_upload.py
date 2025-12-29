@@ -26,7 +26,7 @@ Then, define a "dispatch_namespace_name" variable and add a
 
 import os
 
-from cloudflare import Cloudflare, BadRequestError
+from cloudflare import Cloudflare, APIStatusError
 
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
 if API_TOKEN is None:
@@ -73,10 +73,11 @@ def main() -> None:
             },
             files={
                 # Add main_module file
+                # Note: Content-Type must be "application/javascript" or "text/javascript"
                 script_file_name: (
                     script_file_name,
                     bytes(script_content, "utf-8"),
-                    "application/javascript+module",
+                    "application/javascript",
                 )
                 # Can add other files, such as more modules or source maps
                 # source_map_file_name: (
@@ -88,8 +89,9 @@ def main() -> None:
         )
         print("Script Upload success!")
         print(script.to_json(indent=2))
-    except BadRequestError as err:
+    except APIStatusError as err:
         print("Script Upload failure!")
+        print(f"Error code: {err.status_code}")
         print(err)
 
 
