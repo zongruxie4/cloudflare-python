@@ -71,21 +71,21 @@ def main() -> None:
                     }
                 ],
             },
-            files={
+            files=[
                 # Add main_module file
                 # Note: Content-Type must be "application/javascript" or "text/javascript"
-                script_file_name: (
+                (
                     script_file_name,
                     bytes(script_content, "utf-8"),
                     "application/javascript",
-                )
+                ),
                 # Can add other files, such as more modules or source maps
-                # source_map_file_name: (
-                #   source_map_file_name,
-                #   bytes(source_map_content, "utf-8"),
-                #   "application/source-map"
-                # )
-            },
+                # (
+                #     source_map_file_name,
+                #     bytes(source_map_content, "utf-8"),
+                #     "application/source-map",
+                # ),
+            ],
         )
         print("Script Upload success!")
         print(script.to_json(indent=2))
