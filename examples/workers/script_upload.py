@@ -59,7 +59,7 @@ def main() -> None:
         # https://developers.cloudflare.com/api/resources/workers/subresources/scripts/methods/update/
         script = client.workers.scripts.update(
             script_name,
-            account_id=ACCOUNT_ID, # type: ignore
+            account_id=ACCOUNT_ID,  # type: ignore
             # https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/
             metadata={
                 "main_module": script_file_name,
@@ -84,7 +84,7 @@ def main() -> None:
                 #   source_map_file_name,
                 #   bytes(source_map_content, "utf-8"),
                 #   "application/source-map"
-                #)
+                # )
             },
         )
         print("Script Upload success!")
