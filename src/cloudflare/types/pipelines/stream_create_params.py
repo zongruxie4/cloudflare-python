@@ -198,12 +198,32 @@ class SchemaFieldJson(TypedDict, total=False):
     sql_name: str
 
 
-class SchemaFieldStruct(total=False):  # type: ignore[call-arg]  # pyright: ignore[reportGeneralTypeIssues, reportCallIssue]
-    pass
+class SchemaFieldStruct(TypedDict, total=False):
+    type: Required[Literal["struct"]]
+
+    metadata_key: Optional[str]
+
+    name: str
+
+    required: bool
+
+    sql_name: str
+
+    fields: Optional[List["SchemaField"]]
 
 
-class SchemaFieldList(total=False):  # type: ignore[call-arg]  # pyright: ignore[reportGeneralTypeIssues, reportCallIssue]
-    pass
+class SchemaFieldList(TypedDict, total=False):
+    type: Required[Literal["list"]]
+
+    metadata_key: Optional[str]
+
+    name: str
+
+    required: bool
+
+    sql_name: str
+
+    element: Optional["SchemaField"]
 
 
 SchemaField: TypeAlias = Union[
