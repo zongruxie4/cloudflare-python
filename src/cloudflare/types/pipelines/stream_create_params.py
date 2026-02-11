@@ -198,11 +198,11 @@ class SchemaFieldJson(TypedDict, total=False):
     sql_name: str
 
 
-class SchemaFieldStruct(total=False):
+class SchemaFieldStruct(total=False):  # pyright: ignore[reportGeneralTypeIssues, reportCallIssue]
     pass
 
 
-class SchemaFieldList(total=False):
+class SchemaFieldList(total=False):  # pyright: ignore[reportGeneralTypeIssues, reportCallIssue]
     pass
 
 

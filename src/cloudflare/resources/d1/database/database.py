@@ -1665,10 +1665,10 @@ class AsyncDatabaseResourceWithRawResponse:
             database.import_,
         )
         self.query = async_to_raw_response_wrapper(
-            database.query,
+            database.query,  # pyright: ignore[reportArgumentType]
         )
         self.raw = async_to_raw_response_wrapper(
-            database.raw,
+            database.raw,  # pyright: ignore[reportArgumentType]
         )
 
     @cached_property
@@ -1745,10 +1745,10 @@ class AsyncDatabaseResourceWithStreamingResponse:
             database.import_,
         )
         self.query = async_to_streamed_response_wrapper(
-            database.query,
+            database.query,  # pyright: ignore[reportArgumentType]
         )
         self.raw = async_to_streamed_response_wrapper(
-            database.raw,
+            database.raw,  # pyright: ignore[reportArgumentType]
         )
 
     @cached_property

@@ -6,7 +6,7 @@ from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from ...._compat import PYDANTIC_V2
+from ...._compat import PYDANTIC_V2  # pyright: ignore[reportAttributeAccessIssue, reportUnknownVariableType]
 from ...._models import BaseModel
 
 __all__ = [
