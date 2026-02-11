@@ -19,7 +19,7 @@ from ..._response import (
 from ..._wrappers import ResultWrapper
 from ..._base_client import make_request_options
 from ...types.organizations import organization_profile_update_params
-from ...types.organizations.organization_profile_get_params import (  # pyright: ignore[reportMissingImports]
+from ...types.organizations.organization_profile_get_params import (  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
     Result,  # pyright: ignore[reportUnknownVariableType]
 )
 

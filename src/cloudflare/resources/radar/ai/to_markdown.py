@@ -88,11 +88,11 @@ class ToMarkdownResource(SyncAPIResource):
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
-        return self._get_api_list(  # pyright: ignore[reportUnknownVariableType, reportCallIssue]
+        return self._get_api_list(  # type: ignore[call-arg]  # pyright: ignore[reportUnknownVariableType, reportCallIssue]
             f"/accounts/{account_id}/ai/tomarkdown",
             page=SyncSinglePage[ToMarkdownCreateResponse],
             body=maybe_transform(body, to_markdown_create_params.ToMarkdownCreateParams),
-            files=extracted_files,  # pyright: ignore[reportCallIssue]
+            files=extracted_files,  # pyright: ignore[reportCallIssue]  # type: ignore[call-arg]
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -156,11 +156,11 @@ class AsyncToMarkdownResource(AsyncAPIResource):
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
-        return self._get_api_list(  # pyright: ignore[reportUnknownVariableType, reportCallIssue]
+        return self._get_api_list(  # type: ignore[call-arg]  # pyright: ignore[reportUnknownVariableType, reportCallIssue]
             f"/accounts/{account_id}/ai/tomarkdown",
             page=AsyncSinglePage[ToMarkdownCreateResponse],
             body=maybe_transform(body, to_markdown_create_params.ToMarkdownCreateParams),
-            files=extracted_files,  # pyright: ignore[reportCallIssue]
+            files=extracted_files,  # pyright: ignore[reportCallIssue]  # type: ignore[call-arg]
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
