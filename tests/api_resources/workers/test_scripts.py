@@ -158,6 +158,7 @@ class TestScripts:
                 metadata={},
             )
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     def test_method_list(self, client: Cloudflare) -> None:
         script = client.workers.scripts.list(
@@ -165,6 +166,7 @@ class TestScripts:
         )
         assert_matches_type(SyncSinglePage[ScriptListResponse], script, path=["response"])
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     def test_method_list_with_all_params(self, client: Cloudflare) -> None:
         script = client.workers.scripts.list(
@@ -173,6 +175,7 @@ class TestScripts:
         )
         assert_matches_type(SyncSinglePage[ScriptListResponse], script, path=["response"])
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     def test_raw_response_list(self, client: Cloudflare) -> None:
         response = client.workers.scripts.with_raw_response.list(
@@ -184,6 +187,7 @@ class TestScripts:
         script = response.parse()
         assert_matches_type(SyncSinglePage[ScriptListResponse], script, path=["response"])
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     def test_streaming_response_list(self, client: Cloudflare) -> None:
         with client.workers.scripts.with_streaming_response.list(
@@ -501,6 +505,7 @@ class TestAsyncScripts:
                 metadata={},
             )
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     async def test_method_list(self, async_client: AsyncCloudflare) -> None:
         script = await async_client.workers.scripts.list(
@@ -508,6 +513,7 @@ class TestAsyncScripts:
         )
         assert_matches_type(AsyncSinglePage[ScriptListResponse], script, path=["response"])
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncCloudflare) -> None:
         script = await async_client.workers.scripts.list(
@@ -516,6 +522,7 @@ class TestAsyncScripts:
         )
         assert_matches_type(AsyncSinglePage[ScriptListResponse], script, path=["response"])
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncCloudflare) -> None:
         response = await async_client.workers.scripts.with_raw_response.list(
@@ -527,6 +534,7 @@ class TestAsyncScripts:
         script = await response.parse()
         assert_matches_type(AsyncSinglePage[ScriptListResponse], script, path=["response"])
 
+    @pytest.mark.skip(reason="Mock returns invalid enum values ('string' instead of 'smart'/'targeted') (Issue #5)")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncCloudflare) -> None:
         async with async_client.workers.scripts.with_streaming_response.list(
