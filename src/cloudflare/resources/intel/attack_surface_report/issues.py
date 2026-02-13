@@ -7,7 +7,7 @@ from typing import List, Type, Optional, cast
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -63,35 +63,35 @@ class IssuesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        per_page: int | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        page: int | Omit = omit,
+        per_page: int | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncV4PagePagination[Optional[IssueListResponse]]:
         """
-        Get Security Center Issues
+        Retrieves Security Center Issues
 
         Args:
           account_id: Identifier.
 
-          page: Current page within paginated list of results
+          page: Specifies the current page within paginated list of results.
 
-          per_page: Number of results per page of results
+          per_page: Sets the number of results per page of results.
 
           extra_headers: Send extra headers
 
@@ -138,26 +138,26 @@ class IssuesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[IssueClassResponse]:
         """
-        Get Security Center Issue Counts by Class
+        Retrieves Security Center Issue Counts by Class
 
         Args:
           account_id: Identifier.
@@ -206,16 +206,16 @@ class IssuesResource(SyncAPIResource):
         issue_id: str,
         *,
         account_id: str,
-        dismiss: bool | NotGiven = NOT_GIVEN,
+        dismiss: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IssueDismissResponse:
         """
-        Archive Security Center Insight
+        Archives Security Center Insight
 
         Args:
           account_id: Identifier.
@@ -246,26 +246,26 @@ class IssuesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[IssueSeverityResponse]:
         """
-        Get Security Center Issue Counts by Severity
+        Retrieves Security Center Issue Counts by Severity
 
         Args:
           account_id: Identifier.
@@ -313,26 +313,26 @@ class IssuesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[IssueTypeResponse]:
         """
-        Get Security Center Issue Counts by Type
+        Retrieves Security Center Issue Counts by Type
 
         Args:
           account_id: Identifier.
@@ -401,35 +401,35 @@ class AsyncIssuesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        per_page: int | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        page: int | Omit = omit,
+        per_page: int | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Optional[IssueListResponse], AsyncV4PagePagination[Optional[IssueListResponse]]]:
         """
-        Get Security Center Issues
+        Retrieves Security Center Issues
 
         Args:
           account_id: Identifier.
 
-          page: Current page within paginated list of results
+          page: Specifies the current page within paginated list of results.
 
-          per_page: Number of results per page of results
+          per_page: Sets the number of results per page of results.
 
           extra_headers: Send extra headers
 
@@ -476,26 +476,26 @@ class AsyncIssuesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[IssueClassResponse]:
         """
-        Get Security Center Issue Counts by Class
+        Retrieves Security Center Issue Counts by Class
 
         Args:
           account_id: Identifier.
@@ -544,16 +544,16 @@ class AsyncIssuesResource(AsyncAPIResource):
         issue_id: str,
         *,
         account_id: str,
-        dismiss: bool | NotGiven = NOT_GIVEN,
+        dismiss: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IssueDismissResponse:
         """
-        Archive Security Center Insight
+        Archives Security Center Insight
 
         Args:
           account_id: Identifier.
@@ -584,26 +584,26 @@ class AsyncIssuesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[IssueSeverityResponse]:
         """
-        Get Security Center Issue Counts by Severity
+        Retrieves Security Center Issue Counts by Severity
 
         Args:
           account_id: Identifier.
@@ -651,26 +651,26 @@ class AsyncIssuesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[IssueTypeResponse]:
         """
-        Get Security Center Issue Counts by Type
+        Retrieves Security Center Issue Counts by Type
 
         Args:
           account_id: Identifier.
@@ -720,27 +720,27 @@ class IssuesResourceWithRawResponse:
 
         self.list = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                issues.list  # pyright: ignore[reportDeprecated],
+                issues.list,  # pyright: ignore[reportDeprecated],
             )
         )
         self.class_ = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                issues.class_  # pyright: ignore[reportDeprecated],
+                issues.class_,  # pyright: ignore[reportDeprecated],
             )
         )
         self.dismiss = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                issues.dismiss  # pyright: ignore[reportDeprecated],
+                issues.dismiss,  # pyright: ignore[reportDeprecated],
             )
         )
         self.severity = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                issues.severity  # pyright: ignore[reportDeprecated],
+                issues.severity,  # pyright: ignore[reportDeprecated],
             )
         )
         self.type = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                issues.type  # pyright: ignore[reportDeprecated],
+                issues.type,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -751,27 +751,27 @@ class AsyncIssuesResourceWithRawResponse:
 
         self.list = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                issues.list  # pyright: ignore[reportDeprecated],
+                issues.list,  # pyright: ignore[reportDeprecated],
             )
         )
         self.class_ = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                issues.class_  # pyright: ignore[reportDeprecated],
+                issues.class_,  # pyright: ignore[reportDeprecated],
             )
         )
         self.dismiss = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                issues.dismiss  # pyright: ignore[reportDeprecated],
+                issues.dismiss,  # pyright: ignore[reportDeprecated],
             )
         )
         self.severity = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                issues.severity  # pyright: ignore[reportDeprecated],
+                issues.severity,  # pyright: ignore[reportDeprecated],
             )
         )
         self.type = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                issues.type  # pyright: ignore[reportDeprecated],
+                issues.type,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -782,27 +782,27 @@ class IssuesResourceWithStreamingResponse:
 
         self.list = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                issues.list  # pyright: ignore[reportDeprecated],
+                issues.list,  # pyright: ignore[reportDeprecated],
             )
         )
         self.class_ = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                issues.class_  # pyright: ignore[reportDeprecated],
+                issues.class_,  # pyright: ignore[reportDeprecated],
             )
         )
         self.dismiss = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                issues.dismiss  # pyright: ignore[reportDeprecated],
+                issues.dismiss,  # pyright: ignore[reportDeprecated],
             )
         )
         self.severity = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                issues.severity  # pyright: ignore[reportDeprecated],
+                issues.severity,  # pyright: ignore[reportDeprecated],
             )
         )
         self.type = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                issues.type  # pyright: ignore[reportDeprecated],
+                issues.type,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -813,26 +813,26 @@ class AsyncIssuesResourceWithStreamingResponse:
 
         self.list = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                issues.list  # pyright: ignore[reportDeprecated],
+                issues.list,  # pyright: ignore[reportDeprecated],
             )
         )
         self.class_ = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                issues.class_  # pyright: ignore[reportDeprecated],
+                issues.class_,  # pyright: ignore[reportDeprecated],
             )
         )
         self.dismiss = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                issues.dismiss  # pyright: ignore[reportDeprecated],
+                issues.dismiss,  # pyright: ignore[reportDeprecated],
             )
         )
         self.severity = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                issues.severity  # pyright: ignore[reportDeprecated],
+                issues.severity,  # pyright: ignore[reportDeprecated],
             )
         )
         self.type = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                issues.type  # pyright: ignore[reportDeprecated],
+                issues.type,  # pyright: ignore[reportDeprecated],
             )
         )

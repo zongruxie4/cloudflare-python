@@ -25,6 +25,7 @@ __all__ = [
     "SelfHostedApplicationDestination",
     "SelfHostedApplicationDestinationPublicDestination",
     "SelfHostedApplicationDestinationPrivateDestination",
+    "SelfHostedApplicationDestinationViaMcpServerPortalDestination",
     "SelfHostedApplicationPolicy",
     "SelfHostedApplicationSCIMConfig",
     "SelfHostedApplicationSCIMConfigAuthentication",
@@ -43,6 +44,7 @@ __all__ = [
     "BrowserSSHApplicationDestination",
     "BrowserSSHApplicationDestinationPublicDestination",
     "BrowserSSHApplicationDestinationPrivateDestination",
+    "BrowserSSHApplicationDestinationViaMcpServerPortalDestination",
     "BrowserSSHApplicationPolicy",
     "BrowserSSHApplicationSCIMConfig",
     "BrowserSSHApplicationSCIMConfigAuthentication",
@@ -53,6 +55,7 @@ __all__ = [
     "BrowserVNCApplicationDestination",
     "BrowserVNCApplicationDestinationPublicDestination",
     "BrowserVNCApplicationDestinationPrivateDestination",
+    "BrowserVNCApplicationDestinationViaMcpServerPortalDestination",
     "BrowserVNCApplicationPolicy",
     "BrowserVNCApplicationSCIMConfig",
     "BrowserVNCApplicationSCIMConfigAuthentication",
@@ -63,50 +66,25 @@ __all__ = [
     "AppLauncherApplicationFooterLink",
     "AppLauncherApplicationLandingPageDesign",
     "AppLauncherApplicationPolicy",
-    "AppLauncherApplicationSCIMConfig",
-    "AppLauncherApplicationSCIMConfigAuthentication",
-    "AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
-    "AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication",
-    "AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
     "DeviceEnrollmentPermissionsApplication",
-    "DeviceEnrollmentPermissionsApplicationFooterLink",
-    "DeviceEnrollmentPermissionsApplicationLandingPageDesign",
     "DeviceEnrollmentPermissionsApplicationPolicy",
-    "DeviceEnrollmentPermissionsApplicationSCIMConfig",
-    "DeviceEnrollmentPermissionsApplicationSCIMConfigAuthentication",
-    "DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
-    "DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication",
-    "DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
     "BrowserIsolationPermissionsApplication",
-    "BrowserIsolationPermissionsApplicationFooterLink",
-    "BrowserIsolationPermissionsApplicationLandingPageDesign",
     "BrowserIsolationPermissionsApplicationPolicy",
-    "BrowserIsolationPermissionsApplicationSCIMConfig",
-    "BrowserIsolationPermissionsApplicationSCIMConfigAuthentication",
-    "BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
-    "BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication",
-    "BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
+    "GatewayIdentityProxyEndpointApplication",
+    "GatewayIdentityProxyEndpointApplicationPolicy",
     "BookmarkApplication",
-    "BookmarkApplicationSCIMConfig",
-    "BookmarkApplicationSCIMConfigAuthentication",
-    "BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
-    "BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication",
-    "BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
+    "BookmarkApplicationPolicy",
     "InfrastructureApplication",
     "InfrastructureApplicationTargetCriterion",
     "InfrastructureApplicationPolicy",
     "InfrastructureApplicationPolicyConnectionRules",
     "InfrastructureApplicationPolicyConnectionRulesSSH",
-    "InfrastructureApplicationSCIMConfig",
-    "InfrastructureApplicationSCIMConfigAuthentication",
-    "InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
-    "InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication",
-    "InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken",
     "BrowserRdpApplication",
     "BrowserRdpApplicationTargetCriterion",
     "BrowserRdpApplicationDestination",
     "BrowserRdpApplicationDestinationPublicDestination",
     "BrowserRdpApplicationDestinationPrivateDestination",
+    "BrowserRdpApplicationDestinationViaMcpServerPortalDestination",
     "BrowserRdpApplicationPolicy",
     "BrowserRdpApplicationSCIMConfig",
     "BrowserRdpApplicationSCIMConfigAuthentication",
@@ -117,6 +95,11 @@ __all__ = [
 
 
 class SelfHostedApplicationDestinationPublicDestination(BaseModel):
+    """A public hostname that Access will secure.
+
+    Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
     type: Optional[Literal["public"]] = None
 
     uri: Optional[str] = None
@@ -152,8 +135,22 @@ class SelfHostedApplicationDestinationPrivateDestination(BaseModel):
     """The VNET ID to match the destination. When omitted, all VNETs will match."""
 
 
+class SelfHostedApplicationDestinationViaMcpServerPortalDestination(BaseModel):
+    """A MCP server id configured in ai-controls.
+
+    Access will secure the MCP server if accessed through a MCP portal.
+    """
+
+    mcp_server_id: Optional[str] = None
+    """The MCP server id configured in ai-controls."""
+
+    type: Optional[Literal["via_mcp_server_portal"]] = None
+
+
 SelfHostedApplicationDestination: TypeAlias = Union[
-    SelfHostedApplicationDestinationPublicDestination, SelfHostedApplicationDestinationPrivateDestination
+    SelfHostedApplicationDestinationPublicDestination,
+    SelfHostedApplicationDestinationPrivateDestination,
+    SelfHostedApplicationDestinationViaMcpServerPortalDestination,
 ]
 
 
@@ -229,6 +226,10 @@ class SelfHostedApplicationPolicy(BaseModel):
 
 
 class SelfHostedApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -248,6 +249,10 @@ class SelfHostedApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticatio
 class SelfHostedApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
     BaseModel
 ):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -281,6 +286,11 @@ SelfHostedApplicationSCIMConfigAuthentication: TypeAlias = Union[
 
 
 class SelfHostedApplicationSCIMConfig(BaseModel):
+    """Configuration for provisioning to this application via SCIM.
+
+    This is currently in closed beta.
+    """
+
     idp_uid: str
     """
     The UID of the IdP to use as the source for SCIM resources to provision to this
@@ -358,8 +368,6 @@ class SelfHostedApplication(BaseModel):
     """
 
     cors_headers: Optional[CORSHeaders] = None
-
-    created_at: Optional[datetime] = None
 
     custom_deny_message: Optional[str] = None
     """
@@ -472,7 +480,13 @@ class SelfHostedApplication(BaseModel):
     Tags are used to filter applications in the App Launcher dashboard.
     """
 
-    updated_at: Optional[datetime] = None
+    use_clientless_isolation_app_launcher_url: Optional[bool] = None
+    """
+    Determines if users can access this application via a clientless browser
+    isolation URL. This allows users to access private domains without connecting to
+    Gateway. The option requires Clientless Browser Isolation to be set up with
+    policies that allow users of this application.
+    """
 
 
 class SaaSApplicationPolicy(BaseModel):
@@ -550,6 +564,10 @@ SaaSApplicationSaaSApp: TypeAlias = Union[SAMLSaaSApp, OIDCSaaSApp]
 
 
 class SaaSApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -569,6 +587,10 @@ class SaaSApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAcces
 class SaaSApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
     BaseModel
 ):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -602,6 +624,11 @@ SaaSApplicationSCIMConfigAuthentication: TypeAlias = Union[
 
 
 class SaaSApplicationSCIMConfig(BaseModel):
+    """Configuration for provisioning to this application via SCIM.
+
+    This is currently in closed beta.
+    """
+
     idp_uid: str
     """
     The UID of the IdP to use as the source for SCIM resources to provision to this
@@ -658,8 +685,6 @@ class SaaSApplication(BaseModel):
     You must specify only one identity provider in allowed_idps.
     """
 
-    created_at: Optional[datetime] = None
-
     custom_pages: Optional[List[str]] = None
     """The custom pages that will be displayed when applicable for this application"""
 
@@ -688,10 +713,13 @@ class SaaSApplication(BaseModel):
     type: Optional[ApplicationType] = None
     """The application type."""
 
-    updated_at: Optional[datetime] = None
-
 
 class BrowserSSHApplicationDestinationPublicDestination(BaseModel):
+    """A public hostname that Access will secure.
+
+    Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
     type: Optional[Literal["public"]] = None
 
     uri: Optional[str] = None
@@ -727,8 +755,22 @@ class BrowserSSHApplicationDestinationPrivateDestination(BaseModel):
     """The VNET ID to match the destination. When omitted, all VNETs will match."""
 
 
+class BrowserSSHApplicationDestinationViaMcpServerPortalDestination(BaseModel):
+    """A MCP server id configured in ai-controls.
+
+    Access will secure the MCP server if accessed through a MCP portal.
+    """
+
+    mcp_server_id: Optional[str] = None
+    """The MCP server id configured in ai-controls."""
+
+    type: Optional[Literal["via_mcp_server_portal"]] = None
+
+
 BrowserSSHApplicationDestination: TypeAlias = Union[
-    BrowserSSHApplicationDestinationPublicDestination, BrowserSSHApplicationDestinationPrivateDestination
+    BrowserSSHApplicationDestinationPublicDestination,
+    BrowserSSHApplicationDestinationPrivateDestination,
+    BrowserSSHApplicationDestinationViaMcpServerPortalDestination,
 ]
 
 
@@ -804,6 +846,10 @@ class BrowserSSHApplicationPolicy(BaseModel):
 
 
 class BrowserSSHApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -823,6 +869,10 @@ class BrowserSSHApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticatio
 class BrowserSSHApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
     BaseModel
 ):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -856,6 +906,11 @@ BrowserSSHApplicationSCIMConfigAuthentication: TypeAlias = Union[
 
 
 class BrowserSSHApplicationSCIMConfig(BaseModel):
+    """Configuration for provisioning to this application via SCIM.
+
+    This is currently in closed beta.
+    """
+
     idp_uid: str
     """
     The UID of the IdP to use as the source for SCIM resources to provision to this
@@ -907,6 +962,9 @@ class BrowserSSHApplication(BaseModel):
         "dash_sso",
         "infrastructure",
         "rdp",
+        "mcp",
+        "mcp_portal",
+        "proxy_endpoint",
     ]
     """The application type."""
 
@@ -945,8 +1003,6 @@ class BrowserSSHApplication(BaseModel):
     """
 
     cors_headers: Optional[CORSHeaders] = None
-
-    created_at: Optional[datetime] = None
 
     custom_deny_message: Optional[str] = None
     """
@@ -1059,10 +1115,21 @@ class BrowserSSHApplication(BaseModel):
     Tags are used to filter applications in the App Launcher dashboard.
     """
 
-    updated_at: Optional[datetime] = None
+    use_clientless_isolation_app_launcher_url: Optional[bool] = None
+    """
+    Determines if users can access this application via a clientless browser
+    isolation URL. This allows users to access private domains without connecting to
+    Gateway. The option requires Clientless Browser Isolation to be set up with
+    policies that allow users of this application.
+    """
 
 
 class BrowserVNCApplicationDestinationPublicDestination(BaseModel):
+    """A public hostname that Access will secure.
+
+    Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
     type: Optional[Literal["public"]] = None
 
     uri: Optional[str] = None
@@ -1098,8 +1165,22 @@ class BrowserVNCApplicationDestinationPrivateDestination(BaseModel):
     """The VNET ID to match the destination. When omitted, all VNETs will match."""
 
 
+class BrowserVNCApplicationDestinationViaMcpServerPortalDestination(BaseModel):
+    """A MCP server id configured in ai-controls.
+
+    Access will secure the MCP server if accessed through a MCP portal.
+    """
+
+    mcp_server_id: Optional[str] = None
+    """The MCP server id configured in ai-controls."""
+
+    type: Optional[Literal["via_mcp_server_portal"]] = None
+
+
 BrowserVNCApplicationDestination: TypeAlias = Union[
-    BrowserVNCApplicationDestinationPublicDestination, BrowserVNCApplicationDestinationPrivateDestination
+    BrowserVNCApplicationDestinationPublicDestination,
+    BrowserVNCApplicationDestinationPrivateDestination,
+    BrowserVNCApplicationDestinationViaMcpServerPortalDestination,
 ]
 
 
@@ -1175,6 +1256,10 @@ class BrowserVNCApplicationPolicy(BaseModel):
 
 
 class BrowserVNCApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -1194,6 +1279,10 @@ class BrowserVNCApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticatio
 class BrowserVNCApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
     BaseModel
 ):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -1227,6 +1316,11 @@ BrowserVNCApplicationSCIMConfigAuthentication: TypeAlias = Union[
 
 
 class BrowserVNCApplicationSCIMConfig(BaseModel):
+    """Configuration for provisioning to this application via SCIM.
+
+    This is currently in closed beta.
+    """
+
     idp_uid: str
     """
     The UID of the IdP to use as the source for SCIM resources to provision to this
@@ -1278,6 +1372,9 @@ class BrowserVNCApplication(BaseModel):
         "dash_sso",
         "infrastructure",
         "rdp",
+        "mcp",
+        "mcp_portal",
+        "proxy_endpoint",
     ]
     """The application type."""
 
@@ -1316,8 +1413,6 @@ class BrowserVNCApplication(BaseModel):
     """
 
     cors_headers: Optional[CORSHeaders] = None
-
-    created_at: Optional[datetime] = None
 
     custom_deny_message: Optional[str] = None
     """
@@ -1430,7 +1525,13 @@ class BrowserVNCApplication(BaseModel):
     Tags are used to filter applications in the App Launcher dashboard.
     """
 
-    updated_at: Optional[datetime] = None
+    use_clientless_isolation_app_launcher_url: Optional[bool] = None
+    """
+    Determines if users can access this application via a clientless browser
+    isolation URL. This allows users to access private domains without connecting to
+    Gateway. The option requires Clientless Browser Isolation to be set up with
+    policies that allow users of this application.
+    """
 
 
 class AppLauncherApplicationFooterLink(BaseModel):
@@ -1442,6 +1543,8 @@ class AppLauncherApplicationFooterLink(BaseModel):
 
 
 class AppLauncherApplicationLandingPageDesign(BaseModel):
+    """The design of the App Launcher landing page shown to users when they log in."""
+
     button_color: Optional[str] = None
     """The background color of the log in button on the landing page."""
 
@@ -1529,91 +1632,6 @@ class AppLauncherApplicationPolicy(BaseModel):
     updated_at: Optional[datetime] = None
 
 
-class AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-class AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-]
-
-AppLauncherApplicationSCIMConfigAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-    List[AppLauncherApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication],
-]
-
-
-class AppLauncherApplicationSCIMConfig(BaseModel):
-    idp_uid: str
-    """
-    The UID of the IdP to use as the source for SCIM resources to provision to this
-    application.
-    """
-
-    remote_uri: str
-    """The base URI for the application's SCIM-compatible API."""
-
-    authentication: Optional[AppLauncherApplicationSCIMConfigAuthentication] = None
-    """
-    Attributes for configuring HTTP Basic authentication scheme for SCIM
-    provisioning to an application.
-    """
-
-    deactivate_on_delete: Optional[bool] = None
-    """
-    If false, propagates DELETE requests to the target application for SCIM
-    resources. If true, sets 'active' to false on the SCIM resource. Note: Some
-    targets do not support DELETE operations.
-    """
-
-    enabled: Optional[bool] = None
-    """Whether SCIM provisioning is turned on for this application."""
-
-    mappings: Optional[List[SCIMConfigMapping]] = None
-    """
-    A list of mappings to apply to SCIM resources before provisioning them in this
-    application. These can transform or filter the resources to be provisioned.
-    """
-
-
 class AppLauncherApplication(BaseModel):
     type: Literal[
         "self_hosted",
@@ -1627,6 +1645,9 @@ class AppLauncherApplication(BaseModel):
         "dash_sso",
         "infrastructure",
         "rdp",
+        "mcp",
+        "mcp_portal",
+        "proxy_endpoint",
     ]
     """The application type."""
 
@@ -1656,7 +1677,20 @@ class AppLauncherApplication(BaseModel):
     bg_color: Optional[str] = None
     """The background color of the App Launcher page."""
 
-    created_at: Optional[datetime] = None
+    custom_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing identity-based rules.
+    """
+
+    custom_non_identity_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing non-identity rules.
+    """
+
+    custom_pages: Optional[List[str]] = None
+    """The custom pages that will be displayed when applicable for this application"""
 
     domain: Optional[str] = None
     """The primary hostname and path secured by Access.
@@ -1678,12 +1712,6 @@ class AppLauncherApplication(BaseModel):
 
     policies: Optional[List[AppLauncherApplicationPolicy]] = None
 
-    scim_config: Optional[AppLauncherApplicationSCIMConfig] = None
-    """Configuration for provisioning to this application via SCIM.
-
-    This is currently in closed beta.
-    """
-
     session_duration: Optional[str] = None
     """The amount of time that tokens issued for this application will be valid.
 
@@ -1693,33 +1721,6 @@ class AppLauncherApplication(BaseModel):
 
     skip_app_launcher_login_page: Optional[bool] = None
     """Determines when to skip the App Launcher landing page."""
-
-    updated_at: Optional[datetime] = None
-
-
-class DeviceEnrollmentPermissionsApplicationFooterLink(BaseModel):
-    name: str
-    """The hypertext in the footer link."""
-
-    url: str
-    """the hyperlink in the footer link."""
-
-
-class DeviceEnrollmentPermissionsApplicationLandingPageDesign(BaseModel):
-    button_color: Optional[str] = None
-    """The background color of the log in button on the landing page."""
-
-    button_text_color: Optional[str] = None
-    """The color of the text in the log in button on the landing page."""
-
-    image_url: Optional[str] = None
-    """The URL of the image shown on the landing page."""
-
-    message: Optional[str] = None
-    """The message shown on the landing page."""
-
-    title: Optional[str] = None
-    """The title shown on the landing page."""
 
 
 class DeviceEnrollmentPermissionsApplicationPolicy(BaseModel):
@@ -1793,93 +1794,6 @@ class DeviceEnrollmentPermissionsApplicationPolicy(BaseModel):
     updated_at: Optional[datetime] = None
 
 
-class DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-class DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-]
-
-DeviceEnrollmentPermissionsApplicationSCIMConfigAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-    List[DeviceEnrollmentPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication],
-]
-
-
-class DeviceEnrollmentPermissionsApplicationSCIMConfig(BaseModel):
-    idp_uid: str
-    """
-    The UID of the IdP to use as the source for SCIM resources to provision to this
-    application.
-    """
-
-    remote_uri: str
-    """The base URI for the application's SCIM-compatible API."""
-
-    authentication: Optional[DeviceEnrollmentPermissionsApplicationSCIMConfigAuthentication] = None
-    """
-    Attributes for configuring HTTP Basic authentication scheme for SCIM
-    provisioning to an application.
-    """
-
-    deactivate_on_delete: Optional[bool] = None
-    """
-    If false, propagates DELETE requests to the target application for SCIM
-    resources. If true, sets 'active' to false on the SCIM resource. Note: Some
-    targets do not support DELETE operations.
-    """
-
-    enabled: Optional[bool] = None
-    """Whether SCIM provisioning is turned on for this application."""
-
-    mappings: Optional[List[SCIMConfigMapping]] = None
-    """
-    A list of mappings to apply to SCIM resources before provisioning them in this
-    application. These can transform or filter the resources to be provisioned.
-    """
-
-
 class DeviceEnrollmentPermissionsApplication(BaseModel):
     type: ApplicationType
     """The application type."""
@@ -1894,9 +1808,6 @@ class DeviceEnrollmentPermissionsApplication(BaseModel):
     Defaults to all IdPs configured in your account.
     """
 
-    app_launcher_logo_url: Optional[str] = None
-    """The image URL of the logo shown in the App Launcher header."""
-
     aud: Optional[str] = None
     """Audience tag."""
 
@@ -1907,10 +1818,20 @@ class DeviceEnrollmentPermissionsApplication(BaseModel):
     You must specify only one identity provider in allowed_idps.
     """
 
-    bg_color: Optional[str] = None
-    """The background color of the App Launcher page."""
+    custom_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing identity-based rules.
+    """
 
-    created_at: Optional[datetime] = None
+    custom_non_identity_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing non-identity rules.
+    """
+
+    custom_pages: Optional[List[str]] = None
+    """The custom pages that will be displayed when applicable for this application"""
 
     domain: Optional[str] = None
     """The primary hostname and path secured by Access.
@@ -1918,25 +1839,10 @@ class DeviceEnrollmentPermissionsApplication(BaseModel):
     This domain will be displayed if the app is visible in the App Launcher.
     """
 
-    footer_links: Optional[List[DeviceEnrollmentPermissionsApplicationFooterLink]] = None
-    """The links in the App Launcher footer."""
-
-    header_bg_color: Optional[str] = None
-    """The background color of the App Launcher header."""
-
-    landing_page_design: Optional[DeviceEnrollmentPermissionsApplicationLandingPageDesign] = None
-    """The design of the App Launcher landing page shown to users when they log in."""
-
     name: Optional[str] = None
     """The name of the application."""
 
     policies: Optional[List[DeviceEnrollmentPermissionsApplicationPolicy]] = None
-
-    scim_config: Optional[DeviceEnrollmentPermissionsApplicationSCIMConfig] = None
-    """Configuration for provisioning to this application via SCIM.
-
-    This is currently in closed beta.
-    """
 
     session_duration: Optional[str] = None
     """The amount of time that tokens issued for this application will be valid.
@@ -1944,36 +1850,6 @@ class DeviceEnrollmentPermissionsApplication(BaseModel):
     Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs),
     ms, s, m, h. Note: unsupported for infrastructure type applications.
     """
-
-    skip_app_launcher_login_page: Optional[bool] = None
-    """Determines when to skip the App Launcher landing page."""
-
-    updated_at: Optional[datetime] = None
-
-
-class BrowserIsolationPermissionsApplicationFooterLink(BaseModel):
-    name: str
-    """The hypertext in the footer link."""
-
-    url: str
-    """the hyperlink in the footer link."""
-
-
-class BrowserIsolationPermissionsApplicationLandingPageDesign(BaseModel):
-    button_color: Optional[str] = None
-    """The background color of the log in button on the landing page."""
-
-    button_text_color: Optional[str] = None
-    """The color of the text in the log in button on the landing page."""
-
-    image_url: Optional[str] = None
-    """The URL of the image shown on the landing page."""
-
-    message: Optional[str] = None
-    """The message shown on the landing page."""
-
-    title: Optional[str] = None
-    """The title shown on the landing page."""
 
 
 class BrowserIsolationPermissionsApplicationPolicy(BaseModel):
@@ -2047,93 +1923,6 @@ class BrowserIsolationPermissionsApplicationPolicy(BaseModel):
     updated_at: Optional[datetime] = None
 
 
-class BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-class BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-]
-
-BrowserIsolationPermissionsApplicationSCIMConfigAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-    List[BrowserIsolationPermissionsApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication],
-]
-
-
-class BrowserIsolationPermissionsApplicationSCIMConfig(BaseModel):
-    idp_uid: str
-    """
-    The UID of the IdP to use as the source for SCIM resources to provision to this
-    application.
-    """
-
-    remote_uri: str
-    """The base URI for the application's SCIM-compatible API."""
-
-    authentication: Optional[BrowserIsolationPermissionsApplicationSCIMConfigAuthentication] = None
-    """
-    Attributes for configuring HTTP Basic authentication scheme for SCIM
-    provisioning to an application.
-    """
-
-    deactivate_on_delete: Optional[bool] = None
-    """
-    If false, propagates DELETE requests to the target application for SCIM
-    resources. If true, sets 'active' to false on the SCIM resource. Note: Some
-    targets do not support DELETE operations.
-    """
-
-    enabled: Optional[bool] = None
-    """Whether SCIM provisioning is turned on for this application."""
-
-    mappings: Optional[List[SCIMConfigMapping]] = None
-    """
-    A list of mappings to apply to SCIM resources before provisioning them in this
-    application. These can transform or filter the resources to be provisioned.
-    """
-
-
 class BrowserIsolationPermissionsApplication(BaseModel):
     type: ApplicationType
     """The application type."""
@@ -2148,8 +1937,134 @@ class BrowserIsolationPermissionsApplication(BaseModel):
     Defaults to all IdPs configured in your account.
     """
 
-    app_launcher_logo_url: Optional[str] = None
-    """The image URL of the logo shown in the App Launcher header."""
+    aud: Optional[str] = None
+    """Audience tag."""
+
+    auto_redirect_to_identity: Optional[bool] = None
+    """When set to `true`, users skip the identity provider selection step during
+    login.
+
+    You must specify only one identity provider in allowed_idps.
+    """
+
+    custom_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing identity-based rules.
+    """
+
+    custom_non_identity_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing non-identity rules.
+    """
+
+    custom_pages: Optional[List[str]] = None
+    """The custom pages that will be displayed when applicable for this application"""
+
+    domain: Optional[str] = None
+    """The primary hostname and path secured by Access.
+
+    This domain will be displayed if the app is visible in the App Launcher.
+    """
+
+    name: Optional[str] = None
+    """The name of the application."""
+
+    policies: Optional[List[BrowserIsolationPermissionsApplicationPolicy]] = None
+
+    session_duration: Optional[str] = None
+    """The amount of time that tokens issued for this application will be valid.
+
+    Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs),
+    ms, s, m, h. Note: unsupported for infrastructure type applications.
+    """
+
+
+class GatewayIdentityProxyEndpointApplicationPolicy(BaseModel):
+    id: Optional[str] = None
+    """The UUID of the policy"""
+
+    approval_groups: Optional[List[ApprovalGroup]] = None
+    """Administrators who can approve a temporary authentication request."""
+
+    approval_required: Optional[bool] = None
+    """
+    Requires the user to request access from an administrator at the start of each
+    session.
+    """
+
+    created_at: Optional[datetime] = None
+
+    decision: Optional[Decision] = None
+    """The action Access will take if a user matches this policy.
+
+    Infrastructure application policies can only use the Allow action.
+    """
+
+    exclude: Optional[List[AccessRule]] = None
+    """Rules evaluated with a NOT logical operator.
+
+    To match the policy, a user cannot meet any of the Exclude rules.
+    """
+
+    include: Optional[List[AccessRule]] = None
+    """Rules evaluated with an OR logical operator.
+
+    A user needs to meet only one of the Include rules.
+    """
+
+    isolation_required: Optional[bool] = None
+    """
+    Require this application to be served in an isolated browser for users matching
+    this policy. 'Client Web Isolation' must be on for the account in order to use
+    this feature.
+    """
+
+    name: Optional[str] = None
+    """The name of the Access policy."""
+
+    precedence: Optional[int] = None
+    """The order of execution for this policy.
+
+    Must be unique for each policy within an app.
+    """
+
+    purpose_justification_prompt: Optional[str] = None
+    """A custom message that will appear on the purpose justification screen."""
+
+    purpose_justification_required: Optional[bool] = None
+    """Require users to enter a justification when they log in to the application."""
+
+    require: Optional[List[AccessRule]] = None
+    """Rules evaluated with an AND logical operator.
+
+    To match the policy, a user must meet all of the Require rules.
+    """
+
+    session_duration: Optional[str] = None
+    """The amount of time that tokens issued for the application will be valid.
+
+    Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs),
+    ms, s, m, h.
+    """
+
+    updated_at: Optional[datetime] = None
+
+
+class GatewayIdentityProxyEndpointApplication(BaseModel):
+    type: ApplicationType
+    """The application type."""
+
+    id: Optional[str] = None
+    """UUID."""
+
+    allowed_idps: Optional[List[AllowedIdPs]] = None
+    """The identity providers your users can select when connecting to this
+    application.
+
+    Defaults to all IdPs configured in your account.
+    """
 
     aud: Optional[str] = None
     """Audience tag."""
@@ -2161,36 +2076,31 @@ class BrowserIsolationPermissionsApplication(BaseModel):
     You must specify only one identity provider in allowed_idps.
     """
 
-    bg_color: Optional[str] = None
-    """The background color of the App Launcher page."""
-
-    created_at: Optional[datetime] = None
-
-    domain: Optional[str] = None
-    """The primary hostname and path secured by Access.
-
-    This domain will be displayed if the app is visible in the App Launcher.
+    custom_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing identity-based rules.
     """
 
-    footer_links: Optional[List[BrowserIsolationPermissionsApplicationFooterLink]] = None
-    """The links in the App Launcher footer."""
+    custom_non_identity_deny_url: Optional[str] = None
+    """
+    The custom URL a user is redirected to when they are denied access to the
+    application when failing non-identity rules.
+    """
 
-    header_bg_color: Optional[str] = None
-    """The background color of the App Launcher header."""
+    custom_pages: Optional[List[str]] = None
+    """The custom pages that will be displayed when applicable for this application"""
 
-    landing_page_design: Optional[BrowserIsolationPermissionsApplicationLandingPageDesign] = None
-    """The design of the App Launcher landing page shown to users when they log in."""
+    domain: Optional[str] = None
+    """
+    The proxy endpoint domain in the format: 10 alphanumeric characters followed by
+    .proxy.cloudflare-gateway.com
+    """
 
     name: Optional[str] = None
     """The name of the application."""
 
-    policies: Optional[List[BrowserIsolationPermissionsApplicationPolicy]] = None
-
-    scim_config: Optional[BrowserIsolationPermissionsApplicationSCIMConfig] = None
-    """Configuration for provisioning to this application via SCIM.
-
-    This is currently in closed beta.
-    """
+    policies: Optional[List[GatewayIdentityProxyEndpointApplicationPolicy]] = None
 
     session_duration: Optional[str] = None
     """The amount of time that tokens issued for this application will be valid.
@@ -2199,95 +2109,76 @@ class BrowserIsolationPermissionsApplication(BaseModel):
     ms, s, m, h. Note: unsupported for infrastructure type applications.
     """
 
-    skip_app_launcher_login_page: Optional[bool] = None
-    """Determines when to skip the App Launcher landing page."""
+
+class BookmarkApplicationPolicy(BaseModel):
+    id: Optional[str] = None
+    """The UUID of the policy"""
+
+    approval_groups: Optional[List[ApprovalGroup]] = None
+    """Administrators who can approve a temporary authentication request."""
+
+    approval_required: Optional[bool] = None
+    """
+    Requires the user to request access from an administrator at the start of each
+    session.
+    """
+
+    created_at: Optional[datetime] = None
+
+    decision: Optional[Decision] = None
+    """The action Access will take if a user matches this policy.
+
+    Infrastructure application policies can only use the Allow action.
+    """
+
+    exclude: Optional[List[AccessRule]] = None
+    """Rules evaluated with a NOT logical operator.
+
+    To match the policy, a user cannot meet any of the Exclude rules.
+    """
+
+    include: Optional[List[AccessRule]] = None
+    """Rules evaluated with an OR logical operator.
+
+    A user needs to meet only one of the Include rules.
+    """
+
+    isolation_required: Optional[bool] = None
+    """
+    Require this application to be served in an isolated browser for users matching
+    this policy. 'Client Web Isolation' must be on for the account in order to use
+    this feature.
+    """
+
+    name: Optional[str] = None
+    """The name of the Access policy."""
+
+    precedence: Optional[int] = None
+    """The order of execution for this policy.
+
+    Must be unique for each policy within an app.
+    """
+
+    purpose_justification_prompt: Optional[str] = None
+    """A custom message that will appear on the purpose justification screen."""
+
+    purpose_justification_required: Optional[bool] = None
+    """Require users to enter a justification when they log in to the application."""
+
+    require: Optional[List[AccessRule]] = None
+    """Rules evaluated with an AND logical operator.
+
+    To match the policy, a user must meet all of the Require rules.
+    """
+
+    session_duration: Optional[str] = None
+    """The amount of time that tokens issued for the application will be valid.
+
+    Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs),
+    ms, s, m, h.
+    """
 
     updated_at: Optional[datetime] = None
-
-
-class BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-class BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-]
-
-BookmarkApplicationSCIMConfigAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-    List[BookmarkApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication],
-]
-
-
-class BookmarkApplicationSCIMConfig(BaseModel):
-    idp_uid: str
-    """
-    The UID of the IdP to use as the source for SCIM resources to provision to this
-    application.
-    """
-
-    remote_uri: str
-    """The base URI for the application's SCIM-compatible API."""
-
-    authentication: Optional[BookmarkApplicationSCIMConfigAuthentication] = None
-    """
-    Attributes for configuring HTTP Basic authentication scheme for SCIM
-    provisioning to an application.
-    """
-
-    deactivate_on_delete: Optional[bool] = None
-    """
-    If false, propagates DELETE requests to the target application for SCIM
-    resources. If true, sets 'active' to false on the SCIM resource. Note: Some
-    targets do not support DELETE operations.
-    """
-
-    enabled: Optional[bool] = None
-    """Whether SCIM provisioning is turned on for this application."""
-
-    mappings: Optional[List[SCIMConfigMapping]] = None
-    """
-    A list of mappings to apply to SCIM resources before provisioning them in this
-    application. These can transform or filter the resources to be provisioned.
-    """
 
 
 class BookmarkApplication(BaseModel):
@@ -2300,8 +2191,6 @@ class BookmarkApplication(BaseModel):
     aud: Optional[str] = None
     """Audience tag."""
 
-    created_at: Optional[datetime] = None
-
     domain: Optional[str] = None
     """The URL or domain of the bookmark."""
 
@@ -2311,11 +2200,7 @@ class BookmarkApplication(BaseModel):
     name: Optional[str] = None
     """The name of the application."""
 
-    scim_config: Optional[BookmarkApplicationSCIMConfig] = None
-    """Configuration for provisioning to this application via SCIM.
-
-    This is currently in closed beta.
-    """
+    policies: Optional[List[BookmarkApplicationPolicy]] = None
 
     tags: Optional[List[str]] = None
     """The tags you want assigned to an application.
@@ -2325,8 +2210,6 @@ class BookmarkApplication(BaseModel):
 
     type: Optional[ApplicationType] = None
     """The application type."""
-
-    updated_at: Optional[datetime] = None
 
 
 class InfrastructureApplicationTargetCriterion(BaseModel):
@@ -2344,6 +2227,10 @@ class InfrastructureApplicationTargetCriterion(BaseModel):
 
 
 class InfrastructureApplicationPolicyConnectionRulesSSH(BaseModel):
+    """
+    The SSH-specific rules that define how users may connect to the targets secured by your application.
+    """
+
     usernames: List[str]
     """Contains the Unix usernames that may be used when connecting over SSH."""
 
@@ -2352,6 +2239,10 @@ class InfrastructureApplicationPolicyConnectionRulesSSH(BaseModel):
 
 
 class InfrastructureApplicationPolicyConnectionRules(BaseModel):
+    """
+    The rules that define how users may connect to the targets secured by your application.
+    """
+
     ssh: Optional[InfrastructureApplicationPolicyConnectionRulesSSH] = None
     """
     The SSH-specific rules that define how users may connect to the targets secured
@@ -2401,91 +2292,6 @@ class InfrastructureApplicationPolicy(BaseModel):
     updated_at: Optional[datetime] = None
 
 
-class InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-class InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
-    BaseModel
-):
-    client_id: str
-    """
-    Client ID of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    client_secret: str
-    """
-    Client secret of the Access service token used to authenticate with the remote
-    service.
-    """
-
-    scheme: Literal["access_service_token"]
-    """The authentication scheme to use when making SCIM requests to this application."""
-
-
-InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-]
-
-InfrastructureApplicationSCIMConfigAuthentication: TypeAlias = Union[
-    SCIMConfigAuthenticationHTTPBasic,
-    SCIMConfigAuthenticationOAuthBearerToken,
-    SCIMConfigAuthenticationOauth2,
-    InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken,
-    List[InfrastructureApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthentication],
-]
-
-
-class InfrastructureApplicationSCIMConfig(BaseModel):
-    idp_uid: str
-    """
-    The UID of the IdP to use as the source for SCIM resources to provision to this
-    application.
-    """
-
-    remote_uri: str
-    """The base URI for the application's SCIM-compatible API."""
-
-    authentication: Optional[InfrastructureApplicationSCIMConfigAuthentication] = None
-    """
-    Attributes for configuring HTTP Basic authentication scheme for SCIM
-    provisioning to an application.
-    """
-
-    deactivate_on_delete: Optional[bool] = None
-    """
-    If false, propagates DELETE requests to the target application for SCIM
-    resources. If true, sets 'active' to false on the SCIM resource. Note: Some
-    targets do not support DELETE operations.
-    """
-
-    enabled: Optional[bool] = None
-    """Whether SCIM provisioning is turned on for this application."""
-
-    mappings: Optional[List[SCIMConfigMapping]] = None
-    """
-    A list of mappings to apply to SCIM resources before provisioning them in this
-    application. These can transform or filter the resources to be provisioned.
-    """
-
-
 class InfrastructureApplication(BaseModel):
     target_criteria: List[InfrastructureApplicationTargetCriterion]
 
@@ -2498,20 +2304,10 @@ class InfrastructureApplication(BaseModel):
     aud: Optional[str] = None
     """Audience tag."""
 
-    created_at: Optional[datetime] = None
-
     name: Optional[str] = None
     """The name of the application."""
 
     policies: Optional[List[InfrastructureApplicationPolicy]] = None
-
-    scim_config: Optional[InfrastructureApplicationSCIMConfig] = None
-    """Configuration for provisioning to this application via SCIM.
-
-    This is currently in closed beta.
-    """
-
-    updated_at: Optional[datetime] = None
 
 
 class BrowserRdpApplicationTargetCriterion(BaseModel):
@@ -2521,7 +2317,7 @@ class BrowserRdpApplicationTargetCriterion(BaseModel):
     A port cannot be assigned to multiple protocols.
     """
 
-    protocol: Literal["SSH"]
+    protocol: Literal["RDP"]
     """The communication protocol your application secures."""
 
     target_attributes: Dict[str, List[str]]
@@ -2529,6 +2325,11 @@ class BrowserRdpApplicationTargetCriterion(BaseModel):
 
 
 class BrowserRdpApplicationDestinationPublicDestination(BaseModel):
+    """A public hostname that Access will secure.
+
+    Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
     type: Optional[Literal["public"]] = None
 
     uri: Optional[str] = None
@@ -2564,8 +2365,22 @@ class BrowserRdpApplicationDestinationPrivateDestination(BaseModel):
     """The VNET ID to match the destination. When omitted, all VNETs will match."""
 
 
+class BrowserRdpApplicationDestinationViaMcpServerPortalDestination(BaseModel):
+    """A MCP server id configured in ai-controls.
+
+    Access will secure the MCP server if accessed through a MCP portal.
+    """
+
+    mcp_server_id: Optional[str] = None
+    """The MCP server id configured in ai-controls."""
+
+    type: Optional[Literal["via_mcp_server_portal"]] = None
+
+
 BrowserRdpApplicationDestination: TypeAlias = Union[
-    BrowserRdpApplicationDestinationPublicDestination, BrowserRdpApplicationDestinationPrivateDestination
+    BrowserRdpApplicationDestinationPublicDestination,
+    BrowserRdpApplicationDestinationPrivateDestination,
+    BrowserRdpApplicationDestinationViaMcpServerPortalDestination,
 ]
 
 
@@ -2641,6 +2456,10 @@ class BrowserRdpApplicationPolicy(BaseModel):
 
 
 class BrowserRdpApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(BaseModel):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -2660,6 +2479,10 @@ class BrowserRdpApplicationSCIMConfigAuthenticationAccessSCIMConfigAuthenticatio
 class BrowserRdpApplicationSCIMConfigAuthenticationAccessSCIMConfigMultiAuthenticationAccessSCIMConfigAuthenticationAccessServiceToken(
     BaseModel
 ):
+    """
+    Attributes for configuring Access Service Token authentication scheme for SCIM provisioning to an application.
+    """
+
     client_id: str
     """
     Client ID of the Access service token used to authenticate with the remote
@@ -2693,6 +2516,11 @@ BrowserRdpApplicationSCIMConfigAuthentication: TypeAlias = Union[
 
 
 class BrowserRdpApplicationSCIMConfig(BaseModel):
+    """Configuration for provisioning to this application via SCIM.
+
+    This is currently in closed beta.
+    """
+
     idp_uid: str
     """
     The UID of the IdP to use as the source for SCIM resources to provision to this
@@ -2772,8 +2600,6 @@ class BrowserRdpApplication(BaseModel):
     """
 
     cors_headers: Optional[CORSHeaders] = None
-
-    created_at: Optional[datetime] = None
 
     custom_deny_message: Optional[str] = None
     """
@@ -2886,7 +2712,13 @@ class BrowserRdpApplication(BaseModel):
     Tags are used to filter applications in the App Launcher dashboard.
     """
 
-    updated_at: Optional[datetime] = None
+    use_clientless_isolation_app_launcher_url: Optional[bool] = None
+    """
+    Determines if users can access this application via a clientless browser
+    isolation URL. This allows users to access private domains without connecting to
+    Gateway. The option requires Clientless Browser Isolation to be set up with
+    policies that allow users of this application.
+    """
 
 
 ApplicationUpdateResponse: TypeAlias = Union[
@@ -2897,6 +2729,7 @@ ApplicationUpdateResponse: TypeAlias = Union[
     AppLauncherApplication,
     DeviceEnrollmentPermissionsApplication,
     BrowserIsolationPermissionsApplication,
+    GatewayIdentityProxyEndpointApplication,
     BookmarkApplication,
     InfrastructureApplication,
     BrowserRdpApplication,

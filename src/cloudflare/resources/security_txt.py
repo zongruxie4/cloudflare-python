@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Union, Optional, cast
+from typing import Type, Union, Optional, cast
 from datetime import datetime
 
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -51,24 +51,24 @@ class SecurityTXTResource(SyncAPIResource):
         self,
         *,
         zone_id: str,
-        acknowledgments: List[str] | NotGiven = NOT_GIVEN,
-        canonical: List[str] | NotGiven = NOT_GIVEN,
-        contact: List[str] | NotGiven = NOT_GIVEN,
-        enabled: bool | NotGiven = NOT_GIVEN,
-        encryption: List[str] | NotGiven = NOT_GIVEN,
-        expires: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        hiring: List[str] | NotGiven = NOT_GIVEN,
-        policy: List[str] | NotGiven = NOT_GIVEN,
-        preferred_languages: str | NotGiven = NOT_GIVEN,
+        acknowledgments: SequenceNotStr[str] | Omit = omit,
+        canonical: SequenceNotStr[str] | Omit = omit,
+        contact: SequenceNotStr[str] | Omit = omit,
+        enabled: bool | Omit = omit,
+        encryption: SequenceNotStr[str] | Omit = omit,
+        expires: Union[str, datetime] | Omit = omit,
+        hiring: SequenceNotStr[str] | Omit = omit,
+        policy: SequenceNotStr[str] | Omit = omit,
+        preferred_languages: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SecurityTXTUpdateResponse:
         """
-        Update security.txt
+        Updates security.txt
 
         Args:
           zone_id: Identifier.
@@ -114,10 +114,10 @@ class SecurityTXTResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SecurityTXTDeleteResponse:
         """
-        Delete security.txt
+        Deletes security.txt
 
         Args:
           zone_id: Identifier.
@@ -149,10 +149,10 @@ class SecurityTXTResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[SecurityTXTGetResponse]:
         """
-        Get security.txt
+        Retrieves security.txt
 
         Args:
           zone_id: Identifier.
@@ -204,24 +204,24 @@ class AsyncSecurityTXTResource(AsyncAPIResource):
         self,
         *,
         zone_id: str,
-        acknowledgments: List[str] | NotGiven = NOT_GIVEN,
-        canonical: List[str] | NotGiven = NOT_GIVEN,
-        contact: List[str] | NotGiven = NOT_GIVEN,
-        enabled: bool | NotGiven = NOT_GIVEN,
-        encryption: List[str] | NotGiven = NOT_GIVEN,
-        expires: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        hiring: List[str] | NotGiven = NOT_GIVEN,
-        policy: List[str] | NotGiven = NOT_GIVEN,
-        preferred_languages: str | NotGiven = NOT_GIVEN,
+        acknowledgments: SequenceNotStr[str] | Omit = omit,
+        canonical: SequenceNotStr[str] | Omit = omit,
+        contact: SequenceNotStr[str] | Omit = omit,
+        enabled: bool | Omit = omit,
+        encryption: SequenceNotStr[str] | Omit = omit,
+        expires: Union[str, datetime] | Omit = omit,
+        hiring: SequenceNotStr[str] | Omit = omit,
+        policy: SequenceNotStr[str] | Omit = omit,
+        preferred_languages: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SecurityTXTUpdateResponse:
         """
-        Update security.txt
+        Updates security.txt
 
         Args:
           zone_id: Identifier.
@@ -267,10 +267,10 @@ class AsyncSecurityTXTResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SecurityTXTDeleteResponse:
         """
-        Delete security.txt
+        Deletes security.txt
 
         Args:
           zone_id: Identifier.
@@ -302,10 +302,10 @@ class AsyncSecurityTXTResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[SecurityTXTGetResponse]:
         """
-        Get security.txt
+        Retrieves security.txt
 
         Args:
           zone_id: Identifier.

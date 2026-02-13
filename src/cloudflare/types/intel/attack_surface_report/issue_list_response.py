@@ -7,7 +7,14 @@ from typing_extensions import Literal
 from ...._models import BaseModel
 from .issue_type import IssueType
 
-__all__ = ["IssueListResponse", "Issue"]
+__all__ = ["IssueListResponse", "Issue", "IssuePayload"]
+
+
+class IssuePayload(BaseModel):
+    detection_method: Optional[str] = None
+    """Describes the method used to detect insight."""
+
+    zone_tag: Optional[str] = None
 
 
 class Issue(BaseModel):
@@ -19,7 +26,7 @@ class Issue(BaseModel):
 
     issue_type: Optional[IssueType] = None
 
-    payload: Optional[object] = None
+    payload: Optional[IssuePayload] = None
 
     resolve_link: Optional[str] = None
 
@@ -36,12 +43,12 @@ class Issue(BaseModel):
 
 class IssueListResponse(BaseModel):
     count: Optional[int] = None
-    """Total number of results"""
+    """Indicates the total number of results."""
 
     issues: Optional[List[Issue]] = None
 
     page: Optional[int] = None
-    """Current page within paginated list of results"""
+    """Specifies the current page within paginated list of results."""
 
     per_page: Optional[int] = None
-    """Number of results per page of results"""
+    """Sets the number of results per page of results."""

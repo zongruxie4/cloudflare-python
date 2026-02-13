@@ -30,7 +30,7 @@ from .severity import (
     SeverityResourceWithStreamingResponse,
     AsyncSeverityResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -86,39 +86,39 @@ class InsightsResource(SyncAPIResource):
     def list(
         self,
         *,
-        account_id: str | NotGiven = NOT_GIVEN,
-        zone_id: str | NotGiven = NOT_GIVEN,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        per_page: int | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        account_id: str | Omit = omit,
+        zone_id: str | Omit = omit,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        page: int | Omit = omit,
+        per_page: int | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncV4PagePagination[Optional[InsightListResponse]]:
         """
-        Get Security Center Insights
+        Retrieves Security Center Insights
 
         Args:
           account_id: The Account ID to use for this endpoint. Mutually exclusive with the Zone ID.
 
           zone_id: The Zone ID to use for this endpoint. Mutually exclusive with the Account ID.
 
-          page: Current page within paginated list of results
+          page: Specifies the current page within paginated list of results.
 
-          per_page: Number of results per page of results
+          per_page: Sets the number of results per page of results.
 
           extra_headers: Send extra headers
 
@@ -174,18 +174,18 @@ class InsightsResource(SyncAPIResource):
         self,
         issue_id: str,
         *,
-        account_id: str | NotGiven = NOT_GIVEN,
-        zone_id: str | NotGiven = NOT_GIVEN,
-        dismiss: bool | NotGiven = NOT_GIVEN,
+        account_id: str | Omit = omit,
+        zone_id: str | Omit = omit,
+        dismiss: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InsightDismissResponse:
         """
-        Archive Security Center Insight
+        Archives Security Center Insight
 
         Args:
           account_id: The Account ID to use for this endpoint. Mutually exclusive with the Zone ID.
@@ -259,39 +259,39 @@ class AsyncInsightsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        account_id: str | NotGiven = NOT_GIVEN,
-        zone_id: str | NotGiven = NOT_GIVEN,
-        dismissed: bool | NotGiven = NOT_GIVEN,
-        issue_class: List[str] | NotGiven = NOT_GIVEN,
-        issue_class_neq: List[str] | NotGiven = NOT_GIVEN,
-        issue_type: List[IssueType] | NotGiven = NOT_GIVEN,
-        issue_type_neq: List[IssueType] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        per_page: int | NotGiven = NOT_GIVEN,
-        product: List[str] | NotGiven = NOT_GIVEN,
-        product_neq: List[str] | NotGiven = NOT_GIVEN,
-        severity: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        severity_neq: List[SeverityQueryParam] | NotGiven = NOT_GIVEN,
-        subject: List[str] | NotGiven = NOT_GIVEN,
-        subject_neq: List[str] | NotGiven = NOT_GIVEN,
+        account_id: str | Omit = omit,
+        zone_id: str | Omit = omit,
+        dismissed: bool | Omit = omit,
+        issue_class: SequenceNotStr[str] | Omit = omit,
+        issue_class_neq: SequenceNotStr[str] | Omit = omit,
+        issue_type: List[IssueType] | Omit = omit,
+        issue_type_neq: List[IssueType] | Omit = omit,
+        page: int | Omit = omit,
+        per_page: int | Omit = omit,
+        product: SequenceNotStr[str] | Omit = omit,
+        product_neq: SequenceNotStr[str] | Omit = omit,
+        severity: List[SeverityQueryParam] | Omit = omit,
+        severity_neq: List[SeverityQueryParam] | Omit = omit,
+        subject: SequenceNotStr[str] | Omit = omit,
+        subject_neq: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Optional[InsightListResponse], AsyncV4PagePagination[Optional[InsightListResponse]]]:
         """
-        Get Security Center Insights
+        Retrieves Security Center Insights
 
         Args:
           account_id: The Account ID to use for this endpoint. Mutually exclusive with the Zone ID.
 
           zone_id: The Zone ID to use for this endpoint. Mutually exclusive with the Account ID.
 
-          page: Current page within paginated list of results
+          page: Specifies the current page within paginated list of results.
 
-          per_page: Number of results per page of results
+          per_page: Sets the number of results per page of results.
 
           extra_headers: Send extra headers
 
@@ -347,18 +347,18 @@ class AsyncInsightsResource(AsyncAPIResource):
         self,
         issue_id: str,
         *,
-        account_id: str | NotGiven = NOT_GIVEN,
-        zone_id: str | NotGiven = NOT_GIVEN,
-        dismiss: bool | NotGiven = NOT_GIVEN,
+        account_id: str | Omit = omit,
+        zone_id: str | Omit = omit,
+        dismiss: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InsightDismissResponse:
         """
-        Archive Security Center Insight
+        Archives Security Center Insight
 
         Args:
           account_id: The Account ID to use for this endpoint. Mutually exclusive with the Zone ID.

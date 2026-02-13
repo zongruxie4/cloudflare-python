@@ -7,7 +7,6 @@ from pydantic import Field as FieldInfo
 
 from ......_utils import PropertyInfo
 from ......_models import BaseModel
-from .....workers.migration_step import MigrationStep
 from .....workers.single_step_migration import SingleStepMigration
 from .....workers.scripts.consumer_script import ConsumerScript
 
@@ -19,32 +18,51 @@ __all__ = [
     "BindingWorkersBindingKindAssets",
     "BindingWorkersBindingKindBrowser",
     "BindingWorkersBindingKindD1",
+    "BindingWorkersBindingKindDataBlob",
     "BindingWorkersBindingKindDispatchNamespace",
     "BindingWorkersBindingKindDispatchNamespaceOutbound",
     "BindingWorkersBindingKindDispatchNamespaceOutboundWorker",
     "BindingWorkersBindingKindDurableObjectNamespace",
     "BindingWorkersBindingKindHyperdrive",
+    "BindingWorkersBindingKindInherit",
+    "BindingWorkersBindingKindImages",
     "BindingWorkersBindingKindJson",
     "BindingWorkersBindingKindKVNamespace",
     "BindingWorkersBindingKindMTLSCertificate",
     "BindingWorkersBindingKindPlainText",
     "BindingWorkersBindingKindPipelines",
     "BindingWorkersBindingKindQueue",
+    "BindingWorkersBindingKindRatelimit",
+    "BindingWorkersBindingKindRatelimitSimple",
     "BindingWorkersBindingKindR2Bucket",
     "BindingWorkersBindingKindSecretText",
+    "BindingWorkersBindingKindSendEmail",
     "BindingWorkersBindingKindService",
-    "BindingWorkersBindingKindTailConsumer",
+    "BindingWorkersBindingKindTextBlob",
     "BindingWorkersBindingKindVectorize",
     "BindingWorkersBindingKindVersionMetadata",
     "BindingWorkersBindingKindSecretsStoreSecret",
     "BindingWorkersBindingKindSecretKey",
     "BindingWorkersBindingKindWorkflow",
+    "BindingWorkersBindingKindWasmModule",
     "Limits",
     "Migrations",
     "MigrationsWorkersMultipleStepMigrations",
     "Observability",
     "ObservabilityLogs",
     "Placement",
+    "PlacementMode",
+    "PlacementRegion",
+    "PlacementHostname",
+    "PlacementHost",
+    "PlacementUnionMember4",
+    "PlacementUnionMember5",
+    "PlacementUnionMember6",
+    "PlacementUnionMember7",
+    "PlacementUnionMember7Target",
+    "PlacementUnionMember7TargetRegion",
+    "PlacementUnionMember7TargetHostname",
+    "PlacementUnionMember7TargetHost",
 ]
 
 
@@ -94,7 +112,23 @@ class BindingWorkersBindingKindD1(BaseModel):
     """The kind of resource that the binding provides."""
 
 
+class BindingWorkersBindingKindDataBlob(BaseModel):
+    name: str
+    """A JavaScript variable name for the binding."""
+
+    part: str
+    """The name of the file containing the data content.
+
+    Only accepted for `service worker syntax` Workers.
+    """
+
+    type: Literal["data_blob"]
+    """The kind of resource that the binding provides."""
+
+
 class BindingWorkersBindingKindDispatchNamespaceOutboundWorker(BaseModel):
+    """Outbound worker."""
+
     environment: Optional[str] = None
     """Environment of the outbound worker."""
 
@@ -103,6 +137,8 @@ class BindingWorkersBindingKindDispatchNamespaceOutboundWorker(BaseModel):
 
 
 class BindingWorkersBindingKindDispatchNamespaceOutbound(BaseModel):
+    """Outbound worker."""
+
     params: Optional[List[str]] = None
     """
     Pass information from the Dispatch Worker to the Outbound Worker through the
@@ -118,7 +154,7 @@ class BindingWorkersBindingKindDispatchNamespace(BaseModel):
     """A JavaScript variable name for the binding."""
 
     namespace: str
-    """Namespace to bind to."""
+    """The name of the dispatch namespace."""
 
     type: Literal["dispatch_namespace"]
     """The kind of resource that the binding provides."""
@@ -158,6 +194,36 @@ class BindingWorkersBindingKindHyperdrive(BaseModel):
     """A JavaScript variable name for the binding."""
 
     type: Literal["hyperdrive"]
+    """The kind of resource that the binding provides."""
+
+
+class BindingWorkersBindingKindInherit(BaseModel):
+    name: str
+    """The name of the inherited binding."""
+
+    type: Literal["inherit"]
+    """The kind of resource that the binding provides."""
+
+    old_name: Optional[str] = None
+    """The old name of the inherited binding.
+
+    If set, the binding will be renamed from `old_name` to `name` in the new
+    version. If not set, the binding will keep the same name between versions.
+    """
+
+    version_id: Optional[str] = None
+    """
+    Identifier for the version to inherit the binding from, which can be the version
+    ID or the literal "latest" to inherit from the latest version. Defaults to
+    inheriting the binding from the latest version.
+    """
+
+
+class BindingWorkersBindingKindImages(BaseModel):
+    name: str
+    """A JavaScript variable name for the binding."""
+
+    type: Literal["images"]
     """The kind of resource that the binding provides."""
 
 
@@ -227,6 +293,30 @@ class BindingWorkersBindingKindQueue(BaseModel):
     """The kind of resource that the binding provides."""
 
 
+class BindingWorkersBindingKindRatelimitSimple(BaseModel):
+    """The rate limit configuration."""
+
+    limit: float
+    """The limit (requests per period)."""
+
+    period: int
+    """The period in seconds."""
+
+
+class BindingWorkersBindingKindRatelimit(BaseModel):
+    name: str
+    """A JavaScript variable name for the binding."""
+
+    namespace_id: str
+    """Identifier of the rate limit namespace to bind to."""
+
+    simple: BindingWorkersBindingKindRatelimitSimple
+    """The rate limit configuration."""
+
+    type: Literal["ratelimit"]
+    """The kind of resource that the binding provides."""
+
+
 class BindingWorkersBindingKindR2Bucket(BaseModel):
     bucket_name: str
     """R2 bucket to bind to."""
@@ -237,6 +327,13 @@ class BindingWorkersBindingKindR2Bucket(BaseModel):
     type: Literal["r2_bucket"]
     """The kind of resource that the binding provides."""
 
+    jurisdiction: Optional[Literal["eu", "fedramp"]] = None
+    """
+    The
+    [jurisdiction](https://developers.cloudflare.com/r2/reference/data-location/#jurisdictional-restrictions)
+    of the R2 bucket.
+    """
+
 
 class BindingWorkersBindingKindSecretText(BaseModel):
     name: str
@@ -246,10 +343,24 @@ class BindingWorkersBindingKindSecretText(BaseModel):
     """The kind of resource that the binding provides."""
 
 
-class BindingWorkersBindingKindService(BaseModel):
-    environment: str
-    """Optional environment if the Worker utilizes one."""
+class BindingWorkersBindingKindSendEmail(BaseModel):
+    name: str
+    """A JavaScript variable name for the binding."""
 
+    type: Literal["send_email"]
+    """The kind of resource that the binding provides."""
+
+    allowed_destination_addresses: Optional[List[str]] = None
+    """List of allowed destination addresses."""
+
+    allowed_sender_addresses: Optional[List[str]] = None
+    """List of allowed sender addresses."""
+
+    destination_address: Optional[str] = None
+    """Destination address for the email."""
+
+
+class BindingWorkersBindingKindService(BaseModel):
     name: str
     """A JavaScript variable name for the binding."""
 
@@ -259,15 +370,21 @@ class BindingWorkersBindingKindService(BaseModel):
     type: Literal["service"]
     """The kind of resource that the binding provides."""
 
+    environment: Optional[str] = None
+    """Optional environment if the Worker utilizes one."""
 
-class BindingWorkersBindingKindTailConsumer(BaseModel):
+
+class BindingWorkersBindingKindTextBlob(BaseModel):
     name: str
     """A JavaScript variable name for the binding."""
 
-    service: str
-    """Name of Tail Worker to bind to."""
+    part: str
+    """The name of the file containing the text content.
 
-    type: Literal["tail_consumer"]
+    Only accepted for `service worker syntax` Workers.
+    """
+
+    type: Literal["text_blob"]
     """The kind of resource that the binding provides."""
 
 
@@ -353,6 +470,20 @@ class BindingWorkersBindingKindWorkflow(BaseModel):
     """
 
 
+class BindingWorkersBindingKindWasmModule(BaseModel):
+    name: str
+    """A JavaScript variable name for the binding."""
+
+    part: str
+    """The name of the file containing the WebAssembly module content.
+
+    Only accepted for `service worker syntax` Workers.
+    """
+
+    type: Literal["wasm_module"]
+    """The kind of resource that the binding provides."""
+
+
 Binding: TypeAlias = Annotated[
     Union[
         BindingWorkersBindingKindAI,
@@ -360,52 +491,52 @@ Binding: TypeAlias = Annotated[
         BindingWorkersBindingKindAssets,
         BindingWorkersBindingKindBrowser,
         BindingWorkersBindingKindD1,
+        BindingWorkersBindingKindDataBlob,
         BindingWorkersBindingKindDispatchNamespace,
         BindingWorkersBindingKindDurableObjectNamespace,
         BindingWorkersBindingKindHyperdrive,
+        BindingWorkersBindingKindInherit,
+        BindingWorkersBindingKindImages,
         BindingWorkersBindingKindJson,
         BindingWorkersBindingKindKVNamespace,
         BindingWorkersBindingKindMTLSCertificate,
         BindingWorkersBindingKindPlainText,
         BindingWorkersBindingKindPipelines,
         BindingWorkersBindingKindQueue,
+        BindingWorkersBindingKindRatelimit,
         BindingWorkersBindingKindR2Bucket,
         BindingWorkersBindingKindSecretText,
+        BindingWorkersBindingKindSendEmail,
         BindingWorkersBindingKindService,
-        BindingWorkersBindingKindTailConsumer,
+        BindingWorkersBindingKindTextBlob,
         BindingWorkersBindingKindVectorize,
         BindingWorkersBindingKindVersionMetadata,
         BindingWorkersBindingKindSecretsStoreSecret,
         BindingWorkersBindingKindSecretKey,
         BindingWorkersBindingKindWorkflow,
+        BindingWorkersBindingKindWasmModule,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
 class Limits(BaseModel):
+    """Limits to apply for this Worker."""
+
     cpu_ms: Optional[int] = None
     """The amount of CPU time this Worker can use in milliseconds."""
 
 
 class MigrationsWorkersMultipleStepMigrations(BaseModel):
-    new_tag: Optional[str] = None
-    """Tag to set as the latest migration tag."""
-
-    old_tag: Optional[str] = None
-    """Tag used to verify against the latest migration tag for this Worker.
-
-    If they don't match, the upload is rejected.
-    """
-
-    steps: Optional[List[MigrationStep]] = None
-    """Migrations to apply in order."""
+    pass
 
 
 Migrations: TypeAlias = Union[SingleStepMigration, MigrationsWorkersMultipleStepMigrations]
 
 
 class ObservabilityLogs(BaseModel):
+    """Log settings for the Worker."""
+
     enabled: bool
     """Whether logs are enabled for the Worker."""
 
@@ -416,11 +547,19 @@ class ObservabilityLogs(BaseModel):
     are enabled for the Worker.
     """
 
+    destinations: Optional[List[str]] = None
+    """A list of destinations where logs will be exported to."""
+
     head_sampling_rate: Optional[float] = None
     """The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1."""
 
+    persist: Optional[bool] = None
+    """Whether log persistence is enabled for the Worker."""
+
 
 class Observability(BaseModel):
+    """Observability settings for the Worker."""
+
     enabled: bool
     """Whether observability is enabled for the Worker."""
 
@@ -434,12 +573,91 @@ class Observability(BaseModel):
     """Log settings for the Worker."""
 
 
-class Placement(BaseModel):
-    mode: Optional[Literal["smart"]] = None
+class PlacementMode(BaseModel):
+    mode: Literal["smart"]
     """
     Enables
     [Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement).
     """
+
+
+class PlacementRegion(BaseModel):
+    region: str
+    """Cloud region for targeted placement in format 'provider:region'."""
+
+
+class PlacementHostname(BaseModel):
+    hostname: str
+    """HTTP hostname for targeted placement."""
+
+
+class PlacementHost(BaseModel):
+    host: str
+    """TCP host and port for targeted placement."""
+
+
+class PlacementUnionMember4(BaseModel):
+    mode: Literal["targeted"]
+    """Targeted placement mode."""
+
+    region: str
+    """Cloud region for targeted placement in format 'provider:region'."""
+
+
+class PlacementUnionMember5(BaseModel):
+    hostname: str
+    """HTTP hostname for targeted placement."""
+
+    mode: Literal["targeted"]
+    """Targeted placement mode."""
+
+
+class PlacementUnionMember6(BaseModel):
+    host: str
+    """TCP host and port for targeted placement."""
+
+    mode: Literal["targeted"]
+    """Targeted placement mode."""
+
+
+class PlacementUnionMember7TargetRegion(BaseModel):
+    region: str
+    """Cloud region in format 'provider:region'."""
+
+
+class PlacementUnionMember7TargetHostname(BaseModel):
+    hostname: str
+    """HTTP hostname for targeted placement."""
+
+
+class PlacementUnionMember7TargetHost(BaseModel):
+    host: str
+    """TCP host:port for targeted placement."""
+
+
+PlacementUnionMember7Target: TypeAlias = Union[
+    PlacementUnionMember7TargetRegion, PlacementUnionMember7TargetHostname, PlacementUnionMember7TargetHost
+]
+
+
+class PlacementUnionMember7(BaseModel):
+    mode: Literal["targeted"]
+    """Targeted placement mode."""
+
+    target: List[PlacementUnionMember7Target]
+    """Array of placement targets (currently limited to single target)."""
+
+
+Placement: TypeAlias = Union[
+    PlacementMode,
+    PlacementRegion,
+    PlacementHostname,
+    PlacementHost,
+    PlacementUnionMember4,
+    PlacementUnionMember5,
+    PlacementUnionMember6,
+    PlacementUnionMember7,
+]
 
 
 class SettingEditResponse(BaseModel):
@@ -470,9 +688,6 @@ class SettingEditResponse(BaseModel):
     logpush: Optional[bool] = None
     """Whether Logpush is turned on for the Worker."""
 
-    migrations: Optional[Migrations] = None
-    """Migrations to apply for Durable Objects associated with this Worker."""
-
     observability: Optional[Observability] = None
     """Observability settings for the Worker."""
 
@@ -480,13 +695,14 @@ class SettingEditResponse(BaseModel):
     """
     Configuration for
     [Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement).
+    Specify mode='smart' for Smart Placement, or one of region/hostname/host.
     """
 
     tags: Optional[List[str]] = None
-    """Tags to help you manage your Workers."""
+    """Tags associated with the Worker."""
 
     tail_consumers: Optional[List[ConsumerScript]] = None
     """List of Workers that will consume logs from the attached Worker."""
 
-    usage_model: Optional[Literal["standard"]] = None
+    usage_model: Optional[Literal["standard", "bundled", "unbound"]] = None
     """Usage model for the Worker invocations."""

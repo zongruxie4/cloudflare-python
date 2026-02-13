@@ -79,6 +79,15 @@ class TestMove:
         move = client.email_security.investigate.move.bulk(
             account_id="023e105f4ecef8ad9ca31a8372d0c353",
             destination="Inbox",
+        )
+        assert_matches_type(SyncSinglePage[MoveBulkResponse], move, path=["response"])
+
+    @parametrize
+    def test_method_bulk_with_all_params(self, client: Cloudflare) -> None:
+        move = client.email_security.investigate.move.bulk(
+            account_id="023e105f4ecef8ad9ca31a8372d0c353",
+            destination="Inbox",
+            ids=["string"],
             postfix_ids=["4Njp3P0STMz2c02Q"],
         )
         assert_matches_type(SyncSinglePage[MoveBulkResponse], move, path=["response"])
@@ -88,7 +97,6 @@ class TestMove:
         response = client.email_security.investigate.move.with_raw_response.bulk(
             account_id="023e105f4ecef8ad9ca31a8372d0c353",
             destination="Inbox",
-            postfix_ids=["4Njp3P0STMz2c02Q"],
         )
 
         assert response.is_closed is True
@@ -101,7 +109,6 @@ class TestMove:
         with client.email_security.investigate.move.with_streaming_response.bulk(
             account_id="023e105f4ecef8ad9ca31a8372d0c353",
             destination="Inbox",
-            postfix_ids=["4Njp3P0STMz2c02Q"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -117,12 +124,13 @@ class TestMove:
             client.email_security.investigate.move.with_raw_response.bulk(
                 account_id="",
                 destination="Inbox",
-                postfix_ids=["4Njp3P0STMz2c02Q"],
             )
 
 
 class TestAsyncMove:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_create(self, async_client: AsyncCloudflare) -> None:
@@ -182,6 +190,15 @@ class TestAsyncMove:
         move = await async_client.email_security.investigate.move.bulk(
             account_id="023e105f4ecef8ad9ca31a8372d0c353",
             destination="Inbox",
+        )
+        assert_matches_type(AsyncSinglePage[MoveBulkResponse], move, path=["response"])
+
+    @parametrize
+    async def test_method_bulk_with_all_params(self, async_client: AsyncCloudflare) -> None:
+        move = await async_client.email_security.investigate.move.bulk(
+            account_id="023e105f4ecef8ad9ca31a8372d0c353",
+            destination="Inbox",
+            ids=["string"],
             postfix_ids=["4Njp3P0STMz2c02Q"],
         )
         assert_matches_type(AsyncSinglePage[MoveBulkResponse], move, path=["response"])
@@ -191,7 +208,6 @@ class TestAsyncMove:
         response = await async_client.email_security.investigate.move.with_raw_response.bulk(
             account_id="023e105f4ecef8ad9ca31a8372d0c353",
             destination="Inbox",
-            postfix_ids=["4Njp3P0STMz2c02Q"],
         )
 
         assert response.is_closed is True
@@ -204,7 +220,6 @@ class TestAsyncMove:
         async with async_client.email_security.investigate.move.with_streaming_response.bulk(
             account_id="023e105f4ecef8ad9ca31a8372d0c353",
             destination="Inbox",
-            postfix_ids=["4Njp3P0STMz2c02Q"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -220,5 +235,4 @@ class TestAsyncMove:
             await async_client.email_security.investigate.move.with_raw_response.bulk(
                 account_id="",
                 destination="Inbox",
-                postfix_ids=["4Njp3P0STMz2c02Q"],
             )

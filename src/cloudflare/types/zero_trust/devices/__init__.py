@@ -17,6 +17,7 @@ from .file_input_param import FileInputParam as FileInputParam
 from .os_version_input import OSVersionInput as OSVersionInput
 from .carbonblack_input import CarbonblackInput as CarbonblackInput
 from .crowdstrike_input import CrowdstrikeInput as CrowdstrikeInput
+from .device_get_params import DeviceGetParams as DeviceGetParams
 from .sentinelone_input import SentineloneInput as SentineloneInput
 from .device_input_param import DeviceInputParam as DeviceInputParam
 from .device_list_params import DeviceListParams as DeviceListParams
@@ -30,6 +31,7 @@ from .domain_joined_input import DomainJoinedInput as DomainJoinedInput
 from .setting_edit_params import SettingEditParams as SettingEditParams
 from .workspace_one_input import WorkspaceOneInput as WorkspaceOneInput
 from .device_list_response import DeviceListResponse as DeviceListResponse
+from .dex_test_list_params import DEXTestListParams as DEXTestListParams
 from .firewall_input_param import FirewallInputParam as FirewallInputParam
 from .revoke_create_params import RevokeCreateParams as RevokeCreateParams
 from .split_tunnel_exclude import SplitTunnelExclude as SplitTunnelExclude
@@ -53,6 +55,7 @@ from .unrevoke_create_params import UnrevokeCreateParams as UnrevokeCreateParams
 from .crowdstrike_input_param import CrowdstrikeInputParam as CrowdstrikeInputParam
 from .fleet_status_get_params import FleetStatusGetParams as FleetStatusGetParams
 from .posture_delete_response import PostureDeleteResponse as PostureDeleteResponse
+from .registration_get_params import RegistrationGetParams as RegistrationGetParams
 from .sentinelone_input_param import SentineloneInputParam as SentineloneInputParam
 from .client_certificate_input import ClientCertificateInput as ClientCertificateInput
 from .dex_test_create_response import DEXTestCreateResponse as DEXTestCreateResponse

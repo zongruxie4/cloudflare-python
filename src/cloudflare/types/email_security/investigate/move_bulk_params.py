@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, Required, TypedDict
+
+from ...._types import SequenceNotStr
 
 __all__ = ["MoveBulkParams"]
 
@@ -16,4 +17,8 @@ class MoveBulkParams(TypedDict, total=False):
         Literal["Inbox", "JunkEmail", "DeletedItems", "RecoverableItemsDeletions", "RecoverableItemsPurges"]
     ]
 
-    postfix_ids: Required[List[str]]
+    ids: SequenceNotStr[str]
+    """List of message IDs to move."""
+
+    postfix_ids: SequenceNotStr[str]
+    """Deprecated: Use `ids` instead. List of message IDs to move."""

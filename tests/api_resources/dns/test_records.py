@@ -15,8 +15,12 @@ from cloudflare.types.dns import (
     RecordBatchResponse,
     RecordDeleteResponse,
     RecordImportResponse,
+    RecordScanReviewResponse,
+    RecordScanTriggerResponse,
 )
-from cloudflare.pagination import SyncV4PagePaginationArray, AsyncV4PagePaginationArray
+from cloudflare.pagination import SyncSinglePage, AsyncSinglePage, SyncV4PagePaginationArray, AsyncV4PagePaginationArray
+
+# pyright: reportDeprecated=false
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -30,6 +34,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -40,6 +45,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
             comment="Domain verification record",
             content="198.51.100.4",
@@ -49,7 +55,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -59,6 +64,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
 
@@ -73,6 +79,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         ) as response:
             assert not response.is_closed
@@ -90,6 +97,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -99,6 +107,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -109,6 +118,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
             comment="Domain verification record",
             content="2400:cb00:2049::1",
@@ -118,7 +128,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -128,6 +137,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
 
@@ -142,6 +152,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         ) as response:
             assert not response.is_closed
@@ -159,6 +170,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -168,6 +180,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -178,6 +191,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
             comment="Domain verification record",
             content="content",
@@ -188,7 +202,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -198,6 +211,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
 
@@ -212,6 +226,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         ) as response:
             assert not response.is_closed
@@ -229,6 +244,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -238,6 +254,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -248,6 +265,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
             comment="Domain verification record",
             content="mx.example.com",
@@ -258,7 +276,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -268,6 +285,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
 
@@ -282,6 +300,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         ) as response:
             assert not response.is_closed
@@ -299,6 +318,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -308,6 +328,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -318,6 +339,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
             comment="Domain verification record",
             content="ns1.example.com",
@@ -327,7 +349,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -337,6 +358,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
 
@@ -351,6 +373,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         ) as response:
             assert not response.is_closed
@@ -368,6 +391,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -377,6 +401,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -387,6 +412,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
             comment="Domain verification record",
             content="content",
@@ -396,7 +422,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -406,6 +431,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
 
@@ -420,6 +446,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         ) as response:
             assert not response.is_closed
@@ -437,6 +464,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -446,6 +474,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -456,6 +485,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
             comment="Domain verification record",
             content="example.com",
@@ -465,7 +495,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -475,6 +504,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
 
@@ -489,6 +519,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         ) as response:
             assert not response.is_closed
@@ -506,6 +537,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -515,6 +547,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -525,6 +558,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
             comment="Domain verification record",
             content='"v=spf1 include:example.com -all"',
@@ -534,7 +568,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -544,6 +577,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
 
@@ -558,6 +592,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         ) as response:
             assert not response.is_closed
@@ -575,6 +610,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -584,6 +620,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -594,6 +631,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
             comment="Domain verification record",
             data={
@@ -607,7 +645,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -617,6 +654,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
 
@@ -631,6 +669,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         ) as response:
             assert not response.is_closed
@@ -648,6 +687,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -657,6 +697,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -667,6 +708,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
             comment="Domain verification record",
             data={
@@ -681,7 +723,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -691,6 +732,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
 
@@ -705,6 +747,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         ) as response:
             assert not response.is_closed
@@ -722,6 +765,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -731,6 +775,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -741,6 +786,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
             comment="Domain verification record",
             data={
@@ -755,7 +801,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -765,6 +810,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
 
@@ -779,6 +825,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         ) as response:
             assert not response.is_closed
@@ -796,6 +843,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -805,6 +853,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -815,6 +864,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
             comment="Domain verification record",
             data={
@@ -829,7 +879,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -839,6 +888,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
 
@@ -853,6 +903,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         ) as response:
             assert not response.is_closed
@@ -870,6 +921,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -879,6 +931,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -889,6 +942,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
             comment="Domain verification record",
             data={
@@ -902,7 +956,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -912,6 +965,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
 
@@ -926,6 +980,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         ) as response:
             assert not response.is_closed
@@ -943,6 +998,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -952,6 +1008,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -962,6 +1019,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
             comment="Domain verification record",
             data={
@@ -984,7 +1042,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -994,6 +1051,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
 
@@ -1008,6 +1066,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         ) as response:
             assert not response.is_closed
@@ -1025,6 +1084,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -1034,6 +1094,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1044,6 +1105,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
             comment="Domain verification record",
             data={
@@ -1060,7 +1122,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1070,6 +1131,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
 
@@ -1084,6 +1146,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         ) as response:
             assert not response.is_closed
@@ -1101,6 +1164,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -1110,6 +1174,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1120,6 +1185,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
             comment="Domain verification record",
             data={
@@ -1134,7 +1200,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1144,6 +1209,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
 
@@ -1158,6 +1224,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         ) as response:
             assert not response.is_closed
@@ -1175,6 +1242,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -1184,6 +1252,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1194,6 +1263,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
             comment="Domain verification record",
             data={
@@ -1208,7 +1278,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1218,6 +1287,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
 
@@ -1232,6 +1302,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         ) as response:
             assert not response.is_closed
@@ -1249,6 +1320,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -1258,6 +1330,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1268,6 +1341,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
             comment="Domain verification record",
             data={
@@ -1281,7 +1355,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1291,6 +1364,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
 
@@ -1305,6 +1379,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         ) as response:
             assert not response.is_closed
@@ -1322,6 +1397,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -1331,6 +1407,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1341,6 +1418,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
             comment="Domain verification record",
             data={
@@ -1354,7 +1432,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1364,6 +1441,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
 
@@ -1378,6 +1456,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         ) as response:
             assert not response.is_closed
@@ -1395,6 +1474,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -1404,6 +1484,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1414,6 +1495,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
             comment="Domain verification record",
             data={
@@ -1428,7 +1510,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1438,6 +1519,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
 
@@ -1452,6 +1534,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         ) as response:
             assert not response.is_closed
@@ -1469,6 +1552,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -1478,6 +1562,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1488,6 +1573,7 @@ class TestRecords:
         record = client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
             comment="Domain verification record",
             data={
@@ -1501,7 +1587,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1511,6 +1596,7 @@ class TestRecords:
         response = client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
 
@@ -1525,6 +1611,7 @@ class TestRecords:
         with client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         ) as response:
             assert not response.is_closed
@@ -1542,6 +1629,7 @@ class TestRecords:
             client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -1552,6 +1640,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1563,6 +1652,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
             comment="Domain verification record",
             content="198.51.100.4",
@@ -1572,7 +1662,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1583,6 +1672,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
 
@@ -1598,6 +1688,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         ) as response:
             assert not response.is_closed
@@ -1616,6 +1707,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -1624,6 +1716,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -1634,6 +1727,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1645,6 +1739,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
             comment="Domain verification record",
             content="2400:cb00:2049::1",
@@ -1654,7 +1749,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1665,6 +1759,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
 
@@ -1680,6 +1775,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         ) as response:
             assert not response.is_closed
@@ -1698,6 +1794,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -1706,6 +1803,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -1716,6 +1814,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1727,6 +1826,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
             comment="Domain verification record",
             content="content",
@@ -1737,7 +1837,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1748,6 +1847,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
 
@@ -1763,6 +1863,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         ) as response:
             assert not response.is_closed
@@ -1781,6 +1882,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -1789,6 +1891,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -1799,6 +1902,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1810,6 +1914,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
             comment="Domain verification record",
             content="mx.example.com",
@@ -1820,7 +1925,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1831,6 +1935,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
 
@@ -1846,6 +1951,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         ) as response:
             assert not response.is_closed
@@ -1864,6 +1970,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -1872,6 +1979,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -1882,6 +1990,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1893,6 +2002,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
             comment="Domain verification record",
             content="ns1.example.com",
@@ -1902,7 +2012,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1913,6 +2022,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
 
@@ -1928,6 +2038,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         ) as response:
             assert not response.is_closed
@@ -1946,6 +2057,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -1954,6 +2066,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -1964,6 +2077,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -1975,6 +2089,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
             comment="Domain verification record",
             content="content",
@@ -1984,7 +2099,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -1995,6 +2109,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
 
@@ -2010,6 +2125,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         ) as response:
             assert not response.is_closed
@@ -2028,6 +2144,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -2036,6 +2153,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -2046,6 +2164,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2057,6 +2176,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
             comment="Domain verification record",
             content="example.com",
@@ -2066,7 +2186,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2077,6 +2196,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
 
@@ -2092,6 +2212,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         ) as response:
             assert not response.is_closed
@@ -2110,6 +2231,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -2118,6 +2240,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -2128,6 +2251,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2139,6 +2263,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
             comment="Domain verification record",
             content='"v=spf1 include:example.com -all"',
@@ -2148,7 +2273,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2159,6 +2283,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
 
@@ -2174,6 +2299,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         ) as response:
             assert not response.is_closed
@@ -2192,6 +2318,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -2200,6 +2327,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -2210,6 +2338,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2221,6 +2350,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
             comment="Domain verification record",
             data={
@@ -2234,7 +2364,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2245,6 +2374,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
 
@@ -2260,6 +2390,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         ) as response:
             assert not response.is_closed
@@ -2278,6 +2409,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -2286,6 +2418,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -2296,6 +2429,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2307,6 +2441,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
             comment="Domain verification record",
             data={
@@ -2321,7 +2456,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2332,6 +2466,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
 
@@ -2347,6 +2482,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         ) as response:
             assert not response.is_closed
@@ -2365,6 +2501,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -2373,6 +2510,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -2383,6 +2521,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2394,6 +2533,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
             comment="Domain verification record",
             data={
@@ -2408,7 +2548,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2419,6 +2558,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
 
@@ -2434,6 +2574,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         ) as response:
             assert not response.is_closed
@@ -2452,6 +2593,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -2460,6 +2602,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -2470,6 +2613,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2481,6 +2625,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
             comment="Domain verification record",
             data={
@@ -2495,7 +2640,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2506,6 +2650,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
 
@@ -2521,6 +2666,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         ) as response:
             assert not response.is_closed
@@ -2539,6 +2685,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -2547,6 +2694,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -2557,6 +2705,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2568,6 +2717,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
             comment="Domain verification record",
             data={
@@ -2581,7 +2731,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2592,6 +2741,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
 
@@ -2607,6 +2757,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         ) as response:
             assert not response.is_closed
@@ -2625,6 +2776,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -2633,6 +2785,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -2643,6 +2796,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2654,6 +2808,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
             comment="Domain verification record",
             data={
@@ -2676,7 +2831,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2687,6 +2841,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
 
@@ -2702,6 +2857,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         ) as response:
             assert not response.is_closed
@@ -2720,6 +2876,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -2728,6 +2885,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -2738,6 +2896,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2749,6 +2908,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
             comment="Domain verification record",
             data={
@@ -2765,7 +2925,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2776,6 +2935,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
 
@@ -2791,6 +2951,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         ) as response:
             assert not response.is_closed
@@ -2809,6 +2970,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -2817,6 +2979,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -2827,6 +2990,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2838,6 +3002,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
             comment="Domain verification record",
             data={
@@ -2852,7 +3017,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2863,6 +3027,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
 
@@ -2878,6 +3043,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         ) as response:
             assert not response.is_closed
@@ -2896,6 +3062,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -2904,6 +3071,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -2914,6 +3082,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -2925,6 +3094,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
             comment="Domain verification record",
             data={
@@ -2939,7 +3109,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -2950,6 +3119,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
 
@@ -2965,6 +3135,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         ) as response:
             assert not response.is_closed
@@ -2983,6 +3154,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -2991,6 +3163,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -3001,6 +3174,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3012,6 +3186,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
             comment="Domain verification record",
             data={
@@ -3025,7 +3200,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3036,6 +3210,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
 
@@ -3051,6 +3226,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         ) as response:
             assert not response.is_closed
@@ -3069,6 +3245,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -3077,6 +3254,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -3087,6 +3265,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3098,6 +3277,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
             comment="Domain verification record",
             data={
@@ -3111,7 +3291,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3122,6 +3301,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
 
@@ -3137,6 +3317,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         ) as response:
             assert not response.is_closed
@@ -3155,6 +3336,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -3163,6 +3345,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -3173,6 +3356,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3184,6 +3368,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
             comment="Domain verification record",
             data={
@@ -3198,7 +3383,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3209,6 +3393,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
 
@@ -3224,6 +3409,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         ) as response:
             assert not response.is_closed
@@ -3242,6 +3428,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -3250,6 +3437,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -3260,6 +3448,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3271,6 +3460,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
             comment="Domain verification record",
             data={
@@ -3284,7 +3474,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3295,6 +3484,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
 
@@ -3310,6 +3500,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         ) as response:
             assert not response.is_closed
@@ -3328,6 +3519,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -3336,6 +3528,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -3491,6 +3684,7 @@ class TestRecords:
             patches=[
                 {
                     "name": "example.com",
+                    "ttl": 3600,
                     "type": "A",
                     "comment": "Domain verification record",
                     "content": "198.51.100.4",
@@ -3500,13 +3694,13 @@ class TestRecords:
                         "ipv6_only": True,
                     },
                     "tags": ["owner:dns-team"],
-                    "ttl": 3600,
                     "id": "023e105f4ecef8ad9ca31a8372d0c353",
                 }
             ],
             posts=[
                 {
                     "name": "example.com",
+                    "ttl": 3600,
                     "type": "A",
                     "comment": "Domain verification record",
                     "content": "198.51.100.4",
@@ -3516,12 +3710,12 @@ class TestRecords:
                         "ipv6_only": True,
                     },
                     "tags": ["owner:dns-team"],
-                    "ttl": 3600,
                 }
             ],
             puts=[
                 {
                     "name": "example.com",
+                    "ttl": 3600,
                     "type": "A",
                     "comment": "Domain verification record",
                     "content": "198.51.100.4",
@@ -3531,7 +3725,6 @@ class TestRecords:
                         "ipv6_only": True,
                     },
                     "tags": ["owner:dns-team"],
-                    "ttl": 3600,
                     "id": "023e105f4ecef8ad9ca31a8372d0c353",
                 }
             ],
@@ -3579,6 +3772,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3590,6 +3784,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
             comment="Domain verification record",
             content="198.51.100.4",
@@ -3599,7 +3794,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3610,6 +3804,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
 
@@ -3625,6 +3820,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         ) as response:
             assert not response.is_closed
@@ -3643,6 +3839,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -3651,6 +3848,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -3661,6 +3859,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3672,6 +3871,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
             comment="Domain verification record",
             content="2400:cb00:2049::1",
@@ -3681,7 +3881,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3692,6 +3891,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
 
@@ -3707,6 +3907,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         ) as response:
             assert not response.is_closed
@@ -3725,6 +3926,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -3733,6 +3935,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -3743,6 +3946,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3754,6 +3958,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
             comment="Domain verification record",
             content="content",
@@ -3764,7 +3969,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3775,6 +3979,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
 
@@ -3790,6 +3995,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         ) as response:
             assert not response.is_closed
@@ -3808,6 +4014,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -3816,6 +4023,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -3826,6 +4034,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3837,6 +4046,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
             comment="Domain verification record",
             content="mx.example.com",
@@ -3847,7 +4057,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3858,6 +4067,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
 
@@ -3873,6 +4083,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         ) as response:
             assert not response.is_closed
@@ -3891,6 +4102,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -3899,6 +4111,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -3909,6 +4122,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -3920,6 +4134,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
             comment="Domain verification record",
             content="ns1.example.com",
@@ -3929,7 +4144,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -3940,6 +4154,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
 
@@ -3955,6 +4170,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         ) as response:
             assert not response.is_closed
@@ -3973,6 +4189,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -3981,6 +4198,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -3991,6 +4209,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4002,6 +4221,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
             comment="Domain verification record",
             content="content",
@@ -4011,7 +4231,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4022,6 +4241,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
 
@@ -4037,6 +4257,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         ) as response:
             assert not response.is_closed
@@ -4055,6 +4276,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -4063,6 +4285,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -4073,6 +4296,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4084,6 +4308,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
             comment="Domain verification record",
             content="example.com",
@@ -4093,7 +4318,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4104,6 +4328,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
 
@@ -4119,6 +4344,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         ) as response:
             assert not response.is_closed
@@ -4137,6 +4363,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -4145,6 +4372,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -4155,6 +4383,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4166,6 +4395,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
             comment="Domain verification record",
             content='"v=spf1 include:example.com -all"',
@@ -4175,7 +4405,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4186,6 +4415,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
 
@@ -4201,6 +4431,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         ) as response:
             assert not response.is_closed
@@ -4219,6 +4450,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -4227,6 +4459,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -4237,6 +4470,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4248,6 +4482,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
             comment="Domain verification record",
             data={
@@ -4261,7 +4496,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4272,6 +4506,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
 
@@ -4287,6 +4522,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         ) as response:
             assert not response.is_closed
@@ -4305,6 +4541,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -4313,6 +4550,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -4323,6 +4561,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4334,6 +4573,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
             comment="Domain verification record",
             data={
@@ -4348,7 +4588,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4359,6 +4598,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
 
@@ -4374,6 +4614,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         ) as response:
             assert not response.is_closed
@@ -4392,6 +4633,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -4400,6 +4642,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -4410,6 +4653,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4421,6 +4665,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
             comment="Domain verification record",
             data={
@@ -4435,7 +4680,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4446,6 +4690,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
 
@@ -4461,6 +4706,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         ) as response:
             assert not response.is_closed
@@ -4479,6 +4725,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -4487,6 +4734,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -4497,6 +4745,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4508,6 +4757,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
             comment="Domain verification record",
             data={
@@ -4522,7 +4772,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4533,6 +4782,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
 
@@ -4548,6 +4798,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         ) as response:
             assert not response.is_closed
@@ -4566,6 +4817,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -4574,6 +4826,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -4584,6 +4837,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4595,6 +4849,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
             comment="Domain verification record",
             data={
@@ -4608,7 +4863,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4619,6 +4873,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
 
@@ -4634,6 +4889,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         ) as response:
             assert not response.is_closed
@@ -4652,6 +4908,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -4660,6 +4917,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -4670,6 +4928,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4681,6 +4940,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
             comment="Domain verification record",
             data={
@@ -4703,7 +4963,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4714,6 +4973,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
 
@@ -4729,6 +4989,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         ) as response:
             assert not response.is_closed
@@ -4747,6 +5008,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -4755,6 +5017,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -4765,6 +5028,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4776,6 +5040,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
             comment="Domain verification record",
             data={
@@ -4792,7 +5057,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4803,6 +5067,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
 
@@ -4818,6 +5083,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         ) as response:
             assert not response.is_closed
@@ -4836,6 +5102,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -4844,6 +5111,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -4854,6 +5122,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4865,6 +5134,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
             comment="Domain verification record",
             data={
@@ -4879,7 +5149,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4890,6 +5159,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
 
@@ -4905,6 +5175,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         ) as response:
             assert not response.is_closed
@@ -4923,6 +5194,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -4931,6 +5203,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -4941,6 +5214,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -4952,6 +5226,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
             comment="Domain verification record",
             data={
@@ -4966,7 +5241,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -4977,6 +5251,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
 
@@ -4992,6 +5267,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         ) as response:
             assert not response.is_closed
@@ -5010,6 +5286,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -5018,6 +5295,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -5028,6 +5306,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5039,6 +5318,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
             comment="Domain verification record",
             data={
@@ -5052,7 +5332,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5063,6 +5342,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
 
@@ -5078,6 +5358,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         ) as response:
             assert not response.is_closed
@@ -5096,6 +5377,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -5104,6 +5386,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -5114,6 +5397,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5125,6 +5409,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
             comment="Domain verification record",
             data={
@@ -5138,7 +5423,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5149,6 +5433,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
 
@@ -5164,6 +5449,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         ) as response:
             assert not response.is_closed
@@ -5182,6 +5468,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -5190,6 +5477,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -5200,6 +5488,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5211,6 +5500,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
             comment="Domain verification record",
             data={
@@ -5225,7 +5515,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5236,6 +5525,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
 
@@ -5251,6 +5541,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         ) as response:
             assert not response.is_closed
@@ -5269,6 +5560,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -5277,6 +5569,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -5287,6 +5580,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5298,6 +5592,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
             comment="Domain verification record",
             data={
@@ -5311,7 +5606,6 @@ class TestRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5322,6 +5616,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
 
@@ -5337,6 +5632,7 @@ class TestRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         ) as response:
             assert not response.is_closed
@@ -5355,6 +5651,7 @@ class TestRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -5363,6 +5660,7 @@ class TestRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -5514,18 +5812,21 @@ class TestRecords:
 
     @parametrize
     def test_method_scan(self, client: Cloudflare) -> None:
-        record = client.dns.records.scan(
-            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
-            body={},
-        )
+        with pytest.warns(DeprecationWarning):
+            record = client.dns.records.scan(
+                zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+                body={},
+            )
+
         assert_matches_type(Optional[RecordScanResponse], record, path=["response"])
 
     @parametrize
     def test_raw_response_scan(self, client: Cloudflare) -> None:
-        response = client.dns.records.with_raw_response.scan(
-            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
-            body={},
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.dns.records.with_raw_response.scan(
+                zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+                body={},
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -5534,29 +5835,177 @@ class TestRecords:
 
     @parametrize
     def test_streaming_response_scan(self, client: Cloudflare) -> None:
-        with client.dns.records.with_streaming_response.scan(
-            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
-            body={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.dns.records.with_streaming_response.scan(
+                zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+                body={},
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            record = response.parse()
-            assert_matches_type(Optional[RecordScanResponse], record, path=["response"])
+                record = response.parse()
+                assert_matches_type(Optional[RecordScanResponse], record, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_scan(self, client: Cloudflare) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
+                client.dns.records.with_raw_response.scan(
+                    zone_id="",
+                    body={},
+                )
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_method_scan_list(self, client: Cloudflare) -> None:
+        record = client.dns.records.scan_list(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+        assert_matches_type(SyncSinglePage[RecordResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_raw_response_scan_list(self, client: Cloudflare) -> None:
+        response = client.dns.records.with_raw_response.scan_list(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        record = response.parse()
+        assert_matches_type(SyncSinglePage[RecordResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_streaming_response_scan_list(self, client: Cloudflare) -> None:
+        with client.dns.records.with_streaming_response.scan_list(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            record = response.parse()
+            assert_matches_type(SyncSinglePage[RecordResponse], record, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_scan_list(self, client: Cloudflare) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
-            client.dns.records.with_raw_response.scan(
+            client.dns.records.with_raw_response.scan_list(
                 zone_id="",
-                body={},
+            )
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_method_scan_review(self, client: Cloudflare) -> None:
+        record = client.dns.records.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+        assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_method_scan_review_with_all_params(self, client: Cloudflare) -> None:
+        record = client.dns.records.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+            accepts=[
+                {
+                    "name": "example.com",
+                    "ttl": 3600,
+                    "type": "A",
+                    "comment": "Domain verification record",
+                    "content": "198.51.100.4",
+                    "proxied": True,
+                    "settings": {
+                        "ipv4_only": True,
+                        "ipv6_only": True,
+                    },
+                    "tags": ["owner:dns-team"],
+                }
+            ],
+            rejects=[{"id": "023e105f4ecef8ad9ca31a8372d0c353"}],
+        )
+        assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_raw_response_scan_review(self, client: Cloudflare) -> None:
+        response = client.dns.records.with_raw_response.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        record = response.parse()
+        assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    def test_streaming_response_scan_review(self, client: Cloudflare) -> None:
+        with client.dns.records.with_streaming_response.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            record = response.parse()
+            assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_scan_review(self, client: Cloudflare) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
+            client.dns.records.with_raw_response.scan_review(
+                zone_id="",
+            )
+
+    @parametrize
+    def test_method_scan_trigger(self, client: Cloudflare) -> None:
+        record = client.dns.records.scan_trigger(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+        assert_matches_type(RecordScanTriggerResponse, record, path=["response"])
+
+    @parametrize
+    def test_raw_response_scan_trigger(self, client: Cloudflare) -> None:
+        response = client.dns.records.with_raw_response.scan_trigger(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        record = response.parse()
+        assert_matches_type(RecordScanTriggerResponse, record, path=["response"])
+
+    @parametrize
+    def test_streaming_response_scan_trigger(self, client: Cloudflare) -> None:
+        with client.dns.records.with_streaming_response.scan_trigger(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            record = response.parse()
+            assert_matches_type(RecordScanTriggerResponse, record, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_scan_trigger(self, client: Cloudflare) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
+            client.dns.records.with_raw_response.scan_trigger(
+                zone_id="",
             )
 
 
 class TestAsyncRecords:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="TODO: investigate broken test")
     @parametrize
@@ -5564,6 +6013,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5574,6 +6024,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
             comment="Domain verification record",
             content="198.51.100.4",
@@ -5583,7 +6034,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5593,6 +6043,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
 
@@ -5607,6 +6058,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         ) as response:
             assert not response.is_closed
@@ -5624,6 +6076,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -5633,6 +6086,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5643,6 +6097,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
             comment="Domain verification record",
             content="2400:cb00:2049::1",
@@ -5652,7 +6107,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5662,6 +6116,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
 
@@ -5676,6 +6131,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         ) as response:
             assert not response.is_closed
@@ -5693,6 +6149,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -5702,6 +6159,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5712,6 +6170,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
             comment="Domain verification record",
             content="content",
@@ -5722,7 +6181,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5732,6 +6190,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
 
@@ -5746,6 +6205,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         ) as response:
             assert not response.is_closed
@@ -5763,6 +6223,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -5772,6 +6233,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5782,6 +6244,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
             comment="Domain verification record",
             content="mx.example.com",
@@ -5792,7 +6255,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5802,6 +6264,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
 
@@ -5816,6 +6279,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         ) as response:
             assert not response.is_closed
@@ -5833,6 +6297,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -5842,6 +6307,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5852,6 +6318,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
             comment="Domain verification record",
             content="ns1.example.com",
@@ -5861,7 +6328,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5871,6 +6337,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
 
@@ -5885,6 +6352,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         ) as response:
             assert not response.is_closed
@@ -5902,6 +6370,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -5911,6 +6380,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5921,6 +6391,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
             comment="Domain verification record",
             content="content",
@@ -5930,7 +6401,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -5940,6 +6410,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
 
@@ -5954,6 +6425,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         ) as response:
             assert not response.is_closed
@@ -5971,6 +6443,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -5980,6 +6453,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -5990,6 +6464,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
             comment="Domain verification record",
             content="example.com",
@@ -5999,7 +6474,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6009,6 +6483,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
 
@@ -6023,6 +6498,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         ) as response:
             assert not response.is_closed
@@ -6040,6 +6516,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -6049,6 +6526,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6059,6 +6537,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
             comment="Domain verification record",
             content='"v=spf1 include:example.com -all"',
@@ -6068,7 +6547,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6078,6 +6556,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
 
@@ -6092,6 +6571,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         ) as response:
             assert not response.is_closed
@@ -6109,6 +6589,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -6118,6 +6599,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6128,6 +6610,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
             comment="Domain verification record",
             data={
@@ -6141,7 +6624,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6151,6 +6633,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
 
@@ -6165,6 +6648,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         ) as response:
             assert not response.is_closed
@@ -6182,6 +6666,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -6191,6 +6676,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6201,6 +6687,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
             comment="Domain verification record",
             data={
@@ -6215,7 +6702,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6225,6 +6711,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
 
@@ -6239,6 +6726,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         ) as response:
             assert not response.is_closed
@@ -6256,6 +6744,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -6265,6 +6754,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6275,6 +6765,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
             comment="Domain verification record",
             data={
@@ -6289,7 +6780,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6299,6 +6789,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
 
@@ -6313,6 +6804,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         ) as response:
             assert not response.is_closed
@@ -6330,6 +6822,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -6339,6 +6832,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6349,6 +6843,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
             comment="Domain verification record",
             data={
@@ -6363,7 +6858,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6373,6 +6867,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
 
@@ -6387,6 +6882,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         ) as response:
             assert not response.is_closed
@@ -6404,6 +6900,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -6413,6 +6910,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6423,6 +6921,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
             comment="Domain verification record",
             data={
@@ -6436,7 +6935,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6446,6 +6944,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
 
@@ -6460,6 +6959,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         ) as response:
             assert not response.is_closed
@@ -6477,6 +6977,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -6486,6 +6987,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6496,6 +6998,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
             comment="Domain verification record",
             data={
@@ -6518,7 +7021,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6528,6 +7030,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
 
@@ -6542,6 +7045,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         ) as response:
             assert not response.is_closed
@@ -6559,6 +7063,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -6568,6 +7073,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6578,6 +7084,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
             comment="Domain verification record",
             data={
@@ -6594,7 +7101,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6604,6 +7110,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
 
@@ -6618,6 +7125,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         ) as response:
             assert not response.is_closed
@@ -6635,6 +7143,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -6644,6 +7153,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6654,6 +7164,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
             comment="Domain verification record",
             data={
@@ -6668,7 +7179,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6678,6 +7188,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
 
@@ -6692,6 +7203,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         ) as response:
             assert not response.is_closed
@@ -6709,6 +7221,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -6718,6 +7231,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6728,6 +7242,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
             comment="Domain verification record",
             data={
@@ -6742,7 +7257,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6752,6 +7266,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
 
@@ -6766,6 +7281,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         ) as response:
             assert not response.is_closed
@@ -6783,6 +7299,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -6792,6 +7309,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6802,6 +7320,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
             comment="Domain verification record",
             data={
@@ -6815,7 +7334,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6825,6 +7343,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
 
@@ -6839,6 +7358,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         ) as response:
             assert not response.is_closed
@@ -6856,6 +7376,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -6865,6 +7386,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6875,6 +7397,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
             comment="Domain verification record",
             data={
@@ -6888,7 +7411,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6898,6 +7420,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
 
@@ -6912,6 +7435,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         ) as response:
             assert not response.is_closed
@@ -6929,6 +7453,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -6938,6 +7463,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -6948,6 +7474,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
             comment="Domain verification record",
             data={
@@ -6962,7 +7489,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -6972,6 +7498,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
 
@@ -6986,6 +7513,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         ) as response:
             assert not response.is_closed
@@ -7003,6 +7531,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -7012,6 +7541,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7022,6 +7552,7 @@ class TestAsyncRecords:
         record = await async_client.dns.records.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
             comment="Domain verification record",
             data={
@@ -7035,7 +7566,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7045,6 +7575,7 @@ class TestAsyncRecords:
         response = await async_client.dns.records.with_raw_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
 
@@ -7059,6 +7590,7 @@ class TestAsyncRecords:
         async with async_client.dns.records.with_streaming_response.create(
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         ) as response:
             assert not response.is_closed
@@ -7076,6 +7608,7 @@ class TestAsyncRecords:
             await async_client.dns.records.with_raw_response.create(
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -7086,6 +7619,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7097,6 +7631,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
             comment="Domain verification record",
             content="198.51.100.4",
@@ -7106,7 +7641,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7117,6 +7651,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
 
@@ -7132,6 +7667,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         ) as response:
             assert not response.is_closed
@@ -7150,6 +7686,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -7158,6 +7695,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -7168,6 +7706,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7179,6 +7718,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
             comment="Domain verification record",
             content="2400:cb00:2049::1",
@@ -7188,7 +7728,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7199,6 +7738,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
 
@@ -7214,6 +7754,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         ) as response:
             assert not response.is_closed
@@ -7232,6 +7773,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -7240,6 +7782,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -7250,6 +7793,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7261,6 +7805,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
             comment="Domain verification record",
             content="content",
@@ -7271,7 +7816,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7282,6 +7826,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
 
@@ -7297,6 +7842,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         ) as response:
             assert not response.is_closed
@@ -7315,6 +7861,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -7323,6 +7870,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -7333,6 +7881,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7344,6 +7893,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
             comment="Domain verification record",
             content="mx.example.com",
@@ -7354,7 +7904,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7365,6 +7914,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
 
@@ -7380,6 +7930,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         ) as response:
             assert not response.is_closed
@@ -7398,6 +7949,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -7406,6 +7958,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -7416,6 +7969,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7427,6 +7981,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
             comment="Domain verification record",
             content="ns1.example.com",
@@ -7436,7 +7991,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7447,6 +8001,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
 
@@ -7462,6 +8017,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         ) as response:
             assert not response.is_closed
@@ -7480,6 +8036,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -7488,6 +8045,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -7498,6 +8056,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7509,6 +8068,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
             comment="Domain verification record",
             content="content",
@@ -7518,7 +8078,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7529,6 +8088,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
 
@@ -7544,6 +8104,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         ) as response:
             assert not response.is_closed
@@ -7562,6 +8123,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -7570,6 +8132,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -7580,6 +8143,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7591,6 +8155,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
             comment="Domain verification record",
             content="example.com",
@@ -7600,7 +8165,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7611,6 +8175,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
 
@@ -7626,6 +8191,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         ) as response:
             assert not response.is_closed
@@ -7644,6 +8210,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -7652,6 +8219,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -7662,6 +8230,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7673,6 +8242,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
             comment="Domain verification record",
             content='"v=spf1 include:example.com -all"',
@@ -7682,7 +8252,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7693,6 +8262,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
 
@@ -7708,6 +8278,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         ) as response:
             assert not response.is_closed
@@ -7726,6 +8297,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -7734,6 +8306,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -7744,6 +8317,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7755,6 +8329,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
             comment="Domain verification record",
             data={
@@ -7768,7 +8343,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7779,6 +8353,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
 
@@ -7794,6 +8369,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         ) as response:
             assert not response.is_closed
@@ -7812,6 +8388,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -7820,6 +8397,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -7830,6 +8408,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7841,6 +8420,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
             comment="Domain verification record",
             data={
@@ -7855,7 +8435,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7866,6 +8445,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
 
@@ -7881,6 +8461,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         ) as response:
             assert not response.is_closed
@@ -7899,6 +8480,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -7907,6 +8489,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -7917,6 +8500,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -7928,6 +8512,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
             comment="Domain verification record",
             data={
@@ -7942,7 +8527,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -7953,6 +8537,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
 
@@ -7968,6 +8553,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         ) as response:
             assert not response.is_closed
@@ -7986,6 +8572,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -7994,6 +8581,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -8004,6 +8592,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8015,6 +8604,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
             comment="Domain verification record",
             data={
@@ -8029,7 +8619,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8040,6 +8629,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
 
@@ -8055,6 +8645,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         ) as response:
             assert not response.is_closed
@@ -8073,6 +8664,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -8081,6 +8673,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -8091,6 +8684,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8102,6 +8696,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
             comment="Domain verification record",
             data={
@@ -8115,7 +8710,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8126,6 +8720,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
 
@@ -8141,6 +8736,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         ) as response:
             assert not response.is_closed
@@ -8159,6 +8755,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -8167,6 +8764,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -8177,6 +8775,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8188,6 +8787,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
             comment="Domain verification record",
             data={
@@ -8210,7 +8810,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8221,6 +8820,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
 
@@ -8236,6 +8836,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         ) as response:
             assert not response.is_closed
@@ -8254,6 +8855,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -8262,6 +8864,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -8272,6 +8875,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8283,6 +8887,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
             comment="Domain verification record",
             data={
@@ -8299,7 +8904,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8310,6 +8914,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
 
@@ -8325,6 +8930,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         ) as response:
             assert not response.is_closed
@@ -8343,6 +8949,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -8351,6 +8958,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -8361,6 +8969,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8372,6 +8981,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
             comment="Domain verification record",
             data={
@@ -8386,7 +8996,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8397,6 +9006,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
 
@@ -8412,6 +9022,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         ) as response:
             assert not response.is_closed
@@ -8430,6 +9041,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -8438,6 +9050,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -8448,6 +9061,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8459,6 +9073,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
             comment="Domain verification record",
             data={
@@ -8473,7 +9088,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8484,6 +9098,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
 
@@ -8499,6 +9114,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         ) as response:
             assert not response.is_closed
@@ -8517,6 +9133,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -8525,6 +9142,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -8535,6 +9153,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8546,6 +9165,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
             comment="Domain verification record",
             data={
@@ -8559,7 +9179,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8570,6 +9189,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
 
@@ -8585,6 +9205,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         ) as response:
             assert not response.is_closed
@@ -8603,6 +9224,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -8611,6 +9233,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -8621,6 +9244,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8632,6 +9256,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
             comment="Domain verification record",
             data={
@@ -8645,7 +9270,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8656,6 +9280,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
 
@@ -8671,6 +9296,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         ) as response:
             assert not response.is_closed
@@ -8689,6 +9315,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -8697,6 +9324,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -8707,6 +9335,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8718,6 +9347,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
             comment="Domain verification record",
             data={
@@ -8732,7 +9362,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8743,6 +9372,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
 
@@ -8758,6 +9388,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         ) as response:
             assert not response.is_closed
@@ -8776,6 +9407,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -8784,6 +9416,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -8794,6 +9427,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -8805,6 +9439,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
             comment="Domain verification record",
             data={
@@ -8818,7 +9453,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -8829,6 +9463,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
 
@@ -8844,6 +9479,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         ) as response:
             assert not response.is_closed
@@ -8862,6 +9498,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -8870,6 +9507,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -9025,6 +9663,7 @@ class TestAsyncRecords:
             patches=[
                 {
                     "name": "example.com",
+                    "ttl": 3600,
                     "type": "A",
                     "comment": "Domain verification record",
                     "content": "198.51.100.4",
@@ -9034,13 +9673,13 @@ class TestAsyncRecords:
                         "ipv6_only": True,
                     },
                     "tags": ["owner:dns-team"],
-                    "ttl": 3600,
                     "id": "023e105f4ecef8ad9ca31a8372d0c353",
                 }
             ],
             posts=[
                 {
                     "name": "example.com",
+                    "ttl": 3600,
                     "type": "A",
                     "comment": "Domain verification record",
                     "content": "198.51.100.4",
@@ -9050,12 +9689,12 @@ class TestAsyncRecords:
                         "ipv6_only": True,
                     },
                     "tags": ["owner:dns-team"],
-                    "ttl": 3600,
                 }
             ],
             puts=[
                 {
                     "name": "example.com",
+                    "ttl": 3600,
                     "type": "A",
                     "comment": "Domain verification record",
                     "content": "198.51.100.4",
@@ -9065,7 +9704,6 @@ class TestAsyncRecords:
                         "ipv6_only": True,
                     },
                     "tags": ["owner:dns-team"],
-                    "ttl": 3600,
                     "id": "023e105f4ecef8ad9ca31a8372d0c353",
                 }
             ],
@@ -9113,6 +9751,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9124,6 +9763,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
             comment="Domain verification record",
             content="198.51.100.4",
@@ -9133,7 +9773,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9144,6 +9783,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         )
 
@@ -9159,6 +9799,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="A",
         ) as response:
             assert not response.is_closed
@@ -9177,6 +9818,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -9185,6 +9827,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="A",
             )
 
@@ -9195,6 +9838,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9206,6 +9850,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
             comment="Domain verification record",
             content="2400:cb00:2049::1",
@@ -9215,7 +9860,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9226,6 +9870,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         )
 
@@ -9241,6 +9886,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="AAAA",
         ) as response:
             assert not response.is_closed
@@ -9259,6 +9905,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -9267,6 +9914,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="AAAA",
             )
 
@@ -9277,6 +9925,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9288,6 +9937,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
             comment="Domain verification record",
             content="content",
@@ -9298,7 +9948,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9309,6 +9958,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         )
 
@@ -9324,6 +9974,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CNAME",
         ) as response:
             assert not response.is_closed
@@ -9342,6 +9993,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -9350,6 +10002,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CNAME",
             )
 
@@ -9360,6 +10013,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9371,6 +10025,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
             comment="Domain verification record",
             content="mx.example.com",
@@ -9381,7 +10036,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9392,6 +10046,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         )
 
@@ -9407,6 +10062,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="MX",
         ) as response:
             assert not response.is_closed
@@ -9425,6 +10081,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -9433,6 +10090,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="MX",
             )
 
@@ -9443,6 +10101,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9454,6 +10113,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
             comment="Domain verification record",
             content="ns1.example.com",
@@ -9463,7 +10123,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9474,6 +10133,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         )
 
@@ -9489,6 +10149,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NS",
         ) as response:
             assert not response.is_closed
@@ -9507,6 +10168,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -9515,6 +10177,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NS",
             )
 
@@ -9525,6 +10188,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9536,6 +10200,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
             comment="Domain verification record",
             content="content",
@@ -9545,7 +10210,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9556,6 +10220,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         )
 
@@ -9571,6 +10236,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="OPENPGPKEY",
         ) as response:
             assert not response.is_closed
@@ -9589,6 +10255,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -9597,6 +10264,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="OPENPGPKEY",
             )
 
@@ -9607,6 +10275,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9618,6 +10287,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
             comment="Domain verification record",
             content="example.com",
@@ -9627,7 +10297,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9638,6 +10307,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         )
 
@@ -9653,6 +10323,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="PTR",
         ) as response:
             assert not response.is_closed
@@ -9671,6 +10342,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -9679,6 +10351,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="PTR",
             )
 
@@ -9689,6 +10362,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9700,6 +10374,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
             comment="Domain verification record",
             content='"v=spf1 include:example.com -all"',
@@ -9709,7 +10384,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9720,6 +10394,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         )
 
@@ -9735,6 +10410,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TXT",
         ) as response:
             assert not response.is_closed
@@ -9753,6 +10429,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -9761,6 +10438,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TXT",
             )
 
@@ -9771,6 +10449,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9782,6 +10461,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
             comment="Domain verification record",
             data={
@@ -9795,7 +10475,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9806,6 +10485,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         )
 
@@ -9821,6 +10501,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CAA",
         ) as response:
             assert not response.is_closed
@@ -9839,6 +10520,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -9847,6 +10529,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CAA",
             )
 
@@ -9857,6 +10540,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9868,6 +10552,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
             comment="Domain verification record",
             data={
@@ -9882,7 +10567,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9893,6 +10577,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         )
 
@@ -9908,6 +10593,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="CERT",
         ) as response:
             assert not response.is_closed
@@ -9926,6 +10612,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -9934,6 +10621,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="CERT",
             )
 
@@ -9944,6 +10632,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -9955,6 +10644,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
             comment="Domain verification record",
             data={
@@ -9969,7 +10659,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -9980,6 +10669,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         )
 
@@ -9995,6 +10685,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DNSKEY",
         ) as response:
             assert not response.is_closed
@@ -10013,6 +10704,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -10021,6 +10713,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DNSKEY",
             )
 
@@ -10031,6 +10724,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10042,6 +10736,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
             comment="Domain verification record",
             data={
@@ -10056,7 +10751,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10067,6 +10761,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         )
 
@@ -10082,6 +10777,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="DS",
         ) as response:
             assert not response.is_closed
@@ -10100,6 +10796,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -10108,6 +10805,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="DS",
             )
 
@@ -10118,6 +10816,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10129,6 +10828,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
             comment="Domain verification record",
             data={
@@ -10142,7 +10842,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10153,6 +10852,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         )
 
@@ -10168,6 +10868,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="HTTPS",
         ) as response:
             assert not response.is_closed
@@ -10186,6 +10887,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -10194,6 +10896,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="HTTPS",
             )
 
@@ -10204,6 +10907,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10215,6 +10919,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
             comment="Domain verification record",
             data={
@@ -10237,7 +10942,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10248,6 +10952,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         )
 
@@ -10263,6 +10968,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="LOC",
         ) as response:
             assert not response.is_closed
@@ -10281,6 +10987,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -10289,6 +10996,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="LOC",
             )
 
@@ -10299,6 +11007,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10310,6 +11019,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
             comment="Domain verification record",
             data={
@@ -10326,7 +11036,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10337,6 +11046,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         )
 
@@ -10352,6 +11062,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="NAPTR",
         ) as response:
             assert not response.is_closed
@@ -10370,6 +11081,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -10378,6 +11090,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="NAPTR",
             )
 
@@ -10388,6 +11101,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10399,6 +11113,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
             comment="Domain verification record",
             data={
@@ -10413,7 +11128,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10424,6 +11138,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         )
 
@@ -10439,6 +11154,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SMIMEA",
         ) as response:
             assert not response.is_closed
@@ -10457,6 +11173,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -10465,6 +11182,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SMIMEA",
             )
 
@@ -10475,6 +11193,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10486,6 +11205,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
             comment="Domain verification record",
             data={
@@ -10500,7 +11220,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10511,6 +11230,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         )
 
@@ -10526,6 +11246,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SRV",
         ) as response:
             assert not response.is_closed
@@ -10544,6 +11265,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -10552,6 +11274,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SRV",
             )
 
@@ -10562,6 +11285,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10573,6 +11297,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
             comment="Domain verification record",
             data={
@@ -10586,7 +11311,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10597,6 +11321,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         )
 
@@ -10612,6 +11337,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SSHFP",
         ) as response:
             assert not response.is_closed
@@ -10630,6 +11356,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -10638,6 +11365,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SSHFP",
             )
 
@@ -10648,6 +11376,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10659,6 +11388,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
             comment="Domain verification record",
             data={
@@ -10672,7 +11402,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10683,6 +11412,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         )
 
@@ -10698,6 +11428,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="SVCB",
         ) as response:
             assert not response.is_closed
@@ -10716,6 +11447,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -10724,6 +11456,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="SVCB",
             )
 
@@ -10734,6 +11467,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10745,6 +11479,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
             comment="Domain verification record",
             data={
@@ -10759,7 +11494,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10770,6 +11504,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         )
 
@@ -10785,6 +11520,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="TLSA",
         ) as response:
             assert not response.is_closed
@@ -10803,6 +11539,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -10811,6 +11548,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="TLSA",
             )
 
@@ -10821,6 +11559,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
@@ -10832,6 +11571,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
             comment="Domain verification record",
             data={
@@ -10845,7 +11585,6 @@ class TestAsyncRecords:
                 "ipv6_only": True,
             },
             tags=["owner:dns-team"],
-            ttl=3600,
         )
         assert_matches_type(Optional[RecordResponse], record, path=["response"])
 
@@ -10856,6 +11595,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         )
 
@@ -10871,6 +11611,7 @@ class TestAsyncRecords:
             dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
             zone_id="023e105f4ecef8ad9ca31a8372d0c353",
             name="example.com",
+            ttl=3600,
             type="URI",
         ) as response:
             assert not response.is_closed
@@ -10889,6 +11630,7 @@ class TestAsyncRecords:
                 dns_record_id="023e105f4ecef8ad9ca31a8372d0c353",
                 zone_id="",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -10897,6 +11639,7 @@ class TestAsyncRecords:
                 dns_record_id="",
                 zone_id="023e105f4ecef8ad9ca31a8372d0c353",
                 name="example.com",
+                ttl=3600,
                 type="URI",
             )
 
@@ -11048,18 +11791,21 @@ class TestAsyncRecords:
 
     @parametrize
     async def test_method_scan(self, async_client: AsyncCloudflare) -> None:
-        record = await async_client.dns.records.scan(
-            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
-            body={},
-        )
+        with pytest.warns(DeprecationWarning):
+            record = await async_client.dns.records.scan(
+                zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+                body={},
+            )
+
         assert_matches_type(Optional[RecordScanResponse], record, path=["response"])
 
     @parametrize
     async def test_raw_response_scan(self, async_client: AsyncCloudflare) -> None:
-        response = await async_client.dns.records.with_raw_response.scan(
-            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
-            body={},
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.dns.records.with_raw_response.scan(
+                zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+                body={},
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -11068,22 +11814,168 @@ class TestAsyncRecords:
 
     @parametrize
     async def test_streaming_response_scan(self, async_client: AsyncCloudflare) -> None:
-        async with async_client.dns.records.with_streaming_response.scan(
-            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
-            body={},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.dns.records.with_streaming_response.scan(
+                zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+                body={},
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            record = await response.parse()
-            assert_matches_type(Optional[RecordScanResponse], record, path=["response"])
+                record = await response.parse()
+                assert_matches_type(Optional[RecordScanResponse], record, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_scan(self, async_client: AsyncCloudflare) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
+                await async_client.dns.records.with_raw_response.scan(
+                    zone_id="",
+                    body={},
+                )
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_method_scan_list(self, async_client: AsyncCloudflare) -> None:
+        record = await async_client.dns.records.scan_list(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+        assert_matches_type(AsyncSinglePage[RecordResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_raw_response_scan_list(self, async_client: AsyncCloudflare) -> None:
+        response = await async_client.dns.records.with_raw_response.scan_list(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        record = await response.parse()
+        assert_matches_type(AsyncSinglePage[RecordResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_streaming_response_scan_list(self, async_client: AsyncCloudflare) -> None:
+        async with async_client.dns.records.with_streaming_response.scan_list(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            record = await response.parse()
+            assert_matches_type(AsyncSinglePage[RecordResponse], record, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_scan_list(self, async_client: AsyncCloudflare) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
-            await async_client.dns.records.with_raw_response.scan(
+            await async_client.dns.records.with_raw_response.scan_list(
                 zone_id="",
-                body={},
+            )
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_method_scan_review(self, async_client: AsyncCloudflare) -> None:
+        record = await async_client.dns.records.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+        assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_method_scan_review_with_all_params(self, async_client: AsyncCloudflare) -> None:
+        record = await async_client.dns.records.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+            accepts=[
+                {
+                    "name": "example.com",
+                    "ttl": 3600,
+                    "type": "A",
+                    "comment": "Domain verification record",
+                    "content": "198.51.100.4",
+                    "proxied": True,
+                    "settings": {
+                        "ipv4_only": True,
+                        "ipv6_only": True,
+                    },
+                    "tags": ["owner:dns-team"],
+                }
+            ],
+            rejects=[{"id": "023e105f4ecef8ad9ca31a8372d0c353"}],
+        )
+        assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_raw_response_scan_review(self, async_client: AsyncCloudflare) -> None:
+        response = await async_client.dns.records.with_raw_response.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        record = await response.parse()
+        assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server returns incomplete DNS records missing required fields: id, created_on, meta, modified_on (Issue #2)")
+    @parametrize
+    async def test_streaming_response_scan_review(self, async_client: AsyncCloudflare) -> None:
+        async with async_client.dns.records.with_streaming_response.scan_review(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            record = await response.parse()
+            assert_matches_type(Optional[RecordScanReviewResponse], record, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_scan_review(self, async_client: AsyncCloudflare) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
+            await async_client.dns.records.with_raw_response.scan_review(
+                zone_id="",
+            )
+
+    @parametrize
+    async def test_method_scan_trigger(self, async_client: AsyncCloudflare) -> None:
+        record = await async_client.dns.records.scan_trigger(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+        assert_matches_type(RecordScanTriggerResponse, record, path=["response"])
+
+    @parametrize
+    async def test_raw_response_scan_trigger(self, async_client: AsyncCloudflare) -> None:
+        response = await async_client.dns.records.with_raw_response.scan_trigger(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        record = await response.parse()
+        assert_matches_type(RecordScanTriggerResponse, record, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_scan_trigger(self, async_client: AsyncCloudflare) -> None:
+        async with async_client.dns.records.with_streaming_response.scan_trigger(
+            zone_id="023e105f4ecef8ad9ca31a8372d0c353",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            record = await response.parse()
+            assert_matches_type(RecordScanTriggerResponse, record, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_scan_trigger(self, async_client: AsyncCloudflare) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `zone_id` but received ''"):
+            await async_client.dns.records.with_raw_response.scan_trigger(
+                zone_id="",
             )
