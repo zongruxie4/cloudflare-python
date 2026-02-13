@@ -10,6 +10,8 @@ jobs:
     runs-on: 'ubuntu-latest'
     name: detect-breaking-changes
     if: false
+    permissions:
+      contents: read
     steps:
       - name: Calculate fetch-depth
         run: |
