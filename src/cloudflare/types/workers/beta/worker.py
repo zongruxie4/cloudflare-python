@@ -9,6 +9,7 @@ from ...._models import BaseModel
 __all__ = [
     "Worker",
     "Observability",
+    "ObservabilityIssues",
     "ObservabilityLogs",
     "ObservabilityTraces",
     "References",
@@ -20,6 +21,13 @@ __all__ = [
     "Subdomain",
     "TailConsumer",
 ]
+
+
+class ObservabilityIssues(BaseModel):
+    """Real-time Issues settings for the Worker."""
+
+    enabled: Optional[bool] = None
+    """Whether real-time Issues are enabled for the Worker."""
 
 
 class ObservabilityLogs(BaseModel):
@@ -78,6 +86,9 @@ class Observability(BaseModel):
 
     head_sampling_rate: Optional[float] = None
     """The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%)."""
+
+    issues: Optional[ObservabilityIssues] = None
+    """Real-time Issues settings for the Worker."""
 
     logs: Optional[ObservabilityLogs] = None
     """Log settings for the Worker."""

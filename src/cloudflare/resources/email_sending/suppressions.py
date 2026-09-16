@@ -77,6 +77,15 @@ class SuppressionsResource(SyncAPIResource):
         exists, it is promoted without changing its identifier.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          email: The email address to suppress.
+
+          expires_at: Expiration timestamp for the suppression. Omit or set to null for a permanent
+              suppression that never expires.
+
+          note: Advisory note for this suppression. Not enforced or validated beyond length.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -128,10 +137,16 @@ class SuppressionsResource(SyncAPIResource):
         legacy rows with internal zone memberships.
 
         Args:
+          account_id: Cloudflare account ID.
+
           cursor: Opaque pagination cursor returned as `result_info.next_cursor`. It carries the
               filters that produced it.
 
           email: Exact email-address filter.
+
+          per_page: Maximum number of suppressions to return per page.
+
+          reason: Filter to suppressions with this reason.
 
           search: A complete address is an exact match; a value ending in `@` matches that
               username across every domain. Prefix searches may return short intermediate
@@ -186,6 +201,10 @@ class SuppressionsResource(SyncAPIResource):
         allowing future delivery attempts to the address.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          suppression_id: The suppression's identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -233,6 +252,10 @@ class SuppressionsResource(SyncAPIResource):
         memberships.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          suppression_id: The suppression's identifier.
+
           expires_at: New expiry. Send `null` to make the suppression permanent; omit to leave it
               unchanged.
 
@@ -290,6 +313,10 @@ class SuppressionsResource(SyncAPIResource):
         Gets an Email Sending suppression owned by the account.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          suppression_id: The suppression's identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -334,6 +361,11 @@ class SuppressionsResource(SyncAPIResource):
         Imports up to 1,000 account-level Email Sending suppressions in one request.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          items: Suppressions to import. Items with a duplicate email address are deduplicated
+              before processing.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -398,6 +430,15 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         exists, it is promoted without changing its identifier.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          email: The email address to suppress.
+
+          expires_at: Expiration timestamp for the suppression. Omit or set to null for a permanent
+              suppression that never expires.
+
+          note: Advisory note for this suppression. Not enforced or validated beyond length.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -449,10 +490,16 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         legacy rows with internal zone memberships.
 
         Args:
+          account_id: Cloudflare account ID.
+
           cursor: Opaque pagination cursor returned as `result_info.next_cursor`. It carries the
               filters that produced it.
 
           email: Exact email-address filter.
+
+          per_page: Maximum number of suppressions to return per page.
+
+          reason: Filter to suppressions with this reason.
 
           search: A complete address is an exact match; a value ending in `@` matches that
               username across every domain. Prefix searches may return short intermediate
@@ -507,6 +554,10 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         allowing future delivery attempts to the address.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          suppression_id: The suppression's identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -554,6 +605,10 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         memberships.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          suppression_id: The suppression's identifier.
+
           expires_at: New expiry. Send `null` to make the suppression permanent; omit to leave it
               unchanged.
 
@@ -611,6 +666,10 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         Gets an Email Sending suppression owned by the account.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          suppression_id: The suppression's identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -655,6 +714,11 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         Imports up to 1,000 account-level Email Sending suppressions in one request.
 
         Args:
+          account_id: Cloudflare account ID.
+
+          items: Suppressions to import. Items with a duplicate email address are deduplicated
+              before processing.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

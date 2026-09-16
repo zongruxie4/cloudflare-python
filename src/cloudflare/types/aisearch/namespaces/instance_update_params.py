@@ -150,6 +150,12 @@ class IndexingOptions(TypedDict, total=False):
     Defaults to porter.
     """
 
+    use_ocr: bool
+    """Enables OCR ingestion for PDFs and images.
+
+    Changing this triggers a full re-index. Defaults to false.
+    """
+
 
 class Metadata(TypedDict, total=False):
     created_from_aisearch_wizard: bool

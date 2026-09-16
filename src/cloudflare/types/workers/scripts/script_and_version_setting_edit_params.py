@@ -69,6 +69,7 @@ __all__ = [
     "SettingsMigrations",
     "SettingsMigrationsWorkersMultipleStepMigrations",
     "SettingsObservability",
+    "SettingsObservabilityIssues",
     "SettingsObservabilityLogs",
     "SettingsObservabilityTraces",
     "SettingsPlacement",
@@ -935,6 +936,13 @@ class SettingsMigrationsWorkersMultipleStepMigrations(TypedDict, total=False):
 SettingsMigrations: TypeAlias = Union[SingleStepMigrationParam, SettingsMigrationsWorkersMultipleStepMigrations]
 
 
+class SettingsObservabilityIssues(TypedDict, total=False):
+    """Real-time Issues settings for the Worker."""
+
+    enabled: bool
+    """Whether real-time Issues are enabled for the Worker."""
+
+
 class SettingsObservabilityLogs(TypedDict, total=False):
     """Log settings for the Worker."""
 
@@ -994,6 +1002,9 @@ class SettingsObservability(TypedDict, total=False):
 
     From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.
     """
+
+    issues: Optional[SettingsObservabilityIssues]
+    """Real-time Issues settings for the Worker."""
 
     logs: Optional[SettingsObservabilityLogs]
     """Log settings for the Worker."""

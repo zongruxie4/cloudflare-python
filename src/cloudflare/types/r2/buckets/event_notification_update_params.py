@@ -20,7 +20,9 @@ class EventNotificationUpdateParams(TypedDict, total=False):
     rules: Required[Iterable[Rule]]
     """Array of rules to drive notifications."""
 
-    jurisdiction: Annotated[Literal["default", "eu", "us", "fedramp"], PropertyInfo(alias="cf-r2-jurisdiction")]
+    jurisdiction: Annotated[
+        Literal["default", "eu", "us", "fedramp", "fedramp-high"], PropertyInfo(alias="cf-r2-jurisdiction")
+    ]
     """Jurisdiction where objects in this bucket are guaranteed to be stored."""
 
 

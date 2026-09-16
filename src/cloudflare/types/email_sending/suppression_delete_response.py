@@ -7,3 +7,4 @@ __all__ = ["SuppressionDeleteResponse"]
 
 class SuppressionDeleteResponse(BaseModel):
     id: str
+    """The suppression's identifier."""

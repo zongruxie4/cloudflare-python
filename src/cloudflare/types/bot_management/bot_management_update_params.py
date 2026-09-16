@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from ..._utils import PropertyInfo
 
 __all__ = [
     "BotManagementUpdateParams",
@@ -18,8 +20,23 @@ class BotFightModeConfiguration(TypedDict, total=False):
     zone_id: Required[str]
     """Identifier."""
 
+    ai_bots_migration_opt_out: bool
+    """
+    Temporary migration flag tracking zones opted out of AI bots managed-rule
+    updates.
+    """
+
     ai_bots_protection: Literal["block", "disabled", "only_on_ad_pages"]
     """Enable rule to block AI Scrapers and Crawlers."""
+
+    aisearch: Annotated[Literal["disabled", "block", "only_on_ad_pages"], PropertyInfo(alias="ai_search")]
+    """Configure robots.txt policy for AI search bots."""
+
+    ai_training: Literal["disabled", "disallow", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI model training bots."""
+
+    ai_user: Literal["disabled", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI assistant and agent bots."""
 
     bot_preference_sync_enabled: bool
     """Enable Bot Preference Sync for this zone.
@@ -62,8 +79,23 @@ class SuperBotFightModeDefinitelyConfiguration(TypedDict, total=False):
     zone_id: Required[str]
     """Identifier."""
 
+    ai_bots_migration_opt_out: bool
+    """
+    Temporary migration flag tracking zones opted out of AI bots managed-rule
+    updates.
+    """
+
     ai_bots_protection: Literal["block", "disabled", "only_on_ad_pages"]
     """Enable rule to block AI Scrapers and Crawlers."""
+
+    aisearch: Annotated[Literal["disabled", "block", "only_on_ad_pages"], PropertyInfo(alias="ai_search")]
+    """Configure robots.txt policy for AI search bots."""
+
+    ai_training: Literal["disabled", "disallow", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI model training bots."""
+
+    ai_user: Literal["disabled", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI assistant and agent bots."""
 
     bot_preference_sync_enabled: bool
     """Enable Bot Preference Sync for this zone.
@@ -119,8 +151,23 @@ class SuperBotFightModeLikelyConfiguration(TypedDict, total=False):
     zone_id: Required[str]
     """Identifier."""
 
+    ai_bots_migration_opt_out: bool
+    """
+    Temporary migration flag tracking zones opted out of AI bots managed-rule
+    updates.
+    """
+
     ai_bots_protection: Literal["block", "disabled", "only_on_ad_pages"]
     """Enable rule to block AI Scrapers and Crawlers."""
+
+    aisearch: Annotated[Literal["disabled", "block", "only_on_ad_pages"], PropertyInfo(alias="ai_search")]
+    """Configure robots.txt policy for AI search bots."""
+
+    ai_training: Literal["disabled", "disallow", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI model training bots."""
+
+    ai_user: Literal["disabled", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI assistant and agent bots."""
 
     bot_preference_sync_enabled: bool
     """Enable Bot Preference Sync for this zone.
@@ -179,8 +226,23 @@ class SubscriptionConfiguration(TypedDict, total=False):
     zone_id: Required[str]
     """Identifier."""
 
+    ai_bots_migration_opt_out: bool
+    """
+    Temporary migration flag tracking zones opted out of AI bots managed-rule
+    updates.
+    """
+
     ai_bots_protection: Literal["block", "disabled", "only_on_ad_pages"]
     """Enable rule to block AI Scrapers and Crawlers."""
+
+    aisearch: Annotated[Literal["disabled", "block", "only_on_ad_pages"], PropertyInfo(alias="ai_search")]
+    """Configure robots.txt policy for AI search bots."""
+
+    ai_training: Literal["disabled", "disallow", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI model training bots."""
+
+    ai_user: Literal["disabled", "block", "only_on_ad_pages"]
+    """Configure robots.txt policy for AI assistant and agent bots."""
 
     auto_update_model: bool
     """

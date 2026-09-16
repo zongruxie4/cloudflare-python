@@ -2442,7 +2442,6 @@ class ScoreRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: ScoreRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -2585,7 +2584,6 @@ class ServeErrorRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: ServeErrorRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -2748,7 +2746,6 @@ class SetCacheControlRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: SetCacheControlRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -3307,7 +3304,6 @@ class SetCacheSettingsRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: SetCacheSettingsRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -3818,7 +3814,6 @@ class SetCacheTagsRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: SetCacheTagsRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -4024,7 +4019,6 @@ class SetConfigurationRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: SetConfigurationRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -4248,7 +4242,6 @@ class SkipRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: SkipRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""
@@ -4421,7 +4414,6 @@ class TransformResponseHTMLRule(TypedDict, total=False):
     """An informative description of the rule."""
 
     enabled: bool
-    """Whether the rule should be executed."""
 
     exposed_credential_check: TransformResponseHTMLRuleExposedCredentialCheck
     """Configuration for exposed credential checking."""

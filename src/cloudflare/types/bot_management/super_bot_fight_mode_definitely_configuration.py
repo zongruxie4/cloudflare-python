@@ -3,6 +3,8 @@
 from typing import Optional
 from typing_extensions import Literal
 
+from pydantic import Field as FieldInfo
+
 from ..._models import BaseModel
 
 __all__ = ["SuperBotFightModeDefinitelyConfiguration", "StaleZoneConfiguration"]
@@ -24,8 +26,23 @@ class StaleZoneConfiguration(BaseModel):
 
 
 class SuperBotFightModeDefinitelyConfiguration(BaseModel):
+    ai_bots_migration_opt_out: Optional[bool] = None
+    """
+    Temporary migration flag tracking zones opted out of AI bots managed-rule
+    updates.
+    """
+
     ai_bots_protection: Optional[Literal["block", "disabled", "only_on_ad_pages"]] = None
     """Enable rule to block AI Scrapers and Crawlers."""
+
+    aisearch: Optional[Literal["disabled", "block", "only_on_ad_pages"]] = FieldInfo(alias="ai_search", default=None)
+    """Configure robots.txt policy for AI search bots."""
+
+    ai_training: Optional[Literal["disabled", "disallow", "block", "only_on_ad_pages"]] = None
+    """Configure robots.txt policy for AI model training bots."""
+
+    ai_user: Optional[Literal["disabled", "block", "only_on_ad_pages"]] = None
+    """Configure robots.txt policy for AI assistant and agent bots."""
 
     bot_preference_sync_enabled: Optional[bool] = None
     """Enable Bot Preference Sync for this zone.

@@ -13,6 +13,7 @@ __all__ = ["SuppressionEditParams"]
 
 class SuppressionEditParams(TypedDict, total=False):
     account_id: Required[str]
+    """Cloudflare account ID."""
 
     expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """New expiry.

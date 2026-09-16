@@ -56,6 +56,14 @@ from .rate_plans import (
     RatePlansResourceWithStreamingResponse,
     AsyncRatePlansResourceWithStreamingResponse,
 )
+from .entitlements import (
+    EntitlementsResource,
+    AsyncEntitlementsResource,
+    EntitlementsResourceWithRawResponse,
+    AsyncEntitlementsResourceWithRawResponse,
+    EntitlementsResourceWithStreamingResponse,
+    AsyncEntitlementsResourceWithStreamingResponse,
+)
 from .environments import (
     EnvironmentsResource,
     AsyncEnvironmentsResource,
@@ -172,6 +180,12 @@ __all__ = [
     "AsyncRatePlansResourceWithRawResponse",
     "RatePlansResourceWithStreamingResponse",
     "AsyncRatePlansResourceWithStreamingResponse",
+    "EntitlementsResource",
+    "AsyncEntitlementsResource",
+    "EntitlementsResourceWithRawResponse",
+    "AsyncEntitlementsResourceWithRawResponse",
+    "EntitlementsResourceWithStreamingResponse",
+    "AsyncEntitlementsResourceWithStreamingResponse",
     "CTResource",
     "AsyncCTResource",
     "CTResourceWithRawResponse",

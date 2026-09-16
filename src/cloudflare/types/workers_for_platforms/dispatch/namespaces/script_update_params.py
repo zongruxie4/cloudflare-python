@@ -70,6 +70,7 @@ __all__ = [
     "MetadataMigrations",
     "MetadataMigrationsWorkersMultipleStepMigrations",
     "MetadataObservability",
+    "MetadataObservabilityIssues",
     "MetadataObservabilityLogs",
     "MetadataObservabilityTraces",
     "MetadataPackageDependency",
@@ -996,6 +997,13 @@ class MetadataMigrationsWorkersMultipleStepMigrations(TypedDict, total=False):
 MetadataMigrations: TypeAlias = Union[SingleStepMigrationParam, MetadataMigrationsWorkersMultipleStepMigrations]
 
 
+class MetadataObservabilityIssues(TypedDict, total=False):
+    """Real-time Issues settings for the Worker."""
+
+    enabled: bool
+    """Whether real-time Issues are enabled for the Worker."""
+
+
 class MetadataObservabilityLogs(TypedDict, total=False):
     """Log settings for the Worker."""
 
@@ -1055,6 +1063,9 @@ class MetadataObservability(TypedDict, total=False):
 
     From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.
     """
+
+    issues: Optional[MetadataObservabilityIssues]
+    """Real-time Issues settings for the Worker."""
 
     logs: Optional[MetadataObservabilityLogs]
     """Log settings for the Worker."""

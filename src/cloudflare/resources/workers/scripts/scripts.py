@@ -274,7 +274,7 @@ class ScriptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncSinglePage[ScriptListResponse]:
         """
-        Fetch a list of uploaded workers.
+        Fetch a list of uploaded Worker scripts.
 
         Args:
           account_id: Identifier.
@@ -370,10 +370,10 @@ class ScriptsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
-        """Fetch raw script content for your worker.
+        """Fetch raw content for a Worker script.
 
-        Note this is the original script
-        content, not JSON encoded.
+        Note this is the original script content,
+        not JSON encoded.
 
         Args:
           account_id: Identifier.
@@ -420,7 +420,7 @@ class ScriptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ScriptSearchResponse:
         """
-        Search for Workers in an account.
+        Search for Worker scripts in an account.
 
         Args:
           account_id: Identifier.
@@ -625,7 +625,7 @@ class AsyncScriptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ScriptListResponse, AsyncSinglePage[ScriptListResponse]]:
         """
-        Fetch a list of uploaded workers.
+        Fetch a list of uploaded Worker scripts.
 
         Args:
           account_id: Identifier.
@@ -721,10 +721,10 @@ class AsyncScriptsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
-        """Fetch raw script content for your worker.
+        """Fetch raw content for a Worker script.
 
-        Note this is the original script
-        content, not JSON encoded.
+        Note this is the original script content,
+        not JSON encoded.
 
         Args:
           account_id: Identifier.
@@ -771,7 +771,7 @@ class AsyncScriptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ScriptSearchResponse:
         """
-        Search for Workers in an account.
+        Search for Worker scripts in an account.
 
         Args:
           account_id: Identifier.

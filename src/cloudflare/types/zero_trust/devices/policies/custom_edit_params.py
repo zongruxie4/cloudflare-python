@@ -133,6 +133,12 @@ class CustomEditParams(TypedDict, total=False):
     tunnel_protocol: str
     """Determines which tunnel protocol to use."""
 
+    uninstall_protection: bool
+    """Determines whether uninstalling the WARP client requires an override code.
+
+    (Windows only).
+    """
+
     virtual_networks: Optional[VirtualNetworks]
     """Virtual network access settings for the device."""
 

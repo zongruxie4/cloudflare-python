@@ -4,6 +4,10 @@ Types:
 
 ```python
 from cloudflare.types.pipelines import (
+    FieldType,
+    ListField,
+    SourceField,
+    StructField,
     PipelineCreateResponse,
     PipelineUpdateResponse,
     PipelineListResponse,

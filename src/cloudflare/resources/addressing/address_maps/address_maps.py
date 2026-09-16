@@ -22,14 +22,6 @@ from .zones import (
     ZonesResourceWithStreamingResponse,
     AsyncZonesResourceWithStreamingResponse,
 )
-from .accounts import (
-    AccountsResource,
-    AsyncAccountsResource,
-    AccountsResourceWithRawResponse,
-    AsyncAccountsResourceWithRawResponse,
-    AccountsResourceWithStreamingResponse,
-    AsyncAccountsResourceWithStreamingResponse,
-)
 from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
@@ -53,10 +45,6 @@ __all__ = ["AddressMapsResource", "AsyncAddressMapsResource"]
 
 
 class AddressMapsResource(SyncAPIResource):
-    @cached_property
-    def accounts(self) -> AccountsResource:
-        return AccountsResource(self._client)
-
     @cached_property
     def ips(self) -> IPsResource:
         return IPsResource(self._client)
@@ -348,10 +336,6 @@ class AddressMapsResource(SyncAPIResource):
 
 
 class AsyncAddressMapsResource(AsyncAPIResource):
-    @cached_property
-    def accounts(self) -> AsyncAccountsResource:
-        return AsyncAccountsResource(self._client)
-
     @cached_property
     def ips(self) -> AsyncIPsResource:
         return AsyncIPsResource(self._client)
@@ -663,10 +647,6 @@ class AddressMapsResourceWithRawResponse:
         )
 
     @cached_property
-    def accounts(self) -> AccountsResourceWithRawResponse:
-        return AccountsResourceWithRawResponse(self._address_maps.accounts)
-
-    @cached_property
     def ips(self) -> IPsResourceWithRawResponse:
         return IPsResourceWithRawResponse(self._address_maps.ips)
 
@@ -694,10 +674,6 @@ class AsyncAddressMapsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             address_maps.get,
         )
-
-    @cached_property
-    def accounts(self) -> AsyncAccountsResourceWithRawResponse:
-        return AsyncAccountsResourceWithRawResponse(self._address_maps.accounts)
 
     @cached_property
     def ips(self) -> AsyncIPsResourceWithRawResponse:
@@ -729,10 +705,6 @@ class AddressMapsResourceWithStreamingResponse:
         )
 
     @cached_property
-    def accounts(self) -> AccountsResourceWithStreamingResponse:
-        return AccountsResourceWithStreamingResponse(self._address_maps.accounts)
-
-    @cached_property
     def ips(self) -> IPsResourceWithStreamingResponse:
         return IPsResourceWithStreamingResponse(self._address_maps.ips)
 
@@ -760,10 +732,6 @@ class AsyncAddressMapsResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             address_maps.get,
         )
-
-    @cached_property
-    def accounts(self) -> AsyncAccountsResourceWithStreamingResponse:
-        return AsyncAccountsResourceWithStreamingResponse(self._address_maps.accounts)
 
     @cached_property
     def ips(self) -> AsyncIPsResourceWithStreamingResponse:

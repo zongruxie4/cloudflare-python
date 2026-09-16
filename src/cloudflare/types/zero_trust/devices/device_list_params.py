@@ -28,6 +28,9 @@ class DeviceListParams(TypedDict, total=False):
     response.
     """
 
+    has_registration_type: Literal["warp", "browser_extension"]
+    """Filter by the type of active registration associated with the device."""
+
     include: str
     """
     Comma-separated list of additional information that should be included in the

@@ -1289,6 +1289,12 @@ class Version(BaseModel):
     content type `text/plain`.
     """
 
+    author_email: Optional[str] = None
+    """Email of the user who created the version."""
+
+    author_id: Optional[str] = None
+    """Identifier of the user who created the version."""
+
     bindings: Optional[List[Binding]] = None
     """List of bindings attached to a Worker.
 

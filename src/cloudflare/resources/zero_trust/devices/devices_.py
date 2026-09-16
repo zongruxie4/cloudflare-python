@@ -54,6 +54,7 @@ class DevicesResource(SyncAPIResource):
         id: SequenceNotStr[str] | Omit = omit,
         active_registrations: Literal["include", "only", "exclude"] | Omit = omit,
         cursor: str | Omit = omit,
+        has_registration_type: Literal["warp", "browser_extension"] | Omit = omit,
         include: str | Omit = omit,
         last_seen_registration: device_list_params.LastSeenRegistration | Omit = omit,
         last_seen_user: device_list_params.LastSeenUser | Omit = omit,
@@ -85,6 +86,8 @@ class DevicesResource(SyncAPIResource):
           cursor: Opaque token indicating the starting position when requesting the next set of
               records. A cursor value can be obtained from the result_info.cursor field in the
               response.
+
+          has_registration_type: Filter by the type of active registration associated with the device.
 
           include: Comma-separated list of additional information that should be included in the
               device response. Supported values are: "last_seen_registration.policy".
@@ -126,6 +129,7 @@ class DevicesResource(SyncAPIResource):
                         "id": id,
                         "active_registrations": active_registrations,
                         "cursor": cursor,
+                        "has_registration_type": has_registration_type,
                         "include": include,
                         "last_seen_registration": last_seen_registration,
                         "last_seen_user": last_seen_user,
@@ -307,6 +311,7 @@ class AsyncDevicesResource(AsyncAPIResource):
         id: SequenceNotStr[str] | Omit = omit,
         active_registrations: Literal["include", "only", "exclude"] | Omit = omit,
         cursor: str | Omit = omit,
+        has_registration_type: Literal["warp", "browser_extension"] | Omit = omit,
         include: str | Omit = omit,
         last_seen_registration: device_list_params.LastSeenRegistration | Omit = omit,
         last_seen_user: device_list_params.LastSeenUser | Omit = omit,
@@ -338,6 +343,8 @@ class AsyncDevicesResource(AsyncAPIResource):
           cursor: Opaque token indicating the starting position when requesting the next set of
               records. A cursor value can be obtained from the result_info.cursor field in the
               response.
+
+          has_registration_type: Filter by the type of active registration associated with the device.
 
           include: Comma-separated list of additional information that should be included in the
               device response. Supported values are: "last_seen_registration.policy".
@@ -379,6 +386,7 @@ class AsyncDevicesResource(AsyncAPIResource):
                         "id": id,
                         "active_registrations": active_registrations,
                         "cursor": cursor,
+                        "has_registration_type": has_registration_type,
                         "include": include,
                         "last_seen_registration": last_seen_registration,
                         "last_seen_user": last_seen_user,

@@ -140,4 +140,4 @@ Methods:
 
 Methods:
 
-- <code title="put /user/tokens/{token_id}/value">client.user.tokens.value.<a href="./src/cloudflare/resources/user/tokens/value.py">update</a>(token_id, \*\*<a href="src/cloudflare/types/user/tokens/value_update_params.py">params</a>) -> <a href="./src/cloudflare/types/shared/token_value.py">str</a></code>
+- <code title="put /user/tokens/{token_id}/value">client.user.tokens.value.<a href="./src/cloudflare/resources/user/tokens/value.py">update</a>(token_id) -> <a href="./src/cloudflare/types/shared/token_value.py">str</a></code>

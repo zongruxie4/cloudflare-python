@@ -66,7 +66,7 @@ class DeploymentsResource(SyncAPIResource):
         """
         Deployments configure how
         [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions)
-        are deployed to traffic. A deployment can consist of one or two versions of a
+        are deployed to traffic. A deployment can consist of multiple versions of a
         Worker.
 
         Args:
@@ -126,7 +126,7 @@ class DeploymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeploymentListResponse:
-        """List of Worker Deployments.
+        """List Worker deployments.
 
         The first deployment in the list is the latest
         deployment actively serving traffic.
@@ -306,7 +306,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         """
         Deployments configure how
         [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions)
-        are deployed to traffic. A deployment can consist of one or two versions of a
+        are deployed to traffic. A deployment can consist of multiple versions of a
         Worker.
 
         Args:
@@ -366,7 +366,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeploymentListResponse:
-        """List of Worker Deployments.
+        """List Worker deployments.
 
         The first deployment in the list is the latest
         deployment actively serving traffic.

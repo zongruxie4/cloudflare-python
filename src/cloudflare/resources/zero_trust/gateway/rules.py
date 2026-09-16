@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Optional, cast
+from typing import List, Type, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -20,7 +20,7 @@ from ...._response import (
 from ...._wrappers import ResultWrapper
 from ....pagination import SyncSinglePage, AsyncSinglePage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.zero_trust.gateway import rule_create_params, rule_update_params
+from ....types.zero_trust.gateway import rule_list_params, rule_create_params, rule_update_params
 from ....types.zero_trust.gateway.gateway_rule import GatewayRule
 from ....types.zero_trust.gateway.gateway_filter import GatewayFilter
 from ....types.zero_trust.gateway.schedule_param import ScheduleParam
@@ -314,6 +314,10 @@ class RulesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        filter: Iterable[object] | Omit = omit,
+        order_by: Literal["name", "created_at", "updated_at", "precedence"] | Omit = omit,
+        search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -321,10 +325,30 @@ class RulesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncSinglePage[GatewayRule]:
-        """
-        List Zero Trust Gateway rules for an account.
+        """List Zero Trust Gateway rules for an account.
 
         Args:
+          direction: Sort direction.
+
+        When `order_by` is omitted, this controls the direction of the
+              existing precedence ordering. Shared rules remain first in either direction.
+              Accepted values are `asc` and `desc`.
+
+          filter: Filter the returned rules by one or more `field:value` pairs. Repeat the
+              parameter to combine filters with logical AND.
+
+              Supported fields are `name`, `id`, `action`, `enabled`, `source_account`,
+              `is_shared`, `filters`, and `expression` (max 1024 bytes). The `source_account`
+              value is matched as a normalized UUID substring. The `filters` value must be one
+              of the rule filter names and matches a member of the rule's `filters` array. The
+              `expression` filter performs a case-insensitive literal substring match across
+              traffic, identity, and device posture expressions.
+
+          order_by: Field to sort the returned rules by. Supported values are `name`, `created_at`,
+              `updated_at`, and `precedence`.
+
+          search: Case-insensitive substring search across rule name and description.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -339,7 +363,19 @@ class RulesResource(SyncAPIResource):
             path_template("/accounts/{account_id}/gateway/rules", account_id=account_id),
             page=SyncSinglePage[GatewayRule],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "direction": direction,
+                        "filter": filter,
+                        "order_by": order_by,
+                        "search": search,
+                    },
+                    rule_list_params.RuleListParams,
+                ),
             ),
             model=GatewayRule,
         )
@@ -797,6 +833,10 @@ class AsyncRulesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        filter: Iterable[object] | Omit = omit,
+        order_by: Literal["name", "created_at", "updated_at", "precedence"] | Omit = omit,
+        search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -804,10 +844,30 @@ class AsyncRulesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[GatewayRule, AsyncSinglePage[GatewayRule]]:
-        """
-        List Zero Trust Gateway rules for an account.
+        """List Zero Trust Gateway rules for an account.
 
         Args:
+          direction: Sort direction.
+
+        When `order_by` is omitted, this controls the direction of the
+              existing precedence ordering. Shared rules remain first in either direction.
+              Accepted values are `asc` and `desc`.
+
+          filter: Filter the returned rules by one or more `field:value` pairs. Repeat the
+              parameter to combine filters with logical AND.
+
+              Supported fields are `name`, `id`, `action`, `enabled`, `source_account`,
+              `is_shared`, `filters`, and `expression` (max 1024 bytes). The `source_account`
+              value is matched as a normalized UUID substring. The `filters` value must be one
+              of the rule filter names and matches a member of the rule's `filters` array. The
+              `expression` filter performs a case-insensitive literal substring match across
+              traffic, identity, and device posture expressions.
+
+          order_by: Field to sort the returned rules by. Supported values are `name`, `created_at`,
+              `updated_at`, and `precedence`.
+
+          search: Case-insensitive substring search across rule name and description.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -822,7 +882,19 @@ class AsyncRulesResource(AsyncAPIResource):
             path_template("/accounts/{account_id}/gateway/rules", account_id=account_id),
             page=AsyncSinglePage[GatewayRule],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "direction": direction,
+                        "filter": filter,
+                        "order_by": order_by,
+                        "search": search,
+                    },
+                    rule_list_params.RuleListParams,
+                ),
             ),
             model=GatewayRule,
         )

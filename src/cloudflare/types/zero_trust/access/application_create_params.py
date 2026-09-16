@@ -146,6 +146,12 @@ __all__ = [
     "BookmarkApplicationPolicyUnionMember2MfaConfig",
     "InfrastructureApplication",
     "InfrastructureApplicationTargetCriterion",
+    "InfrastructureApplicationTargetCriterionExclude",
+    "InfrastructureApplicationTargetCriterionExcludeTargetAttributes",
+    "InfrastructureApplicationTargetCriterionInclude",
+    "InfrastructureApplicationTargetCriterionIncludeTargetAttributes",
+    "InfrastructureApplicationTargetCriterionRequire",
+    "InfrastructureApplicationTargetCriterionRequireTargetAttributes",
     "InfrastructureApplicationMfaConfig",
     "InfrastructureApplicationPolicy",
     "InfrastructureApplicationPolicyConnectionRules",
@@ -153,6 +159,12 @@ __all__ = [
     "InfrastructureApplicationPolicyMfaConfig",
     "BrowserRDPApplication",
     "BrowserRDPApplicationTargetCriterion",
+    "BrowserRDPApplicationTargetCriterionExclude",
+    "BrowserRDPApplicationTargetCriterionExcludeTargetAttributes",
+    "BrowserRDPApplicationTargetCriterionInclude",
+    "BrowserRDPApplicationTargetCriterionIncludeTargetAttributes",
+    "BrowserRDPApplicationTargetCriterionRequire",
+    "BrowserRDPApplicationTargetCriterionRequireTargetAttributes",
     "BrowserRDPApplicationDestination",
     "BrowserRDPApplicationDestinationPublicDestination",
     "BrowserRDPApplicationDestinationPrivateDestination",
@@ -3222,7 +3234,81 @@ class InfrastructureApplication(TypedDict, total=False):
     """The policies that Access applies to the application."""
 
 
+class InfrastructureApplicationTargetCriterionExcludeTargetAttributes(TypedDict, total=False):
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.
+    """
+
+    hostname: SequenceNotStr[str]
+
+
+class InfrastructureApplicationTargetCriterionExclude(TypedDict, total=False):
+    """Target is excluded when any selector in this rule matches."""
+
+    tags: Dict[str, SequenceNotStr[str]]
+    """Map of target tag keys to values. Values within a key are OR'd."""
+
+    target_attributes: InfrastructureApplicationTargetCriterionExcludeTargetAttributes
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only
+    supports the hostname key.
+    """
+
+
+class InfrastructureApplicationTargetCriterionIncludeTargetAttributes(TypedDict, total=False):
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.
+    """
+
+    hostname: SequenceNotStr[str]
+
+
+class InfrastructureApplicationTargetCriterionInclude(TypedDict, total=False):
+    """Target matches when any selector in this rule matches."""
+
+    tags: Dict[str, SequenceNotStr[str]]
+    """Map of target tag keys to values. Values within a key are OR'd."""
+
+    target_attributes: InfrastructureApplicationTargetCriterionIncludeTargetAttributes
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only
+    supports the hostname key.
+    """
+
+
+class InfrastructureApplicationTargetCriterionRequireTargetAttributes(TypedDict, total=False):
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.
+    """
+
+    hostname: SequenceNotStr[str]
+
+
+class InfrastructureApplicationTargetCriterionRequire(TypedDict, total=False):
+    """Target matches only when every selector in this rule matches."""
+
+    tags: Dict[str, SequenceNotStr[str]]
+    """Map of target tag keys to values. Values within a key are OR'd."""
+
+    target_attributes: InfrastructureApplicationTargetCriterionRequireTargetAttributes
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only
+    supports the hostname key.
+    """
+
+
 class InfrastructureApplicationTargetCriterion(TypedDict, total=False):
+    """Defines targets covered by the application.
+
+    Use either the legacy top-level target_attributes format or the rule format, but not both. The rule format requires include; require and exclude are optional.
+    """
+
     port: Required[int]
     """The port that the targets use for the chosen communication protocol.
 
@@ -3232,7 +3318,16 @@ class InfrastructureApplicationTargetCriterion(TypedDict, total=False):
     protocol: Required[Literal["SSH"]]
     """The communication protocol your application secures."""
 
-    target_attributes: Required[Dict[str, SequenceNotStr[str]]]
+    exclude: InfrastructureApplicationTargetCriterionExclude
+    """Target is excluded when any selector in this rule matches."""
+
+    include: InfrastructureApplicationTargetCriterionInclude
+    """Target matches when any selector in this rule matches."""
+
+    require: InfrastructureApplicationTargetCriterionRequire
+    """Target matches only when every selector in this rule matches."""
+
+    target_attributes: Dict[str, SequenceNotStr[str]]
     """Contains a map of target attribute keys to target attribute values."""
 
 
@@ -3547,7 +3642,81 @@ class BrowserRDPApplication(TypedDict, total=False):
     """
 
 
+class BrowserRDPApplicationTargetCriterionExcludeTargetAttributes(TypedDict, total=False):
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.
+    """
+
+    hostname: SequenceNotStr[str]
+
+
+class BrowserRDPApplicationTargetCriterionExclude(TypedDict, total=False):
+    """Target is excluded when any selector in this rule matches."""
+
+    tags: Dict[str, SequenceNotStr[str]]
+    """Map of target tag keys to values. Values within a key are OR'd."""
+
+    target_attributes: BrowserRDPApplicationTargetCriterionExcludeTargetAttributes
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only
+    supports the hostname key.
+    """
+
+
+class BrowserRDPApplicationTargetCriterionIncludeTargetAttributes(TypedDict, total=False):
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.
+    """
+
+    hostname: SequenceNotStr[str]
+
+
+class BrowserRDPApplicationTargetCriterionInclude(TypedDict, total=False):
+    """Target matches when any selector in this rule matches."""
+
+    tags: Dict[str, SequenceNotStr[str]]
+    """Map of target tag keys to values. Values within a key are OR'd."""
+
+    target_attributes: BrowserRDPApplicationTargetCriterionIncludeTargetAttributes
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only
+    supports the hostname key.
+    """
+
+
+class BrowserRDPApplicationTargetCriterionRequireTargetAttributes(TypedDict, total=False):
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.
+    """
+
+    hostname: SequenceNotStr[str]
+
+
+class BrowserRDPApplicationTargetCriterionRequire(TypedDict, total=False):
+    """Target matches only when every selector in this rule matches."""
+
+    tags: Dict[str, SequenceNotStr[str]]
+    """Map of target tag keys to values. Values within a key are OR'd."""
+
+    target_attributes: BrowserRDPApplicationTargetCriterionRequireTargetAttributes
+    """Hostname selector map for include, require, or exclude rules.
+
+    This is distinct from the deprecated top-level target_attributes field and only
+    supports the hostname key.
+    """
+
+
 class BrowserRDPApplicationTargetCriterion(TypedDict, total=False):
+    """Defines targets covered by the application.
+
+    Use either the legacy top-level target_attributes format or the rule format, but not both. The rule format requires include; require and exclude are optional.
+    """
+
     port: Required[int]
     """The port that the targets use for the chosen communication protocol.
 
@@ -3557,7 +3726,16 @@ class BrowserRDPApplicationTargetCriterion(TypedDict, total=False):
     protocol: Required[Literal["RDP"]]
     """The communication protocol your application secures."""
 
-    target_attributes: Required[Dict[str, SequenceNotStr[str]]]
+    exclude: BrowserRDPApplicationTargetCriterionExclude
+    """Target is excluded when any selector in this rule matches."""
+
+    include: BrowserRDPApplicationTargetCriterionInclude
+    """Target matches when any selector in this rule matches."""
+
+    require: BrowserRDPApplicationTargetCriterionRequire
+    """Target matches only when every selector in this rule matches."""
+
+    target_attributes: Dict[str, SequenceNotStr[str]]
     """Contains a map of target attribute keys to target attribute values."""
 
 

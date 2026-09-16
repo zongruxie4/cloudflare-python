@@ -128,6 +128,28 @@ Methods:
 - <code title="delete /accounts/{account_id}/magic/routes">client.magic_transit.routes.<a href="./src/cloudflare/resources/magic_transit/routes.py">empty</a>(\*, account_id) -> <a href="./src/cloudflare/types/magic_transit/route_empty_response.py">RouteEmptyResponse</a></code>
 - <code title="get /accounts/{account_id}/magic/routes/{route_id}">client.magic_transit.routes.<a href="./src/cloudflare/resources/magic_transit/routes.py">get</a>(route_id, \*, account_id) -> <a href="./src/cloudflare/types/magic_transit/route_get_response.py">RouteGetResponse</a></code>
 
+## BGPFilterProfiles
+
+Types:
+
+```python
+from cloudflare.types.magic_transit import (
+    BGPFilterProfileCreateResponse,
+    BGPFilterProfileUpdateResponse,
+    BGPFilterProfileListResponse,
+    BGPFilterProfileDeleteResponse,
+    BGPFilterProfileGetResponse,
+)
+```
+
+Methods:
+
+- <code title="post /accounts/{account_id}/magic/bgp/filter_profiles">client.magic_transit.bgp_filter_profiles.<a href="./src/cloudflare/resources/magic_transit/bgp_filter_profiles.py">create</a>(\*, account_id, \*\*<a href="src/cloudflare/types/magic_transit/bgp_filter_profile_create_params.py">params</a>) -> <a href="./src/cloudflare/types/magic_transit/bgp_filter_profile_create_response.py">BGPFilterProfileCreateResponse</a></code>
+- <code title="put /accounts/{account_id}/magic/bgp/filter_profiles/{profile_id}">client.magic_transit.bgp_filter_profiles.<a href="./src/cloudflare/resources/magic_transit/bgp_filter_profiles.py">update</a>(profile_id, \*, account_id, \*\*<a href="src/cloudflare/types/magic_transit/bgp_filter_profile_update_params.py">params</a>) -> <a href="./src/cloudflare/types/magic_transit/bgp_filter_profile_update_response.py">BGPFilterProfileUpdateResponse</a></code>
+- <code title="get /accounts/{account_id}/magic/bgp/filter_profiles">client.magic_transit.bgp_filter_profiles.<a href="./src/cloudflare/resources/magic_transit/bgp_filter_profiles.py">list</a>(\*, account_id) -> <a href="./src/cloudflare/types/magic_transit/bgp_filter_profile_list_response.py">SyncSinglePage[BGPFilterProfileListResponse]</a></code>
+- <code title="delete /accounts/{account_id}/magic/bgp/filter_profiles/{profile_id}">client.magic_transit.bgp_filter_profiles.<a href="./src/cloudflare/resources/magic_transit/bgp_filter_profiles.py">delete</a>(profile_id, \*, account_id) -> <a href="./src/cloudflare/types/magic_transit/bgp_filter_profile_delete_response.py">BGPFilterProfileDeleteResponse</a></code>
+- <code title="get /accounts/{account_id}/magic/bgp/filter_profiles/{profile_id}">client.magic_transit.bgp_filter_profiles.<a href="./src/cloudflare/resources/magic_transit/bgp_filter_profiles.py">get</a>(profile_id, \*, account_id) -> <a href="./src/cloudflare/types/magic_transit/bgp_filter_profile_get_response.py">BGPFilterProfileGetResponse</a></code>
+
 ## Sites
 
 Types:

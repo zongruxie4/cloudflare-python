@@ -33,7 +33,6 @@ Types:
 ```python
 from cloudflare.types.zones import (
     AdvancedDDoS,
-    Aegis,
     AlwaysOnline,
     AlwaysUseHTTPS,
     AutomaticHTTPSRewrites,
@@ -225,6 +224,18 @@ from cloudflare.types.zones import RatePlanGetResponse
 Methods:
 
 - <code title="get /zones/{zone_id}/available_rate_plans">client.zones.rate_plans.<a href="./src/cloudflare/resources/zones/rate_plans.py">get</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/rate_plan_get_response.py">SyncSinglePage[RatePlanGetResponse]</a></code>
+
+## Entitlements
+
+Types:
+
+```python
+from cloudflare.types.zones import EntitlementListResponse
+```
+
+Methods:
+
+- <code title="get /zones/{zone_id}/entitlements">client.zones.entitlements.<a href="./src/cloudflare/resources/zones/entitlements.py">list</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/entitlement_list_response.py">SyncSinglePage[EntitlementListResponse]</a></code>
 
 ## CT
 

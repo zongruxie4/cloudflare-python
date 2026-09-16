@@ -175,7 +175,6 @@ class SetConfigRule(BaseModel):
     """An informative description of the rule."""
 
     enabled: Optional[bool] = None
-    """Whether the rule should be executed."""
 
     exposed_credential_check: Optional[ExposedCredentialCheck] = None
     """Configuration for exposed credential checking."""

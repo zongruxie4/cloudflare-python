@@ -58,6 +58,12 @@ class IndexingOptions(BaseModel):
     Defaults to porter.
     """
 
+    use_ocr: Optional[bool] = None
+    """Enables OCR ingestion for PDFs and images.
+
+    Changing this triggers a full re-index. Defaults to false.
+    """
+
 
 class Metadata(BaseModel):
     created_from_aisearch_wizard: Optional[bool] = None

@@ -151,5 +151,11 @@ class DefaultEditResponse(BaseModel):
     tunnel_protocol: Optional[str] = None
     """Determines which tunnel protocol to use."""
 
+    uninstall_protection: Optional[bool] = None
+    """Determines whether uninstalling the WARP client requires an override code.
+
+    (Windows only).
+    """
+
     virtual_networks: Optional[VirtualNetworks] = None
     """Virtual network access settings for the device."""

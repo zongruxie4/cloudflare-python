@@ -72,6 +72,7 @@ __all__ = [
     "Migrations",
     "MigrationsWorkersMultipleStepMigrations",
     "Observability",
+    "ObservabilityIssues",
     "ObservabilityLogs",
     "ObservabilityTraces",
     "Placement",
@@ -1089,6 +1090,13 @@ class MigrationsWorkersMultipleStepMigrations(BaseModel):
 Migrations: TypeAlias = Union[SingleStepMigration, MigrationsWorkersMultipleStepMigrations]
 
 
+class ObservabilityIssues(BaseModel):
+    """Real-time Issues settings for the Worker."""
+
+    enabled: Optional[bool] = None
+    """Whether real-time Issues are enabled for the Worker."""
+
+
 class ObservabilityLogs(BaseModel):
     """Log settings for the Worker."""
 
@@ -1148,6 +1156,9 @@ class Observability(BaseModel):
 
     From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.
     """
+
+    issues: Optional[ObservabilityIssues] = None
+    """Real-time Issues settings for the Worker."""
 
     logs: Optional[ObservabilityLogs] = None
     """Log settings for the Worker."""

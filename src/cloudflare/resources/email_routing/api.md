@@ -26,9 +26,9 @@ from cloudflare.types.email_routing import DNSRecord, DNSGetResponse
 Methods:
 
 - <code title="post /zones/{zone_id}/email/routing/dns">client.email_routing.dns.<a href="./src/cloudflare/resources/email_routing/dns.py">create</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/email_routing/dns_create_params.py">params</a>) -> <a href="./src/cloudflare/types/email_routing/settings.py">Optional[Settings]</a></code>
-- <code title="delete /zones/{zone_id}/email/routing/dns">client.email_routing.dns.<a href="./src/cloudflare/resources/email_routing/dns.py">delete</a>(\*, zone_id) -> <a href="./src/cloudflare/types/email_routing/dns_record.py">SyncSinglePage[DNSRecord]</a></code>
+- <code title="delete /zones/{zone_id}/email/routing/dns">client.email_routing.dns.<a href="./src/cloudflare/resources/email_routing/dns.py">delete</a>(\*, zone_id) -> <a href="./src/cloudflare/types/email_routing/settings.py">Optional[Settings]</a></code>
 - <code title="patch /zones/{zone_id}/email/routing/dns">client.email_routing.dns.<a href="./src/cloudflare/resources/email_routing/dns.py">edit</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/email_routing/dns_edit_params.py">params</a>) -> <a href="./src/cloudflare/types/email_routing/settings.py">Optional[Settings]</a></code>
-- <code title="get /zones/{zone_id}/email/routing/dns">client.email_routing.dns.<a href="./src/cloudflare/resources/email_routing/dns.py">get</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/email_routing/dns_get_params.py">params</a>) -> <a href="./src/cloudflare/types/email_routing/dns_get_response.py">DNSGetResponse</a></code>
+- <code title="get /zones/{zone_id}/email/routing/dns">client.email_routing.dns.<a href="./src/cloudflare/resources/email_routing/dns.py">get</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/email_routing/dns_get_params.py">params</a>) -> <a href="./src/cloudflare/types/email_routing/dns_get_response.py">Optional[DNSGetResponse]</a></code>
 
 ## Rules
 

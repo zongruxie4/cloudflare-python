@@ -133,6 +133,7 @@ if TYPE_CHECKING:
         brand_protection,
         content_scanning,
         custom_hostnames,
+        field_extractors,
         resource_sharing,
         resource_tagging,
         token_validation,
@@ -255,6 +256,7 @@ if TYPE_CHECKING:
     from .resources.brand_protection.brand_protection import BrandProtectionResource, AsyncBrandProtectionResource
     from .resources.content_scanning.content_scanning import ContentScanningResource, AsyncContentScanningResource
     from .resources.custom_hostnames.custom_hostnames import CustomHostnamesResource, AsyncCustomHostnamesResource
+    from .resources.field_extractors.field_extractors import FieldExtractorsResource, AsyncFieldExtractorsResource
     from .resources.resource_sharing.resource_sharing import ResourceSharingResource, AsyncResourceSharingResource
     from .resources.resource_tagging.resource_tagging import ResourceTaggingResource, AsyncResourceTaggingResource
     from .resources.token_validation.token_validation import TokenValidationResource, AsyncTokenValidationResource
@@ -1356,6 +1358,12 @@ class Cloudflare(SyncAPIClient):
         from .resources.token_validation import TokenValidationResource
 
         return TokenValidationResource(self)
+
+    @cached_property
+    def field_extractors(self) -> FieldExtractorsResource:
+        from .resources.field_extractors import FieldExtractorsResource
+
+        return FieldExtractorsResource(self)
 
     @cached_property
     def with_raw_response(self) -> CloudflareWithRawResponse:
@@ -2546,6 +2554,12 @@ class AsyncCloudflare(AsyncAPIClient):
         return AsyncTokenValidationResource(self)
 
     @cached_property
+    def field_extractors(self) -> AsyncFieldExtractorsResource:
+        from .resources.field_extractors import AsyncFieldExtractorsResource
+
+        return AsyncFieldExtractorsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncCloudflareWithRawResponse:
         return AsyncCloudflareWithRawResponse(self)
 
@@ -3657,6 +3671,12 @@ class CloudflareWithRawResponse:
 
         return TokenValidationResourceWithRawResponse(self._client.token_validation)
 
+    @cached_property
+    def field_extractors(self) -> field_extractors.FieldExtractorsResourceWithRawResponse:
+        from .resources.field_extractors import FieldExtractorsResourceWithRawResponse
+
+        return FieldExtractorsResourceWithRawResponse(self._client.field_extractors)
+
 
 class AsyncCloudflareWithRawResponse:
     _client: AsyncCloudflare
@@ -4596,6 +4616,12 @@ class AsyncCloudflareWithRawResponse:
 
         return AsyncTokenValidationResourceWithRawResponse(self._client.token_validation)
 
+    @cached_property
+    def field_extractors(self) -> field_extractors.AsyncFieldExtractorsResourceWithRawResponse:
+        from .resources.field_extractors import AsyncFieldExtractorsResourceWithRawResponse
+
+        return AsyncFieldExtractorsResourceWithRawResponse(self._client.field_extractors)
+
 
 class CloudflareWithStreamedResponse:
     _client: Cloudflare
@@ -5534,6 +5560,12 @@ class CloudflareWithStreamedResponse:
         from .resources.token_validation import TokenValidationResourceWithStreamingResponse
 
         return TokenValidationResourceWithStreamingResponse(self._client.token_validation)
+
+    @cached_property
+    def field_extractors(self) -> field_extractors.FieldExtractorsResourceWithStreamingResponse:
+        from .resources.field_extractors import FieldExtractorsResourceWithStreamingResponse
+
+        return FieldExtractorsResourceWithStreamingResponse(self._client.field_extractors)
 
 
 class AsyncCloudflareWithStreamedResponse:
@@ -6483,6 +6515,12 @@ class AsyncCloudflareWithStreamedResponse:
         from .resources.token_validation import AsyncTokenValidationResourceWithStreamingResponse
 
         return AsyncTokenValidationResourceWithStreamingResponse(self._client.token_validation)
+
+    @cached_property
+    def field_extractors(self) -> field_extractors.AsyncFieldExtractorsResourceWithStreamingResponse:
+        from .resources.field_extractors import AsyncFieldExtractorsResourceWithStreamingResponse
+
+        return AsyncFieldExtractorsResourceWithStreamingResponse(self._client.field_extractors)
 
 
 Client = Cloudflare

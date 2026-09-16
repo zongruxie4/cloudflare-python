@@ -33,6 +33,7 @@ from ....types.zero_trust import (
 )
 from ....types.zero_trust.organization import Organization
 from ....types.zero_trust.login_design_param import LoginDesignParam
+from ....types.zero_trust.organization_list_response import OrganizationListResponse
 from ....types.zero_trust.organization_revoke_users_response import OrganizationRevokeUsersResponse
 
 __all__ = ["OrganizationsResource", "AsyncOrganizationsResource"]
@@ -365,7 +366,7 @@ class OrganizationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Organization]:
+    ) -> Optional[OrganizationListResponse]:
         """
         Returns the configuration for your Zero Trust organization.
 
@@ -405,9 +406,9 @@ class OrganizationsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=ResultWrapper[Optional[Organization]]._unwrapper,
+                post_parser=ResultWrapper[Optional[OrganizationListResponse]]._unwrapper,
             ),
-            cast_to=cast(Type[Optional[Organization]], ResultWrapper[Organization]),
+            cast_to=cast(Type[Optional[OrganizationListResponse]], ResultWrapper[OrganizationListResponse]),
         )
 
     def revoke_users(
@@ -825,7 +826,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Organization]:
+    ) -> Optional[OrganizationListResponse]:
         """
         Returns the configuration for your Zero Trust organization.
 
@@ -865,9 +866,9 @@ class AsyncOrganizationsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=ResultWrapper[Optional[Organization]]._unwrapper,
+                post_parser=ResultWrapper[Optional[OrganizationListResponse]]._unwrapper,
             ),
-            cast_to=cast(Type[Optional[Organization]], ResultWrapper[Organization]),
+            cast_to=cast(Type[Optional[OrganizationListResponse]], ResultWrapper[OrganizationListResponse]),
         )
 
     async def revoke_users(

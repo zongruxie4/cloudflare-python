@@ -316,3 +316,5 @@ Methods:
 # [SchemaValidation](src/cloudflare/resources/schema_validation/api.md)
 
 # [TokenValidation](src/cloudflare/resources/token_validation/api.md)
+
+# [FieldExtractors](src/cloudflare/resources/field_extractors/api.md)

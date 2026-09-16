@@ -7,7 +7,15 @@ from typing_extensions import Literal, Required, TypedDict
 
 from ...._types import SequenceNotStr
 
-__all__ = ["WorkerEditParams", "Observability", "ObservabilityLogs", "ObservabilityTraces", "Subdomain", "TailConsumer"]
+__all__ = [
+    "WorkerEditParams",
+    "Observability",
+    "ObservabilityIssues",
+    "ObservabilityLogs",
+    "ObservabilityTraces",
+    "Subdomain",
+    "TailConsumer",
+]
 
 
 class WorkerEditParams(TypedDict, total=False):
@@ -31,6 +39,13 @@ class WorkerEditParams(TypedDict, total=False):
 
     tail_consumers: Required[Iterable[TailConsumer]]
     """Other Workers that should consume logs from the Worker."""
+
+
+class ObservabilityIssues(TypedDict, total=False):
+    """Real-time Issues settings for the Worker."""
+
+    enabled: bool
+    """Whether real-time Issues are enabled for the Worker."""
 
 
 class ObservabilityLogs(TypedDict, total=False):
@@ -89,6 +104,9 @@ class Observability(TypedDict, total=False):
 
     head_sampling_rate: float
     """The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%)."""
+
+    issues: Optional[ObservabilityIssues]
+    """Real-time Issues settings for the Worker."""
 
     logs: ObservabilityLogs
     """Log settings for the Worker."""

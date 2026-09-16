@@ -63,6 +63,7 @@ class RegistrationsResource(SyncAPIResource):
         include: str | Omit = omit,
         per_page: int | Omit = omit,
         policy: registration_list_params.Policy | Omit = omit,
+        registration_type: Literal["warp", "browser_extension"] | Omit = omit,
         search: str | Omit = omit,
         seen_after: str | Omit = omit,
         seen_before: str | Omit = omit,
@@ -91,6 +92,8 @@ class RegistrationsResource(SyncAPIResource):
               registration response. Supported values are: "policy".
 
           per_page: The maximum number of devices to return in a single response.
+
+          registration_type: Filter by registration client type.
 
           search: Filter by registration details.
 
@@ -132,6 +135,7 @@ class RegistrationsResource(SyncAPIResource):
                         "include": include,
                         "per_page": per_page,
                         "policy": policy,
+                        "registration_type": registration_type,
                         "search": search,
                         "seen_after": seen_after,
                         "seen_before": seen_before,
@@ -393,6 +397,7 @@ class AsyncRegistrationsResource(AsyncAPIResource):
         include: str | Omit = omit,
         per_page: int | Omit = omit,
         policy: registration_list_params.Policy | Omit = omit,
+        registration_type: Literal["warp", "browser_extension"] | Omit = omit,
         search: str | Omit = omit,
         seen_after: str | Omit = omit,
         seen_before: str | Omit = omit,
@@ -421,6 +426,8 @@ class AsyncRegistrationsResource(AsyncAPIResource):
               registration response. Supported values are: "policy".
 
           per_page: The maximum number of devices to return in a single response.
+
+          registration_type: Filter by registration client type.
 
           search: Filter by registration details.
 
@@ -462,6 +469,7 @@ class AsyncRegistrationsResource(AsyncAPIResource):
                         "include": include,
                         "per_page": per_page,
                         "policy": policy,
+                        "registration_type": registration_type,
                         "search": search,
                         "seen_after": seen_after,
                         "seen_before": seen_before,

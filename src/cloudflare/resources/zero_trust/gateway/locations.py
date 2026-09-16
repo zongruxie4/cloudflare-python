@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Type, Iterable, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -19,7 +20,7 @@ from ...._response import (
 from ...._wrappers import ResultWrapper
 from ....pagination import SyncSinglePage, AsyncSinglePage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.zero_trust.gateway import location_create_params, location_update_params
+from ....types.zero_trust.gateway import location_list_params, location_create_params, location_update_params
 from ....types.zero_trust.gateway.location import Location
 from ....types.zero_trust.gateway.endpoint_param import EndpointParam
 
@@ -211,6 +212,10 @@ class LocationsResource(SyncAPIResource):
         self,
         *,
         account_id: str,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        filter: Iterable[object] | Omit = omit,
+        order_by: Literal["name", "created_at", "updated_at"] | Omit = omit,
+        search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -222,6 +227,42 @@ class LocationsResource(SyncAPIResource):
         List Zero Trust Gateway locations for an account.
 
         Args:
+          direction: Sort direction. Only takes effect when `order_by` is also provided; it is
+              ignored otherwise. When `direction` is omitted the effective direction is
+              field-specific: `created_at` and `updated_at` default to descending (newest
+              first); `name` defaults to ascending.
+
+              - `asc` — ascending.
+              - `desc` — descending.
+
+          filter: Filter the returned locations by one or more `field:value` pairs. Repeat the
+              parameter to apply multiple filters; they are combined with logical AND (a
+              location must satisfy every filter to be returned).
+
+              Supported fields and their matching behaviour:
+
+              - `name` — case-insensitive substring match on the location name.
+              - `id` — substring match on the location ID (UUID), with or without dashes.
+              - `is_default` — whether it is the default for the account.
+
+              Each entry must match one of the per-field patterns below:
+
+              - the field must be one of `name`, `id`, or `is_default`;
+              - `name`/`id` accept any value;
+              - `is_default` only accepts `true` or `false`; any other value returns `400`
+
+          order_by: Field to sort the returned locations by. When omitted, the order of results is
+              unspecified. Supported values:
+
+              - `name` — sort alphabetically by location name.
+              - `created_at` — sort by creation time; defaults to descending unless
+                `direction` is set.
+              - `updated_at` — sort by last-modified time; defaults to descending unless
+                `direction` is set.
+
+          search: Case-insensitive substring match on the location name. When combined with
+              `filter`, both must match (logical AND).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -236,7 +277,19 @@ class LocationsResource(SyncAPIResource):
             path_template("/accounts/{account_id}/gateway/locations", account_id=account_id),
             page=SyncSinglePage[Location],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "direction": direction,
+                        "filter": filter,
+                        "order_by": order_by,
+                        "search": search,
+                    },
+                    location_list_params.LocationListParams,
+                ),
             ),
             model=Location,
         )
@@ -511,6 +564,10 @@ class AsyncLocationsResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        filter: Iterable[object] | Omit = omit,
+        order_by: Literal["name", "created_at", "updated_at"] | Omit = omit,
+        search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -522,6 +579,42 @@ class AsyncLocationsResource(AsyncAPIResource):
         List Zero Trust Gateway locations for an account.
 
         Args:
+          direction: Sort direction. Only takes effect when `order_by` is also provided; it is
+              ignored otherwise. When `direction` is omitted the effective direction is
+              field-specific: `created_at` and `updated_at` default to descending (newest
+              first); `name` defaults to ascending.
+
+              - `asc` — ascending.
+              - `desc` — descending.
+
+          filter: Filter the returned locations by one or more `field:value` pairs. Repeat the
+              parameter to apply multiple filters; they are combined with logical AND (a
+              location must satisfy every filter to be returned).
+
+              Supported fields and their matching behaviour:
+
+              - `name` — case-insensitive substring match on the location name.
+              - `id` — substring match on the location ID (UUID), with or without dashes.
+              - `is_default` — whether it is the default for the account.
+
+              Each entry must match one of the per-field patterns below:
+
+              - the field must be one of `name`, `id`, or `is_default`;
+              - `name`/`id` accept any value;
+              - `is_default` only accepts `true` or `false`; any other value returns `400`
+
+          order_by: Field to sort the returned locations by. When omitted, the order of results is
+              unspecified. Supported values:
+
+              - `name` — sort alphabetically by location name.
+              - `created_at` — sort by creation time; defaults to descending unless
+                `direction` is set.
+              - `updated_at` — sort by last-modified time; defaults to descending unless
+                `direction` is set.
+
+          search: Case-insensitive substring match on the location name. When combined with
+              `filter`, both must match (logical AND).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -536,7 +629,19 @@ class AsyncLocationsResource(AsyncAPIResource):
             path_template("/accounts/{account_id}/gateway/locations", account_id=account_id),
             page=AsyncSinglePage[Location],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "direction": direction,
+                        "filter": filter,
+                        "order_by": order_by,
+                        "search": search,
+                    },
+                    location_list_params.LocationListParams,
+                ),
             ),
             model=Location,
         )

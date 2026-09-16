@@ -25,6 +25,22 @@ from .members import (
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
+from .invoices import (
+    InvoicesResource,
+    AsyncInvoicesResource,
+    InvoicesResourceWithRawResponse,
+    AsyncInvoicesResourceWithRawResponse,
+    InvoicesResourceWithStreamingResponse,
+    AsyncInvoicesResourceWithStreamingResponse,
+)
+from .receipts import (
+    ReceiptsResource,
+    AsyncReceiptsResource,
+    ReceiptsResourceWithRawResponse,
+    AsyncReceiptsResourceWithRawResponse,
+    ReceiptsResourceWithStreamingResponse,
+    AsyncReceiptsResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .logs.logs import (
     LogsResource,
@@ -42,14 +58,38 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._wrappers import ResultWrapper
+from .pay_invoice import (
+    PayInvoiceResource,
+    AsyncPayInvoiceResource,
+    PayInvoiceResourceWithRawResponse,
+    AsyncPayInvoiceResourceWithRawResponse,
+    PayInvoiceResourceWithStreamingResponse,
+    AsyncPayInvoiceResourceWithStreamingResponse,
+)
 from ...pagination import SyncV4PagePaginationArray, AsyncV4PagePaginationArray
-from .subscriptions import (
-    SubscriptionsResource,
-    AsyncSubscriptionsResource,
-    SubscriptionsResourceWithRawResponse,
-    AsyncSubscriptionsResourceWithRawResponse,
-    SubscriptionsResourceWithStreamingResponse,
-    AsyncSubscriptionsResourceWithStreamingResponse,
+from .entitlements import (
+    EntitlementsResource,
+    AsyncEntitlementsResource,
+    EntitlementsResourceWithRawResponse,
+    AsyncEntitlementsResourceWithRawResponse,
+    EntitlementsResourceWithStreamingResponse,
+    AsyncEntitlementsResourceWithStreamingResponse,
+)
+from .pay_bad_debt import (
+    PayBadDebtResource,
+    AsyncPayBadDebtResource,
+    PayBadDebtResourceWithRawResponse,
+    AsyncPayBadDebtResourceWithRawResponse,
+    PayBadDebtResourceWithStreamingResponse,
+    AsyncPayBadDebtResourceWithStreamingResponse,
+)
+from .client_secret import (
+    ClientSecretResource,
+    AsyncClientSecretResource,
+    ClientSecretResourceWithRawResponse,
+    AsyncClientSecretResourceWithRawResponse,
+    ClientSecretResourceWithStreamingResponse,
+    AsyncClientSecretResourceWithStreamingResponse,
 )
 from .tokens.tokens import (
     TokensResource,
@@ -60,8 +100,24 @@ from .tokens.tokens import (
     AsyncTokensResourceWithStreamingResponse,
 )
 from ..._base_client import AsyncPaginator, make_request_options
+from .payment_methods import (
+    PaymentMethodsResource,
+    AsyncPaymentMethodsResource,
+    PaymentMethodsResourceWithRawResponse,
+    AsyncPaymentMethodsResourceWithRawResponse,
+    PaymentMethodsResourceWithStreamingResponse,
+    AsyncPaymentMethodsResourceWithStreamingResponse,
+)
 from ...types.accounts import account_list_params, account_create_params, account_update_params
 from ...types.accounts.account import Account
+from .subscriptions.subscriptions import (
+    SubscriptionsResource,
+    AsyncSubscriptionsResource,
+    SubscriptionsResourceWithRawResponse,
+    AsyncSubscriptionsResourceWithRawResponse,
+    SubscriptionsResourceWithStreamingResponse,
+    AsyncSubscriptionsResourceWithStreamingResponse,
+)
 from .speed_settings.speed_settings import (
     SpeedSettingsResource,
     AsyncSpeedSettingsResource,
@@ -97,8 +153,36 @@ class AccountsResource(SyncAPIResource):
         return LogsResource(self._client)
 
     @cached_property
+    def entitlements(self) -> EntitlementsResource:
+        return EntitlementsResource(self._client)
+
+    @cached_property
     def speed_settings(self) -> SpeedSettingsResource:
         return SpeedSettingsResource(self._client)
+
+    @cached_property
+    def payment_methods(self) -> PaymentMethodsResource:
+        return PaymentMethodsResource(self._client)
+
+    @cached_property
+    def pay_invoice(self) -> PayInvoiceResource:
+        return PayInvoiceResource(self._client)
+
+    @cached_property
+    def pay_bad_debt(self) -> PayBadDebtResource:
+        return PayBadDebtResource(self._client)
+
+    @cached_property
+    def receipts(self) -> ReceiptsResource:
+        return ReceiptsResource(self._client)
+
+    @cached_property
+    def invoices(self) -> InvoicesResource:
+        return InvoicesResource(self._client)
+
+    @cached_property
+    def client_secret(self) -> ClientSecretResource:
+        return ClientSecretResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AccountsResourceWithRawResponse:
@@ -391,8 +475,36 @@ class AsyncAccountsResource(AsyncAPIResource):
         return AsyncLogsResource(self._client)
 
     @cached_property
+    def entitlements(self) -> AsyncEntitlementsResource:
+        return AsyncEntitlementsResource(self._client)
+
+    @cached_property
     def speed_settings(self) -> AsyncSpeedSettingsResource:
         return AsyncSpeedSettingsResource(self._client)
+
+    @cached_property
+    def payment_methods(self) -> AsyncPaymentMethodsResource:
+        return AsyncPaymentMethodsResource(self._client)
+
+    @cached_property
+    def pay_invoice(self) -> AsyncPayInvoiceResource:
+        return AsyncPayInvoiceResource(self._client)
+
+    @cached_property
+    def pay_bad_debt(self) -> AsyncPayBadDebtResource:
+        return AsyncPayBadDebtResource(self._client)
+
+    @cached_property
+    def receipts(self) -> AsyncReceiptsResource:
+        return AsyncReceiptsResource(self._client)
+
+    @cached_property
+    def invoices(self) -> AsyncInvoicesResource:
+        return AsyncInvoicesResource(self._client)
+
+    @cached_property
+    def client_secret(self) -> AsyncClientSecretResource:
+        return AsyncClientSecretResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAccountsResourceWithRawResponse:
@@ -704,8 +816,36 @@ class AccountsResourceWithRawResponse:
         return LogsResourceWithRawResponse(self._accounts.logs)
 
     @cached_property
+    def entitlements(self) -> EntitlementsResourceWithRawResponse:
+        return EntitlementsResourceWithRawResponse(self._accounts.entitlements)
+
+    @cached_property
     def speed_settings(self) -> SpeedSettingsResourceWithRawResponse:
         return SpeedSettingsResourceWithRawResponse(self._accounts.speed_settings)
+
+    @cached_property
+    def payment_methods(self) -> PaymentMethodsResourceWithRawResponse:
+        return PaymentMethodsResourceWithRawResponse(self._accounts.payment_methods)
+
+    @cached_property
+    def pay_invoice(self) -> PayInvoiceResourceWithRawResponse:
+        return PayInvoiceResourceWithRawResponse(self._accounts.pay_invoice)
+
+    @cached_property
+    def pay_bad_debt(self) -> PayBadDebtResourceWithRawResponse:
+        return PayBadDebtResourceWithRawResponse(self._accounts.pay_bad_debt)
+
+    @cached_property
+    def receipts(self) -> ReceiptsResourceWithRawResponse:
+        return ReceiptsResourceWithRawResponse(self._accounts.receipts)
+
+    @cached_property
+    def invoices(self) -> InvoicesResourceWithRawResponse:
+        return InvoicesResourceWithRawResponse(self._accounts.invoices)
+
+    @cached_property
+    def client_secret(self) -> ClientSecretResourceWithRawResponse:
+        return ClientSecretResourceWithRawResponse(self._accounts.client_secret)
 
 
 class AsyncAccountsResourceWithRawResponse:
@@ -749,8 +889,36 @@ class AsyncAccountsResourceWithRawResponse:
         return AsyncLogsResourceWithRawResponse(self._accounts.logs)
 
     @cached_property
+    def entitlements(self) -> AsyncEntitlementsResourceWithRawResponse:
+        return AsyncEntitlementsResourceWithRawResponse(self._accounts.entitlements)
+
+    @cached_property
     def speed_settings(self) -> AsyncSpeedSettingsResourceWithRawResponse:
         return AsyncSpeedSettingsResourceWithRawResponse(self._accounts.speed_settings)
+
+    @cached_property
+    def payment_methods(self) -> AsyncPaymentMethodsResourceWithRawResponse:
+        return AsyncPaymentMethodsResourceWithRawResponse(self._accounts.payment_methods)
+
+    @cached_property
+    def pay_invoice(self) -> AsyncPayInvoiceResourceWithRawResponse:
+        return AsyncPayInvoiceResourceWithRawResponse(self._accounts.pay_invoice)
+
+    @cached_property
+    def pay_bad_debt(self) -> AsyncPayBadDebtResourceWithRawResponse:
+        return AsyncPayBadDebtResourceWithRawResponse(self._accounts.pay_bad_debt)
+
+    @cached_property
+    def receipts(self) -> AsyncReceiptsResourceWithRawResponse:
+        return AsyncReceiptsResourceWithRawResponse(self._accounts.receipts)
+
+    @cached_property
+    def invoices(self) -> AsyncInvoicesResourceWithRawResponse:
+        return AsyncInvoicesResourceWithRawResponse(self._accounts.invoices)
+
+    @cached_property
+    def client_secret(self) -> AsyncClientSecretResourceWithRawResponse:
+        return AsyncClientSecretResourceWithRawResponse(self._accounts.client_secret)
 
 
 class AccountsResourceWithStreamingResponse:
@@ -794,8 +962,36 @@ class AccountsResourceWithStreamingResponse:
         return LogsResourceWithStreamingResponse(self._accounts.logs)
 
     @cached_property
+    def entitlements(self) -> EntitlementsResourceWithStreamingResponse:
+        return EntitlementsResourceWithStreamingResponse(self._accounts.entitlements)
+
+    @cached_property
     def speed_settings(self) -> SpeedSettingsResourceWithStreamingResponse:
         return SpeedSettingsResourceWithStreamingResponse(self._accounts.speed_settings)
+
+    @cached_property
+    def payment_methods(self) -> PaymentMethodsResourceWithStreamingResponse:
+        return PaymentMethodsResourceWithStreamingResponse(self._accounts.payment_methods)
+
+    @cached_property
+    def pay_invoice(self) -> PayInvoiceResourceWithStreamingResponse:
+        return PayInvoiceResourceWithStreamingResponse(self._accounts.pay_invoice)
+
+    @cached_property
+    def pay_bad_debt(self) -> PayBadDebtResourceWithStreamingResponse:
+        return PayBadDebtResourceWithStreamingResponse(self._accounts.pay_bad_debt)
+
+    @cached_property
+    def receipts(self) -> ReceiptsResourceWithStreamingResponse:
+        return ReceiptsResourceWithStreamingResponse(self._accounts.receipts)
+
+    @cached_property
+    def invoices(self) -> InvoicesResourceWithStreamingResponse:
+        return InvoicesResourceWithStreamingResponse(self._accounts.invoices)
+
+    @cached_property
+    def client_secret(self) -> ClientSecretResourceWithStreamingResponse:
+        return ClientSecretResourceWithStreamingResponse(self._accounts.client_secret)
 
 
 class AsyncAccountsResourceWithStreamingResponse:
@@ -839,5 +1035,33 @@ class AsyncAccountsResourceWithStreamingResponse:
         return AsyncLogsResourceWithStreamingResponse(self._accounts.logs)
 
     @cached_property
+    def entitlements(self) -> AsyncEntitlementsResourceWithStreamingResponse:
+        return AsyncEntitlementsResourceWithStreamingResponse(self._accounts.entitlements)
+
+    @cached_property
     def speed_settings(self) -> AsyncSpeedSettingsResourceWithStreamingResponse:
         return AsyncSpeedSettingsResourceWithStreamingResponse(self._accounts.speed_settings)
+
+    @cached_property
+    def payment_methods(self) -> AsyncPaymentMethodsResourceWithStreamingResponse:
+        return AsyncPaymentMethodsResourceWithStreamingResponse(self._accounts.payment_methods)
+
+    @cached_property
+    def pay_invoice(self) -> AsyncPayInvoiceResourceWithStreamingResponse:
+        return AsyncPayInvoiceResourceWithStreamingResponse(self._accounts.pay_invoice)
+
+    @cached_property
+    def pay_bad_debt(self) -> AsyncPayBadDebtResourceWithStreamingResponse:
+        return AsyncPayBadDebtResourceWithStreamingResponse(self._accounts.pay_bad_debt)
+
+    @cached_property
+    def receipts(self) -> AsyncReceiptsResourceWithStreamingResponse:
+        return AsyncReceiptsResourceWithStreamingResponse(self._accounts.receipts)
+
+    @cached_property
+    def invoices(self) -> AsyncInvoicesResourceWithStreamingResponse:
+        return AsyncInvoicesResourceWithStreamingResponse(self._accounts.invoices)
+
+    @cached_property
+    def client_secret(self) -> AsyncClientSecretResourceWithStreamingResponse:
+        return AsyncClientSecretResourceWithStreamingResponse(self._accounts.client_secret)
