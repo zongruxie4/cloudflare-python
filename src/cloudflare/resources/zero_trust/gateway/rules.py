@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Iterable, Optional, cast
+from typing import List, Type, Optional, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -315,7 +315,7 @@ class RulesResource(SyncAPIResource):
         *,
         account_id: str,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filter: Iterable[object] | Omit = omit,
+        filter: SequenceNotStr[str] | Omit = omit,
         order_by: Literal["name", "created_at", "updated_at", "precedence"] | Omit = omit,
         search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -834,7 +834,7 @@ class AsyncRulesResource(AsyncAPIResource):
         *,
         account_id: str,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filter: Iterable[object] | Omit = omit,
+        filter: SequenceNotStr[str] | Omit = omit,
         order_by: Literal["name", "created_at", "updated_at", "precedence"] | Omit = omit,
         search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

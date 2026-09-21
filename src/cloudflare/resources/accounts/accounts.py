@@ -24,7 +24,7 @@ from .members import (
     AsyncMembersResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .invoices import (
     InvoicesResource,
     AsyncInvoicesResource,
@@ -207,8 +207,10 @@ class AccountsResource(SyncAPIResource):
         self,
         *,
         name: str,
+        standalone: Literal[True] | Omit = omit,
         type: Literal["standard", "enterprise"] | Omit = omit,
         unit: account_create_params.Unit | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,15 +218,24 @@ class AccountsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Account]:
-        """
-        Create an account (only available for tenant admins at this time)
+        """Create an Account.
+
+        To create the Account within an Organization, provide
+        `unit.id` and omit `standalone`. To create a standalone Free Account, provide
+        `standalone: true` and omit `unit`. Providing both fields is invalid. If you
+        omit both fields, Cloudflare can determine the destination only when the User is
+        an administrator of exactly one Organization. Cloudflare creates the Account in
+        that Organization; otherwise, the request returns an error.
 
         Args:
           name: Account name
 
-          unit: information related to the tenant unit, and optionally, an id of the unit to
-              create the account on. see
-              https://developers.cloudflare.com/tenant/how-to/manage-accounts/
+          standalone: Set to `true` and omit `unit` to create a standalone Free Account. If provided,
+              this field must be `true`.
+
+          unit: Information related to the tenant unit. Provide its ID and omit `standalone` to
+              create the Account within an Organization. See
+              https://developers.cloudflare.com/tenant/how-to/manage-accounts/.
 
           extra_headers: Send extra headers
 
@@ -234,11 +245,13 @@ class AccountsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             "/accounts",
             body=maybe_transform(
                 {
                     "name": name,
+                    "standalone": standalone,
                     "type": type,
                     "unit": unit,
                 },
@@ -529,8 +542,10 @@ class AsyncAccountsResource(AsyncAPIResource):
         self,
         *,
         name: str,
+        standalone: Literal[True] | Omit = omit,
         type: Literal["standard", "enterprise"] | Omit = omit,
         unit: account_create_params.Unit | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -538,15 +553,24 @@ class AsyncAccountsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Account]:
-        """
-        Create an account (only available for tenant admins at this time)
+        """Create an Account.
+
+        To create the Account within an Organization, provide
+        `unit.id` and omit `standalone`. To create a standalone Free Account, provide
+        `standalone: true` and omit `unit`. Providing both fields is invalid. If you
+        omit both fields, Cloudflare can determine the destination only when the User is
+        an administrator of exactly one Organization. Cloudflare creates the Account in
+        that Organization; otherwise, the request returns an error.
 
         Args:
           name: Account name
 
-          unit: information related to the tenant unit, and optionally, an id of the unit to
-              create the account on. see
-              https://developers.cloudflare.com/tenant/how-to/manage-accounts/
+          standalone: Set to `true` and omit `unit` to create a standalone Free Account. If provided,
+              this field must be `true`.
+
+          unit: Information related to the tenant unit. Provide its ID and omit `standalone` to
+              create the Account within an Organization. See
+              https://developers.cloudflare.com/tenant/how-to/manage-accounts/.
 
           extra_headers: Send extra headers
 
@@ -556,11 +580,13 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             "/accounts",
             body=await async_maybe_transform(
                 {
                     "name": name,
+                    "standalone": standalone,
                     "type": type,
                     "unit": unit,
                 },

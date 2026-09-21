@@ -19,11 +19,7 @@ from ...._response import (
 from ...._wrappers import ResultWrapper
 from ....pagination import SyncSinglePage, AsyncSinglePage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.zero_trust.gateway import (
-    certificate_create_params,
-    certificate_activate_params,
-    certificate_deactivate_params,
-)
+from ....types.zero_trust.gateway import certificate_create_params
 from ....types.zero_trust.gateway.certificate_get_response import CertificateGetResponse
 from ....types.zero_trust.gateway.certificate_list_response import CertificateListResponse
 from ....types.zero_trust.gateway.certificate_create_response import CertificateCreateResponse
@@ -187,7 +183,6 @@ class CertificatesResource(SyncAPIResource):
         certificate_id: str,
         *,
         account_id: str,
-        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,7 +214,6 @@ class CertificatesResource(SyncAPIResource):
                 account_id=account_id,
                 certificate_id=certificate_id,
             ),
-            body=maybe_transform(body, certificate_activate_params.CertificateActivateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -235,7 +229,6 @@ class CertificatesResource(SyncAPIResource):
         certificate_id: str,
         *,
         account_id: str,
-        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -267,7 +260,6 @@ class CertificatesResource(SyncAPIResource):
                 account_id=account_id,
                 certificate_id=certificate_id,
             ),
-            body=maybe_transform(body, certificate_deactivate_params.CertificateDeactivateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -478,7 +470,6 @@ class AsyncCertificatesResource(AsyncAPIResource):
         certificate_id: str,
         *,
         account_id: str,
-        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -510,7 +501,6 @@ class AsyncCertificatesResource(AsyncAPIResource):
                 account_id=account_id,
                 certificate_id=certificate_id,
             ),
-            body=await async_maybe_transform(body, certificate_activate_params.CertificateActivateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -526,7 +516,6 @@ class AsyncCertificatesResource(AsyncAPIResource):
         certificate_id: str,
         *,
         account_id: str,
-        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -558,7 +547,6 @@ class AsyncCertificatesResource(AsyncAPIResource):
                 account_id=account_id,
                 certificate_id=certificate_id,
             ),
-            body=await async_maybe_transform(body, certificate_deactivate_params.CertificateDeactivateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

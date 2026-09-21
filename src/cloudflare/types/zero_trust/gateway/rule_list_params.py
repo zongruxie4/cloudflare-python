@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
+
+from ...._types import SequenceNotStr
 
 __all__ = ["RuleListParams"]
 
@@ -19,7 +20,7 @@ class RuleListParams(TypedDict, total=False):
     values are `asc` and `desc`.
     """
 
-    filter: Iterable[object]
+    filter: SequenceNotStr[str]
     """Filter the returned rules by one or more `field:value` pairs.
 
     Repeat the parameter to combine filters with logical AND.

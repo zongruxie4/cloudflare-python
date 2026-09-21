@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Type, Iterable, Optional, cast
+from typing import Any, Type, Optional, cast
 from typing_extensions import Literal, overload
 
 import httpx
@@ -160,7 +160,7 @@ class ProxyEndpointsResource(SyncAPIResource):
         *,
         account_id: str,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filter: Iterable[object] | Omit = omit,
+        filter: SequenceNotStr[str] | Omit = omit,
         order_by: Literal["name", "created_at", "updated_at"] | Omit = omit,
         search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -525,7 +525,7 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         *,
         account_id: str,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filter: Iterable[object] | Omit = omit,
+        filter: SequenceNotStr[str] | Omit = omit,
         order_by: Literal["name", "created_at", "updated_at"] | Omit = omit,
         search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

@@ -84,17 +84,19 @@ class BulkResource(SyncAPIResource):
             "Inbox", "JunkEmail", "DeletedItems", "RecoverableItemsDeletions", "RecoverableItemsPurges"
         ]
         | Omit = omit,
-        expected_disposition: Literal[
-            "MALICIOUS",
-            "MALICIOUS-BEC",
-            "SUSPICIOUS",
-            "SPOOF",
-            "SPAM",
-            "BULK",
-            "ENCRYPTED",
-            "EXTERNAL",
-            "UNKNOWN",
-            "NONE",
+        expected_disposition: Optional[
+            Literal[
+                "MALICIOUS",
+                "MALICIOUS-BEC",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "ENCRYPTED",
+                "EXTERNAL",
+                "UNKNOWN",
+                "NONE",
+            ]
         ]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -110,6 +112,10 @@ class BulkResource(SyncAPIResource):
 
         Args:
           account_id: Identifier.
+
+          destination: Required when action is 'MOVE'.
+
+          expected_disposition: Nonfunctional field. End of life: December 1, 2026.
 
           extra_headers: Send extra headers
 
@@ -332,17 +338,19 @@ class AsyncBulkResource(AsyncAPIResource):
             "Inbox", "JunkEmail", "DeletedItems", "RecoverableItemsDeletions", "RecoverableItemsPurges"
         ]
         | Omit = omit,
-        expected_disposition: Literal[
-            "MALICIOUS",
-            "MALICIOUS-BEC",
-            "SUSPICIOUS",
-            "SPOOF",
-            "SPAM",
-            "BULK",
-            "ENCRYPTED",
-            "EXTERNAL",
-            "UNKNOWN",
-            "NONE",
+        expected_disposition: Optional[
+            Literal[
+                "MALICIOUS",
+                "MALICIOUS-BEC",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "ENCRYPTED",
+                "EXTERNAL",
+                "UNKNOWN",
+                "NONE",
+            ]
         ]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -358,6 +366,10 @@ class AsyncBulkResource(AsyncAPIResource):
 
         Args:
           account_id: Identifier.
+
+          destination: Required when action is 'MOVE'.
+
+          expected_disposition: Nonfunctional field. End of life: December 1, 2026.
 
           extra_headers: Send extra headers
 

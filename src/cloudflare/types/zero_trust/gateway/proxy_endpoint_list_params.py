@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
+
+from ...._types import SequenceNotStr
 
 __all__ = ["ProxyEndpointListParams"]
 
@@ -23,7 +24,7 @@ class ProxyEndpointListParams(TypedDict, total=False):
     - `desc` — descending.
     """
 
-    filter: Iterable[object]
+    filter: SequenceNotStr[str]
     """
     Filter the returned proxy endpoints by one or more `field:value` pairs. Repeat
     the parameter to apply multiple filters; they are combined with logical AND (an

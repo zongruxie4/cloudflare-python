@@ -41,7 +41,6 @@ class ObjectListParams(TypedDict, total=False):
     order.
     """
 
-    jurisdiction: Annotated[
+    cf_r2_jurisdiction: Annotated[
         Literal["default", "eu", "us", "fedramp", "fedramp-high"], PropertyInfo(alias="cf-r2-jurisdiction")
     ]
-    """Jurisdiction where objects in this bucket are guaranteed to be stored."""

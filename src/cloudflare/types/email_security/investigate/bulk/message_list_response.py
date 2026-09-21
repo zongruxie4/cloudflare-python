@@ -44,6 +44,7 @@ class ActionParamsMove(BaseModel):
             "NONE",
         ]
     ] = None
+    """Nonfunctional field. End of life: December 1, 2026."""
 
 
 class ActionParamsRelease(BaseModel):

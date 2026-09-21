@@ -41,6 +41,7 @@ __all__ = [
     "MetadataBindingWorkersBindingKindMTLSCertificate",
     "MetadataBindingWorkersBindingKindPlainText",
     "MetadataBindingWorkersBindingKindPipelines",
+    "MetadataBindingWorkersBindingKindK2",
     "MetadataBindingWorkersBindingKindQueue",
     "MetadataBindingWorkersBindingKindRatelimit",
     "MetadataBindingWorkersBindingKindRatelimitSimple",
@@ -465,6 +466,19 @@ class MetadataBindingWorkersBindingKindPipelines(TypedDict, total=False):
     """The kind of resource that the binding provides."""
 
 
+class MetadataBindingWorkersBindingKindK2(TypedDict, total=False):
+    """A K2 stream binding. Available only to accounts enabled for K2."""
+
+    name: Required[str]
+    """A JavaScript variable name for the binding."""
+
+    stream: Required[str]
+    """ID of a K2 stream owned by the account deploying the Worker."""
+
+    type: Required[Literal["k2"]]
+    """The kind of resource that the binding provides."""
+
+
 class MetadataBindingWorkersBindingKindQueue(TypedDict, total=False):
     name: Required[str]
     """A JavaScript variable name for the binding."""
@@ -758,6 +772,7 @@ MetadataBinding: TypeAlias = Union[
     MetadataBindingWorkersBindingKindMTLSCertificate,
     MetadataBindingWorkersBindingKindPlainText,
     MetadataBindingWorkersBindingKindPipelines,
+    MetadataBindingWorkersBindingKindK2,
     MetadataBindingWorkersBindingKindQueue,
     MetadataBindingWorkersBindingKindRatelimit,
     MetadataBindingWorkersBindingKindR2Bucket,

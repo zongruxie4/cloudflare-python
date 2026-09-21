@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Type, Iterable, cast
+from typing import Type, Union, Iterable, cast
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -18,8 +19,9 @@ from ...._response import (
     async_to_streamed_response_wrapper,
 )
 from ...._wrappers import ResultWrapper
-from ...._base_client import make_request_options
-from ....types.workers.scripts import deployment_create_params
+from ....pagination import SyncV4PagePagination, AsyncV4PagePagination
+from ...._base_client import AsyncPaginator, make_request_options
+from ....types.workers.scripts import deployment_list_params, deployment_create_params
 from ....types.workers.scripts.deployment import Deployment
 from ....types.workers.scripts.deployment_list_response import DeploymentListResponse
 from ....types.workers.scripts.deployment_delete_response import DeploymentDeleteResponse
@@ -119,13 +121,17 @@ class DeploymentsResource(SyncAPIResource):
         script_name: str,
         *,
         account_id: str,
+        page: int | Omit = omit,
+        per_page: int | Omit = omit,
+        since: Union[str, datetime] | Omit = omit,
+        until: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DeploymentListResponse:
+    ) -> SyncV4PagePagination[DeploymentListResponse]:
         """List Worker deployments.
 
         The first deployment in the list is the latest
@@ -135,6 +141,14 @@ class DeploymentsResource(SyncAPIResource):
           account_id: Identifier.
 
           script_name: Name of the script, used in URLs and route configuration.
+
+          page: Current page.
+
+          per_page: Items per page.
+
+          since: Start of the deployment creation time range, inclusive.
+
+          until: End of the deployment creation time range, inclusive.
 
           extra_headers: Send extra headers
 
@@ -148,20 +162,29 @@ class DeploymentsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         if not script_name:
             raise ValueError(f"Expected a non-empty value for `script_name` but received {script_name!r}")
-        return self._get(
+        return self._get_api_list(
             path_template(
                 "/accounts/{account_id}/workers/scripts/{script_name}/deployments",
                 account_id=account_id,
                 script_name=script_name,
             ),
+            page=SyncV4PagePagination[DeploymentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=ResultWrapper[DeploymentListResponse]._unwrapper,
+                query=maybe_transform(
+                    {
+                        "page": page,
+                        "per_page": per_page,
+                        "since": since,
+                        "until": until,
+                    },
+                    deployment_list_params.DeploymentListParams,
+                ),
             ),
-            cast_to=cast(Type[DeploymentListResponse], ResultWrapper[DeploymentListResponse]),
+            model=DeploymentListResponse,
         )
 
     def delete(
@@ -354,18 +377,22 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             cast_to=cast(Type[Deployment], ResultWrapper[Deployment]),
         )
 
-    async def list(
+    def list(
         self,
         script_name: str,
         *,
         account_id: str,
+        page: int | Omit = omit,
+        per_page: int | Omit = omit,
+        since: Union[str, datetime] | Omit = omit,
+        until: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DeploymentListResponse:
+    ) -> AsyncPaginator[DeploymentListResponse, AsyncV4PagePagination[DeploymentListResponse]]:
         """List Worker deployments.
 
         The first deployment in the list is the latest
@@ -375,6 +402,14 @@ class AsyncDeploymentsResource(AsyncAPIResource):
           account_id: Identifier.
 
           script_name: Name of the script, used in URLs and route configuration.
+
+          page: Current page.
+
+          per_page: Items per page.
+
+          since: Start of the deployment creation time range, inclusive.
+
+          until: End of the deployment creation time range, inclusive.
 
           extra_headers: Send extra headers
 
@@ -388,20 +423,29 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
         if not script_name:
             raise ValueError(f"Expected a non-empty value for `script_name` but received {script_name!r}")
-        return await self._get(
+        return self._get_api_list(
             path_template(
                 "/accounts/{account_id}/workers/scripts/{script_name}/deployments",
                 account_id=account_id,
                 script_name=script_name,
             ),
+            page=AsyncV4PagePagination[DeploymentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=ResultWrapper[DeploymentListResponse]._unwrapper,
+                query=maybe_transform(
+                    {
+                        "page": page,
+                        "per_page": per_page,
+                        "since": since,
+                        "until": until,
+                    },
+                    deployment_list_params.DeploymentListParams,
+                ),
             ),
-            cast_to=cast(Type[DeploymentListResponse], ResultWrapper[DeploymentListResponse]),
+            model=DeploymentListResponse,
         )
 
     async def delete(

@@ -183,7 +183,7 @@ class ListsResource(SyncAPIResource):
         *,
         account_id: str,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filter: Iterable[object] | Omit = omit,
+        filter: SequenceNotStr[str] | Omit = omit,
         order_by: Literal["name", "created_at", "updated_at", "item_count"] | Omit = omit,
         search: str | Omit = omit,
         type: Literal["SERIAL", "URL", "DOMAIN", "EMAIL", "IP", "CATEGORY", "LOCATION", "DEVICE", "AAGUID"]
@@ -563,7 +563,7 @@ class AsyncListsResource(AsyncAPIResource):
         *,
         account_id: str,
         direction: Literal["asc", "desc"] | Omit = omit,
-        filter: Iterable[object] | Omit = omit,
+        filter: SequenceNotStr[str] | Omit = omit,
         order_by: Literal["name", "created_at", "updated_at", "item_count"] | Omit = omit,
         search: str | Omit = omit,
         type: Literal["SERIAL", "URL", "DOMAIN", "EMAIL", "IP", "CATEGORY", "LOCATION", "DEVICE", "AAGUID"]

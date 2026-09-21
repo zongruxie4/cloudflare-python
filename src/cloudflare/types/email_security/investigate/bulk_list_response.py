@@ -29,6 +29,7 @@ class ActionParamsMove(BaseModel):
             "NONE",
         ]
     ] = None
+    """Nonfunctional field. End of life: December 1, 2026."""
 
 
 class ActionParamsRelease(BaseModel):
@@ -108,9 +109,23 @@ class BulkListResponse(BaseModel):
 
     job_id: str
 
+    messages_cancelled: int
+    """
+    Messages that were cancelled: rows cancelled via the API before being claimed,
+    and rows whose in-flight attempt ended when the job reached a terminal state.
+    Together the counters satisfy total_messages_discovered = messages_pending +
+    messages_successful + messages_failed + messages_skipped + messages_cancelled.
+    """
+
     messages_failed: int
 
     messages_pending: int
+
+    messages_skipped: int
+    """
+    Messages that discovery skipped (for example, phish submissions, which the job
+    cannot action).
+    """
 
     messages_successful: int
 
