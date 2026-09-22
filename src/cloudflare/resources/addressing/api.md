@@ -68,6 +68,19 @@ Methods:
 - <code title="patch /accounts/{account_id}/addressing/address_maps/{address_map_id}">client.addressing.address_maps.<a href="./src/cloudflare/resources/addressing/address_maps/address_maps.py">edit</a>(address_map_id, \*, account_id, \*\*<a href="src/cloudflare/types/addressing/address_map_edit_params.py">params</a>) -> <a href="./src/cloudflare/types/addressing/address_map.py">Optional[AddressMap]</a></code>
 - <code title="get /accounts/{account_id}/addressing/address_maps/{address_map_id}">client.addressing.address_maps.<a href="./src/cloudflare/resources/addressing/address_maps/address_maps.py">get</a>(address_map_id, \*, account_id) -> <a href="./src/cloudflare/types/addressing/address_map_get_response.py">Optional[AddressMapGetResponse]</a></code>
 
+### Accounts
+
+Types:
+
+```python
+from cloudflare.types.addressing.address_maps import AccountUpdateResponse, AccountDeleteResponse
+```
+
+Methods:
+
+- <code title="put /accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}">client.addressing.address_maps.accounts.<a href="./src/cloudflare/resources/addressing/address_maps/accounts.py">update</a>(member_account_id, \*, account_id, address_map_id) -> <a href="./src/cloudflare/types/addressing/address_maps/account_update_response.py">AccountUpdateResponse</a></code>
+- <code title="delete /accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}">client.addressing.address_maps.accounts.<a href="./src/cloudflare/resources/addressing/address_maps/accounts.py">delete</a>(member_account_id, \*, account_id, address_map_id) -> <a href="./src/cloudflare/types/addressing/address_maps/account_delete_response.py">AccountDeleteResponse</a></code>
+
 ### IPs
 
 Types:

@@ -15,7 +15,7 @@ class SFUListResponse(BaseModel):
     """The date and time the item was last modified."""
 
     name: str
-    """A short description of Calls app, not shown to end users."""
+    """A short description of a Realtime SFU app, not shown to end users."""
 
     uid: str
     """A Cloudflare-generated unique identifier for a item."""

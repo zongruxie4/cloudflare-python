@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Type, Optional, cast
 from typing_extensions import Literal
 
@@ -239,6 +240,7 @@ class DevicesResource(SyncAPIResource):
             cast_to=cast(Type[DeviceGetResponse], ResultWrapper[DeviceGetResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     def revoke(
         self,
         device_id: str,
@@ -251,8 +253,10 @@ class DevicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Revokes all WARP registrations associated with the specified device.
+        """Revokes all WARP registrations associated with the specified device.
+
+        Prefer
+        "delete" operation instead, "revoke" does not release virtual IPs.
 
         Args:
           extra_headers: Send extra headers
@@ -496,6 +500,7 @@ class AsyncDevicesResource(AsyncAPIResource):
             cast_to=cast(Type[DeviceGetResponse], ResultWrapper[DeviceGetResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def revoke(
         self,
         device_id: str,
@@ -508,8 +513,10 @@ class AsyncDevicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Revokes all WARP registrations associated with the specified device.
+        """Revokes all WARP registrations associated with the specified device.
+
+        Prefer
+        "delete" operation instead, "revoke" does not release virtual IPs.
 
         Args:
           extra_headers: Send extra headers
@@ -554,8 +561,10 @@ class DevicesResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             devices.get,
         )
-        self.revoke = to_raw_response_wrapper(
-            devices.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                devices.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -572,8 +581,10 @@ class AsyncDevicesResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             devices.get,
         )
-        self.revoke = async_to_raw_response_wrapper(
-            devices.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                devices.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -590,8 +601,10 @@ class DevicesResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             devices.get,
         )
-        self.revoke = to_streamed_response_wrapper(
-            devices.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                devices.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -608,6 +621,8 @@ class AsyncDevicesResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             devices.get,
         )
-        self.revoke = async_to_streamed_response_wrapper(
-            devices.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                devices.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )

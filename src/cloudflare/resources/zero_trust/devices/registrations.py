@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Type, Optional, cast
 from typing_extensions import Literal
 
@@ -284,6 +285,7 @@ class RegistrationsResource(SyncAPIResource):
             cast_to=cast(Type[RegistrationGetResponse], ResultWrapper[RegistrationGetResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     def revoke(
         self,
         *,
@@ -296,8 +298,10 @@ class RegistrationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Revokes a list of WARP registrations.
+        """Revokes a list of WARP registrations.
+
+        Prefer "delete" operation instead,
+        "revoke" does not release virtual IPs.
 
         Args:
           id: A list of registration IDs to revoke.
@@ -325,6 +329,7 @@ class RegistrationsResource(SyncAPIResource):
             cast_to=cast(Type[object], ResultWrapper[object]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     def unrevoke(
         self,
         *,
@@ -620,6 +625,7 @@ class AsyncRegistrationsResource(AsyncAPIResource):
             cast_to=cast(Type[RegistrationGetResponse], ResultWrapper[RegistrationGetResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def revoke(
         self,
         *,
@@ -632,8 +638,10 @@ class AsyncRegistrationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Revokes a list of WARP registrations.
+        """Revokes a list of WARP registrations.
+
+        Prefer "delete" operation instead,
+        "revoke" does not release virtual IPs.
 
         Args:
           id: A list of registration IDs to revoke.
@@ -661,6 +669,7 @@ class AsyncRegistrationsResource(AsyncAPIResource):
             cast_to=cast(Type[object], ResultWrapper[object]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def unrevoke(
         self,
         *,
@@ -719,11 +728,15 @@ class RegistrationsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             registrations.get,
         )
-        self.revoke = to_raw_response_wrapper(
-            registrations.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                registrations.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unrevoke = to_raw_response_wrapper(
-            registrations.unrevoke,
+        self.unrevoke = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                registrations.unrevoke,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -743,11 +756,15 @@ class AsyncRegistrationsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             registrations.get,
         )
-        self.revoke = async_to_raw_response_wrapper(
-            registrations.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                registrations.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unrevoke = async_to_raw_response_wrapper(
-            registrations.unrevoke,
+        self.unrevoke = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                registrations.unrevoke,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -767,11 +784,15 @@ class RegistrationsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             registrations.get,
         )
-        self.revoke = to_streamed_response_wrapper(
-            registrations.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                registrations.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unrevoke = to_streamed_response_wrapper(
-            registrations.unrevoke,
+        self.unrevoke = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                registrations.unrevoke,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -791,9 +812,13 @@ class AsyncRegistrationsResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             registrations.get,
         )
-        self.revoke = async_to_streamed_response_wrapper(
-            registrations.revoke,
+        self.revoke = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                registrations.revoke,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unrevoke = async_to_streamed_response_wrapper(
-            registrations.unrevoke,
+        self.unrevoke = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                registrations.unrevoke,  # pyright: ignore[reportDeprecated],
+            )
         )

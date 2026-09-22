@@ -72,6 +72,14 @@ from .environments import (
     EnvironmentsResourceWithStreamingResponse,
     AsyncEnvironmentsResourceWithStreamingResponse,
 )
+from .observability import (
+    ObservabilityResource,
+    AsyncObservabilityResource,
+    ObservabilityResourceWithRawResponse,
+    AsyncObservabilityResourceWithRawResponse,
+    ObservabilityResourceWithStreamingResponse,
+    AsyncObservabilityResourceWithStreamingResponse,
+)
 from .subscriptions import (
     SubscriptionsResource,
     AsyncSubscriptionsResource,
@@ -120,6 +128,12 @@ __all__ = [
     "AsyncActivationCheckResourceWithRawResponse",
     "ActivationCheckResourceWithStreamingResponse",
     "AsyncActivationCheckResourceWithStreamingResponse",
+    "ObservabilityResource",
+    "AsyncObservabilityResource",
+    "ObservabilityResourceWithRawResponse",
+    "AsyncObservabilityResourceWithRawResponse",
+    "ObservabilityResourceWithStreamingResponse",
+    "AsyncObservabilityResourceWithStreamingResponse",
     "SettingsResource",
     "AsyncSettingsResource",
     "SettingsResourceWithRawResponse",

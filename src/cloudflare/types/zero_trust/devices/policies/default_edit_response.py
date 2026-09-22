@@ -43,6 +43,12 @@ class GlobalAcceleration(BaseModel):
     Either wireguard_endpoints or masque_endpoints must be provided.
     """
 
+    autoswitch: Optional[bool] = None
+    """Automatically switch Global Acceleration regions based on device location.
+
+    Defaults to false when not provided.
+    """
+
 
 class ServiceModeV2(BaseModel):
     mode: Optional[str] = None

@@ -26,6 +26,46 @@ Methods:
 
 - <code title="put /zones/{zone_id}/activation_check">client.zones.activation_check.<a href="./src/cloudflare/resources/zones/activation_check.py">trigger</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/activation_check_trigger_response.py">Optional[ActivationCheckTriggerResponse]</a></code>
 
+## Observability
+
+### Tracing
+
+#### Settings
+
+Types:
+
+```python
+from cloudflare.types.zones.observability.tracing import (
+    SettingUpdateResponse,
+    SettingDeleteResponse,
+    SettingGetResponse,
+)
+```
+
+Methods:
+
+- <code title="patch /zones/{zone_id}/observability/tracing/settings">client.zones.observability.tracing.settings.<a href="./src/cloudflare/resources/zones/observability/tracing/settings.py">update</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/zones/observability/tracing/setting_update_params.py">params</a>) -> <a href="./src/cloudflare/types/zones/observability/tracing/setting_update_response.py">SettingUpdateResponse</a></code>
+- <code title="delete /zones/{zone_id}/observability/tracing/settings">client.zones.observability.tracing.settings.<a href="./src/cloudflare/resources/zones/observability/tracing/settings.py">delete</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/observability/tracing/setting_delete_response.py">SettingDeleteResponse</a></code>
+- <code title="get /zones/{zone_id}/observability/tracing/settings">client.zones.observability.tracing.settings.<a href="./src/cloudflare/resources/zones/observability/tracing/settings.py">get</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/observability/tracing/setting_get_response.py">SettingGetResponse</a></code>
+
+#### Rules
+
+Types:
+
+```python
+from cloudflare.types.zones.observability.tracing import (
+    RuleUpdateResponse,
+    RuleDeleteResponse,
+    RuleGetResponse,
+)
+```
+
+Methods:
+
+- <code title="put /zones/{zone_id}/observability/tracing/rules">client.zones.observability.tracing.rules.<a href="./src/cloudflare/resources/zones/observability/tracing/rules.py">update</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/zones/observability/tracing/rule_update_params.py">params</a>) -> <a href="./src/cloudflare/types/zones/observability/tracing/rule_update_response.py">RuleUpdateResponse</a></code>
+- <code title="delete /zones/{zone_id}/observability/tracing/rules">client.zones.observability.tracing.rules.<a href="./src/cloudflare/resources/zones/observability/tracing/rules.py">delete</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/observability/tracing/rule_delete_response.py">RuleDeleteResponse</a></code>
+- <code title="get /zones/{zone_id}/observability/tracing/rules">client.zones.observability.tracing.rules.<a href="./src/cloudflare/resources/zones/observability/tracing/rules.py">get</a>(\*, zone_id) -> <a href="./src/cloudflare/types/zones/observability/tracing/rule_get_response.py">RuleGetResponse</a></code>
+
 ## Settings
 
 Types:

@@ -119,6 +119,14 @@ from .transformations_c2pa import (
     TransformationsC2paResourceWithStreamingResponse,
     AsyncTransformationsC2paResourceWithStreamingResponse,
 )
+from .observability.observability import (
+    ObservabilityResource,
+    AsyncObservabilityResource,
+    ObservabilityResourceWithRawResponse,
+    AsyncObservabilityResourceWithRawResponse,
+    ObservabilityResourceWithStreamingResponse,
+    AsyncObservabilityResourceWithStreamingResponse,
+)
 from .transformations_allowed_origins import (
     TransformationsAllowedOriginsResource,
     AsyncTransformationsAllowedOriginsResource,
@@ -136,6 +144,10 @@ class ZonesResource(SyncAPIResource):
     @cached_property
     def activation_check(self) -> ActivationCheckResource:
         return ActivationCheckResource(self._client)
+
+    @cached_property
+    def observability(self) -> ObservabilityResource:
+        return ObservabilityResource(self._client)
 
     @cached_property
     def settings(self) -> SettingsResource:
@@ -495,6 +507,10 @@ class AsyncZonesResource(AsyncAPIResource):
     @cached_property
     def activation_check(self) -> AsyncActivationCheckResource:
         return AsyncActivationCheckResource(self._client)
+
+    @cached_property
+    def observability(self) -> AsyncObservabilityResource:
+        return AsyncObservabilityResource(self._client)
 
     @cached_property
     def settings(self) -> AsyncSettingsResource:
@@ -875,6 +891,10 @@ class ZonesResourceWithRawResponse:
         return ActivationCheckResourceWithRawResponse(self._zones.activation_check)
 
     @cached_property
+    def observability(self) -> ObservabilityResourceWithRawResponse:
+        return ObservabilityResourceWithRawResponse(self._zones.observability)
+
+    @cached_property
     def settings(self) -> SettingsResourceWithRawResponse:
         return SettingsResourceWithRawResponse(self._zones.settings)
 
@@ -946,6 +966,10 @@ class AsyncZonesResourceWithRawResponse:
     @cached_property
     def activation_check(self) -> AsyncActivationCheckResourceWithRawResponse:
         return AsyncActivationCheckResourceWithRawResponse(self._zones.activation_check)
+
+    @cached_property
+    def observability(self) -> AsyncObservabilityResourceWithRawResponse:
+        return AsyncObservabilityResourceWithRawResponse(self._zones.observability)
 
     @cached_property
     def settings(self) -> AsyncSettingsResourceWithRawResponse:
@@ -1021,6 +1045,10 @@ class ZonesResourceWithStreamingResponse:
         return ActivationCheckResourceWithStreamingResponse(self._zones.activation_check)
 
     @cached_property
+    def observability(self) -> ObservabilityResourceWithStreamingResponse:
+        return ObservabilityResourceWithStreamingResponse(self._zones.observability)
+
+    @cached_property
     def settings(self) -> SettingsResourceWithStreamingResponse:
         return SettingsResourceWithStreamingResponse(self._zones.settings)
 
@@ -1092,6 +1120,10 @@ class AsyncZonesResourceWithStreamingResponse:
     @cached_property
     def activation_check(self) -> AsyncActivationCheckResourceWithStreamingResponse:
         return AsyncActivationCheckResourceWithStreamingResponse(self._zones.activation_check)
+
+    @cached_property
+    def observability(self) -> AsyncObservabilityResourceWithStreamingResponse:
+        return AsyncObservabilityResourceWithStreamingResponse(self._zones.observability)
 
     @cached_property
     def settings(self) -> AsyncSettingsResourceWithStreamingResponse:

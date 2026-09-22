@@ -210,6 +210,12 @@ class GlobalAcceleration(TypedDict, total=False):
     Either wireguard_endpoints or masque_endpoints must be provided.
     """
 
+    autoswitch: bool
+    """Automatically switch Global Acceleration regions based on device location.
+
+    Defaults to false when not provided.
+    """
+
 
 class ServiceModeV2(TypedDict, total=False):
     mode: str

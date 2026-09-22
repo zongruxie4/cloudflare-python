@@ -110,7 +110,7 @@ class QueuesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
         """
-        Create a new queue
+        Creates a Queue in the account.
 
         Args:
           account_id: A Resource identifier.
@@ -159,11 +159,10 @@ class QueuesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
-        """Updates a Queue.
+        """Replaces a Queue's configuration with the supplied configuration.
 
-        Note that this endpoint does not support partial updates. If
-        successful, the Queue's configuration is overwritten with the supplied
-        configuration.
+        This endpoint
+        does not support partial updates.
 
         Args:
           account_id: A Resource identifier.
@@ -251,7 +250,7 @@ class QueuesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> QueueDeleteResponse:
         """
-        Deletes a queue
+        Deletes a Queue.
 
         Args:
           account_id: A Resource identifier.
@@ -294,7 +293,7 @@ class QueuesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
         """
-        Updates a Queue.
+        Updates part of a Queue's configuration.
 
         Args:
           account_id: A Resource identifier.
@@ -346,7 +345,7 @@ class QueuesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
         """
-        Get details about a specific queue.
+        Returns details about a specific Queue.
 
         Args:
           account_id: A Resource identifier.
@@ -389,10 +388,10 @@ class QueuesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[QueueGetMetricsResponse]:
-        """Return best-effort metrics for a queue.
+        """Returns best-effort metrics for a Queue.
 
         Values may be approximate due to the
-        distributed nature of queues.
+        distributed nature of Queues.
 
         Args:
           account_id: A Resource identifier.
@@ -474,7 +473,7 @@ class AsyncQueuesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
         """
-        Create a new queue
+        Creates a Queue in the account.
 
         Args:
           account_id: A Resource identifier.
@@ -523,11 +522,10 @@ class AsyncQueuesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
-        """Updates a Queue.
+        """Replaces a Queue's configuration with the supplied configuration.
 
-        Note that this endpoint does not support partial updates. If
-        successful, the Queue's configuration is overwritten with the supplied
-        configuration.
+        This endpoint
+        does not support partial updates.
 
         Args:
           account_id: A Resource identifier.
@@ -615,7 +613,7 @@ class AsyncQueuesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> QueueDeleteResponse:
         """
-        Deletes a queue
+        Deletes a Queue.
 
         Args:
           account_id: A Resource identifier.
@@ -658,7 +656,7 @@ class AsyncQueuesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
         """
-        Updates a Queue.
+        Updates part of a Queue's configuration.
 
         Args:
           account_id: A Resource identifier.
@@ -710,7 +708,7 @@ class AsyncQueuesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Queue]:
         """
-        Get details about a specific queue.
+        Returns details about a specific Queue.
 
         Args:
           account_id: A Resource identifier.
@@ -753,10 +751,10 @@ class AsyncQueuesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[QueueGetMetricsResponse]:
-        """Return best-effort metrics for a queue.
+        """Returns best-effort metrics for a Queue.
 
         Values may be approximate due to the
-        distributed nature of queues.
+        distributed nature of Queues.
 
         Args:
           account_id: A Resource identifier.
