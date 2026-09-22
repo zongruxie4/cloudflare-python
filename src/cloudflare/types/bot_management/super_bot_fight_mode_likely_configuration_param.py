@@ -61,6 +61,12 @@ class SuperBotFightModeLikelyConfigurationParam(TypedDict, total=False):
     to the existing robots.txt.
     """
 
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
+    """
+
     optimize_wordpress: bool
     """Whether to optimize Super Bot Fight Mode protections for Wordpress."""
 

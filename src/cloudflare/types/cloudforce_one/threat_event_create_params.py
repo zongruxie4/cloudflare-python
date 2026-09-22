@@ -85,3 +85,9 @@ class Source(TypedDict, total=False):
     resource_type: Required[Annotated[Literal["article"], PropertyInfo(alias="resourceType")]]
 
     system: Required[Literal["threat-signals"]]
+
+    title: Optional[str]
+    """
+    Threat Signals article title; null for historical provenance without a stored
+    title.
+    """

@@ -63,3 +63,9 @@ class BotFightModeConfigurationParam(TypedDict, total=False):
     If an existing robots.txt is detected, then managed robots.txt will be prepended
     to the existing robots.txt.
     """
+
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
+    """

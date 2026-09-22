@@ -25,6 +25,12 @@ class IndicatorSource(BaseModel):
 
     system: Literal["threat-signals"]
 
+    title: Optional[str] = None
+    """
+    Threat Signals article title; null for historical provenance without a stored
+    title.
+    """
+
 
 class IndicatorRelatedEvent(BaseModel):
     dataset_id: str = FieldInfo(alias="datasetId")

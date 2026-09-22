@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -13,6 +13,20 @@ __all__ = [
     "MqWorkerConsumerResponseSettings",
     "MqHTTPConsumerResponse",
     "MqHTTPConsumerResponseSettings",
+    "MqNotificationConsumerResponse",
+    "MqNotificationConsumerResponseSettings",
+    "MqNotificationConsumerResponseSettingsUnionMember0",
+    "MqNotificationConsumerResponseSettingsUnionMember0Email",
+    "MqNotificationConsumerResponseSettingsUnionMember0Pagerduty",
+    "MqNotificationConsumerResponseSettingsUnionMember0Webhook",
+    "MqNotificationConsumerResponseSettingsUnionMember1",
+    "MqNotificationConsumerResponseSettingsUnionMember1Webhook",
+    "MqNotificationConsumerResponseSettingsUnionMember1Email",
+    "MqNotificationConsumerResponseSettingsUnionMember1Pagerduty",
+    "MqNotificationConsumerResponseSettingsUnionMember2",
+    "MqNotificationConsumerResponseSettingsUnionMember2Pagerduty",
+    "MqNotificationConsumerResponseSettingsUnionMember2Email",
+    "MqNotificationConsumerResponseSettingsUnionMember2Webhook",
 ]
 
 
@@ -97,6 +111,109 @@ class MqHTTPConsumerResponse(BaseModel):
     type: Optional[Literal["http_pull"]] = None
 
 
+class MqNotificationConsumerResponseSettingsUnionMember0Email(BaseModel):
+    id: str
+    """The email address."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember0Pagerduty(BaseModel):
+    id: str
+    """UUID."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember0Webhook(BaseModel):
+    id: str
+    """UUID."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember0(BaseModel):
+    email: List[MqNotificationConsumerResponseSettingsUnionMember0Email]
+
+    pagerduty: Optional[List[MqNotificationConsumerResponseSettingsUnionMember0Pagerduty]] = None
+    """PagerDuty notification destinations."""
+
+    webhooks: Optional[List[MqNotificationConsumerResponseSettingsUnionMember0Webhook]] = None
+    """Webhook notification destinations."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember1Webhook(BaseModel):
+    id: str
+    """UUID."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember1Email(BaseModel):
+    id: str
+    """The email address."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember1Pagerduty(BaseModel):
+    id: str
+    """UUID."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember1(BaseModel):
+    webhooks: List[MqNotificationConsumerResponseSettingsUnionMember1Webhook]
+
+    email: Optional[List[MqNotificationConsumerResponseSettingsUnionMember1Email]] = None
+    """Email notification destinations."""
+
+    pagerduty: Optional[List[MqNotificationConsumerResponseSettingsUnionMember1Pagerduty]] = None
+    """PagerDuty notification destinations."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember2Pagerduty(BaseModel):
+    id: str
+    """UUID."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember2Email(BaseModel):
+    id: str
+    """The email address."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember2Webhook(BaseModel):
+    id: str
+    """UUID."""
+
+
+class MqNotificationConsumerResponseSettingsUnionMember2(BaseModel):
+    pagerduty: List[MqNotificationConsumerResponseSettingsUnionMember2Pagerduty]
+
+    email: Optional[List[MqNotificationConsumerResponseSettingsUnionMember2Email]] = None
+    """Email notification destinations."""
+
+    webhooks: Optional[List[MqNotificationConsumerResponseSettingsUnionMember2Webhook]] = None
+    """Webhook notification destinations."""
+
+
+MqNotificationConsumerResponseSettings: TypeAlias = Union[
+    MqNotificationConsumerResponseSettingsUnionMember0,
+    MqNotificationConsumerResponseSettingsUnionMember1,
+    MqNotificationConsumerResponseSettingsUnionMember2,
+]
+
+
+class MqNotificationConsumerResponse(BaseModel):
+    consumer_id: Optional[str] = None
+    """A Resource identifier."""
+
+    created_on: Optional[datetime] = None
+
+    dead_letter_queue: Optional[str] = None
+    """Name of the dead letter queue, or empty string if not configured."""
+
+    queue_name: Optional[str] = None
+
+    settings: Optional[MqNotificationConsumerResponseSettings] = None
+    """Notification destinations for a Queue.
+
+    At least one email, webhook, or PagerDuty destination is required.
+    """
+
+    type: Optional[Literal["notification"]] = None
+
+
 Consumer: TypeAlias = Annotated[
-    Union[MqWorkerConsumerResponse, MqHTTPConsumerResponse], PropertyInfo(discriminator="type")
+    Union[MqWorkerConsumerResponse, MqHTTPConsumerResponse, MqNotificationConsumerResponse],
+    PropertyInfo(discriminator="type"),
 ]

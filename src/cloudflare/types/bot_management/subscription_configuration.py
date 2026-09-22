@@ -105,6 +105,12 @@ class SubscriptionConfiguration(BaseModel):
     to the existing robots.txt.
     """
 
+    jsd_api_results_enabled: Optional[bool] = None
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
+    """
+
     stale_zone_configuration: Optional[StaleZoneConfiguration] = None
     """
     A read-only field that shows which unauthorized settings are currently active on

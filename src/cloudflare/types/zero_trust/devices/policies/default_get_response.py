@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ....._models import BaseModel
 from ..fallback_domain import FallbackDomain
@@ -125,6 +126,9 @@ class DefaultGetResponse(BaseModel):
     """List of routes included in the WARP client's tunnel."""
 
     policy_id: Optional[str] = None
+
+    profile_type: Optional[Literal["warp", "browser_extension"]] = None
+    """The client type to which the device settings profile applies."""
 
     register_interface_ip_with_dns: Optional[bool] = None
     """

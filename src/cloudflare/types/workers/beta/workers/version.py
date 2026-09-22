@@ -110,6 +110,14 @@ class Annotations(BaseModel):
 class AssetsConfig(BaseModel):
     """Configuration for assets within a Worker."""
 
+    base_path: Optional[str] = None
+    """The public URL path prefix under which assets are served.
+
+    A null request value resets it to `/`; responses represent the root as `/`. All
+    versions in a gradual deployment must use the same canonical value. To change
+    it, first deploy the version containing the change at 100%.
+    """
+
     html_handling: Optional[Literal["auto-trailing-slash", "force-trailing-slash", "drop-trailing-slash", "none"]] = (
         None
     )

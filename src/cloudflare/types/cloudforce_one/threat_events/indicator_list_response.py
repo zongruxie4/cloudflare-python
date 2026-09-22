@@ -113,6 +113,12 @@ class PropertiesIndicatorsItemsSource(BaseModel):
 
     system: Literal["threat-signals"]
 
+    title: Optional[str] = None
+    """
+    Threat Signals article title; null for historical provenance without a stored
+    title.
+    """
+
 
 class PropertiesIndicatorsItemsRelatedEvent(BaseModel):
     dataset_id: str = FieldInfo(alias="datasetId")

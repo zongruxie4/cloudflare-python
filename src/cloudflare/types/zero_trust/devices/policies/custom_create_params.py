@@ -3,35 +3,27 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ....._types import SequenceNotStr
 from ..split_tunnel_exclude_param import SplitTunnelExcludeParam
 from ..split_tunnel_include_param import SplitTunnelIncludeParam
 
-__all__ = ["CustomCreateParams", "DNSSearchSuffix", "GlobalAcceleration", "ServiceModeV2", "VirtualNetworks"]
+__all__ = [
+    "CustomCreateParams",
+    "BrowserExtensionConfig",
+    "DNSSearchSuffix",
+    "GlobalAcceleration",
+    "ServiceModeV2",
+    "VirtualNetworks",
+]
 
 
 class CustomCreateParams(TypedDict, total=False):
     account_id: Required[str]
 
-    match: Required[str]
-    """The wirefilter expression to match devices.
-
-    Available values: "identity.email", "identity.groups.id",
-    "identity.groups.name", "identity.groups.email", "identity.service_token_uuid",
-    "identity.saml_attributes", "network", "os.name", "os.version".
-    """
-
     name: Required[str]
     """The name of the device settings profile."""
-
-    precedence: Required[float]
-    """The precedence of the policy.
-
-    Lower values indicate higher precedence. Policies will be evaluated in ascending
-    order of this field.
-    """
 
     allow_mode_switch: bool
     """Whether to allow the user to switch WARP between modes."""
@@ -48,8 +40,20 @@ class CustomCreateParams(TypedDict, total=False):
     auto_connect: float
     """The amount of time in seconds to reconnect after having been disabled."""
 
+    browser_extension_config: Optional[BrowserExtensionConfig]
+    """Browser extension proxy settings.
+
+    Required when profile_type is browser_extension and invalid for WARP profiles.
+    """
+
     captive_portal: float
     """Turn on the captive portal after the specified amount of time."""
+
+    default: bool
+    """Whether the policy is the account default.
+
+    WARP group profiles cannot set this field.
+    """
 
     description: str
     """A description of the policy."""
@@ -108,6 +112,24 @@ class CustomCreateParams(TypedDict, total=False):
     Note that this field is omitted from the response if null or unset.
     """
 
+    match: str
+    """The wirefilter expression to match devices.
+
+    Available values: "identity.email", "identity.groups.id",
+    "identity.groups.name", "identity.groups.email", "identity.service_token_uuid",
+    "identity.saml_attributes", "network", "os.name", "os.version".
+    """
+
+    precedence: float
+    """The precedence of the policy.
+
+    Lower values indicate higher precedence. Policies will be evaluated in ascending
+    order of this field.
+    """
+
+    profile_type: Literal["warp", "browser_extension"]
+    """The client type to which the device settings profile applies."""
+
     register_interface_ip_with_dns: bool
     """
     Determines if the operating system will register WARP's local interface IP with
@@ -141,6 +163,19 @@ class CustomCreateParams(TypedDict, total=False):
 
     virtual_networks: Optional[VirtualNetworks]
     """Virtual network access settings for the device."""
+
+
+class BrowserExtensionConfig(TypedDict, total=False):
+    """Browser extension proxy settings.
+
+    Required when profile_type is browser_extension and invalid for WARP profiles.
+    """
+
+    proxy_control: Required[Literal["unlocked", "locked"]]
+    """Whether the user may disable the browser extension proxy."""
+
+    proxy_enabled: Required[bool]
+    """Whether the browser extension proxy is active."""
 
 
 class DNSSearchSuffix(TypedDict, total=False):

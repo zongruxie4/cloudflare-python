@@ -74,6 +74,12 @@ class SubscriptionConfigurationParam(TypedDict, total=False):
     to the existing robots.txt.
     """
 
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
+    """
+
     suppress_session_score: bool
     """
     Whether to disable tracking the highest bot score for a session in the Bot

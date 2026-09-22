@@ -74,6 +74,12 @@ class BotFightModeConfiguration(TypedDict, total=False):
     to the existing robots.txt.
     """
 
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
+    """
+
 
 class SuperBotFightModeDefinitelyConfiguration(TypedDict, total=False):
     zone_id: Required[str]
@@ -128,6 +134,12 @@ class SuperBotFightModeDefinitelyConfiguration(TypedDict, total=False):
 
     If an existing robots.txt is detected, then managed robots.txt will be prepended
     to the existing robots.txt.
+    """
+
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
     """
 
     optimize_wordpress: bool
@@ -200,6 +212,12 @@ class SuperBotFightModeLikelyConfiguration(TypedDict, total=False):
 
     If an existing robots.txt is detected, then managed robots.txt will be prepended
     to the existing robots.txt.
+    """
+
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
     """
 
     optimize_wordpress: bool
@@ -288,6 +306,12 @@ class SubscriptionConfiguration(TypedDict, total=False):
 
     If an existing robots.txt is detected, then managed robots.txt will be prepended
     to the existing robots.txt.
+    """
+
+    jsd_api_results_enabled: bool
+    """
+    Whether to use JavaScript Detection results submitted through the API for this
+    zone.
     """
 
     suppress_session_score: bool

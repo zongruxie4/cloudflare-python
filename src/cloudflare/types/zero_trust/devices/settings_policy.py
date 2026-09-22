@@ -1,13 +1,35 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ...._models import BaseModel
 from .fallback_domain import FallbackDomain
 from .split_tunnel_exclude import SplitTunnelExclude
 from .split_tunnel_include import SplitTunnelInclude
 
-__all__ = ["SettingsPolicy", "DNSSearchSuffix", "GlobalAcceleration", "ServiceModeV2", "TargetTest", "VirtualNetworks"]
+__all__ = [
+    "SettingsPolicy",
+    "BrowserExtensionConfig",
+    "DNSSearchSuffix",
+    "GlobalAcceleration",
+    "ServiceModeV2",
+    "TargetTest",
+    "VirtualNetworks",
+]
+
+
+class BrowserExtensionConfig(BaseModel):
+    """Browser extension proxy settings.
+
+    Required when profile_type is browser_extension and invalid for WARP profiles.
+    """
+
+    proxy_control: Literal["unlocked", "locked"]
+    """Whether the user may disable the browser extension proxy."""
+
+    proxy_enabled: bool
+    """Whether the browser extension proxy is active."""
 
 
 class DNSSearchSuffix(BaseModel):
@@ -88,11 +110,20 @@ class SettingsPolicy(BaseModel):
     auto_connect: Optional[float] = None
     """The amount of time in seconds to reconnect after having been disabled."""
 
+    browser_extension_config: Optional[BrowserExtensionConfig] = None
+    """Browser extension proxy settings.
+
+    Required when profile_type is browser_extension and invalid for WARP profiles.
+    """
+
     captive_portal: Optional[float] = None
     """Turn on the captive portal after the specified amount of time."""
 
     default: Optional[bool] = None
-    """Whether the policy is the default policy for an account."""
+    """Whether the policy is the account default.
+
+    WARP group profiles cannot set this field.
+    """
 
     description: Optional[str] = None
     """A description of the policy."""
@@ -168,6 +199,9 @@ class SettingsPolicy(BaseModel):
     Lower values indicate higher precedence. Policies will be evaluated in ascending
     order of this field.
     """
+
+    profile_type: Optional[Literal["warp", "browser_extension"]] = None
+    """The client type to which the device settings profile applies."""
 
     register_interface_ip_with_dns: Optional[bool] = None
     """

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Type, Iterable, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -43,7 +44,7 @@ from .fallback_domains import (
     AsyncFallbackDomainsResourceWithStreamingResponse,
 )
 from ......_base_client import AsyncPaginator, make_request_options
-from ......types.zero_trust.devices.policies import custom_edit_params, custom_create_params
+from ......types.zero_trust.devices.policies import custom_edit_params, custom_list_params, custom_create_params
 from ......types.zero_trust.devices.settings_policy import SettingsPolicy
 from ......types.zero_trust.devices.split_tunnel_exclude_param import SplitTunnelExcludeParam
 from ......types.zero_trust.devices.split_tunnel_include_param import SplitTunnelIncludeParam
@@ -87,14 +88,14 @@ class CustomResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        match: str,
         name: str,
-        precedence: float,
         allow_mode_switch: bool | Omit = omit,
         allow_updates: bool | Omit = omit,
         allowed_to_leave: bool | Omit = omit,
         auto_connect: float | Omit = omit,
+        browser_extension_config: Optional[custom_create_params.BrowserExtensionConfig] | Omit = omit,
         captive_portal: float | Omit = omit,
+        default: bool | Omit = omit,
         description: str | Omit = omit,
         disable_auto_fallback: bool | Omit = omit,
         dns_search_suffixes: Iterable[custom_create_params.DNSSearchSuffix] | Omit = omit,
@@ -105,6 +106,9 @@ class CustomResource(SyncAPIResource):
         include: Iterable[SplitTunnelIncludeParam] | Omit = omit,
         lan_allow_minutes: float | Omit = omit,
         lan_allow_subnet_size: float | Omit = omit,
+        match: str | Omit = omit,
+        precedence: float | Omit = omit,
+        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         register_interface_ip_with_dns: bool | Omit = omit,
         sccm_vpn_boundary_support: bool | Omit = omit,
         service_mode_v2: custom_create_params.ServiceModeV2 | Omit = omit,
@@ -125,15 +129,7 @@ class CustomResource(SyncAPIResource):
         criteria.
 
         Args:
-          match: The wirefilter expression to match devices. Available values: "identity.email",
-              "identity.groups.id", "identity.groups.name", "identity.groups.email",
-              "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name",
-              "os.version".
-
           name: The name of the device settings profile.
-
-          precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
-              will be evaluated in ascending order of this field.
 
           allow_mode_switch: Whether to allow the user to switch WARP between modes.
 
@@ -144,7 +140,13 @@ class CustomResource(SyncAPIResource):
 
           auto_connect: The amount of time in seconds to reconnect after having been disabled.
 
+          browser_extension_config: Browser extension proxy settings. Required when profile_type is
+              browser_extension and invalid for WARP profiles.
+
           captive_portal: Turn on the captive portal after the specified amount of time.
+
+          default: Whether the policy is the account default. WARP group profiles cannot set this
+              field.
 
           description: A description of the policy.
 
@@ -178,6 +180,16 @@ class CustomResource(SyncAPIResource):
           lan_allow_subnet_size: The size of the subnet for the local access network. Note that this field is
               omitted from the response if null or unset.
 
+          match: The wirefilter expression to match devices. Available values: "identity.email",
+              "identity.groups.id", "identity.groups.name", "identity.groups.email",
+              "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name",
+              "os.version".
+
+          precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
+              will be evaluated in ascending order of this field.
+
+          profile_type: The client type to which the device settings profile applies.
+
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
 
@@ -209,14 +221,14 @@ class CustomResource(SyncAPIResource):
             path_template("/accounts/{account_id}/devices/policy", account_id=account_id),
             body=maybe_transform(
                 {
-                    "match": match,
                     "name": name,
-                    "precedence": precedence,
                     "allow_mode_switch": allow_mode_switch,
                     "allow_updates": allow_updates,
                     "allowed_to_leave": allowed_to_leave,
                     "auto_connect": auto_connect,
+                    "browser_extension_config": browser_extension_config,
                     "captive_portal": captive_portal,
+                    "default": default,
                     "description": description,
                     "disable_auto_fallback": disable_auto_fallback,
                     "dns_search_suffixes": dns_search_suffixes,
@@ -227,6 +239,9 @@ class CustomResource(SyncAPIResource):
                     "include": include,
                     "lan_allow_minutes": lan_allow_minutes,
                     "lan_allow_subnet_size": lan_allow_subnet_size,
+                    "match": match,
+                    "precedence": precedence,
+                    "profile_type": profile_type,
                     "register_interface_ip_with_dns": register_interface_ip_with_dns,
                     "sccm_vpn_boundary_support": sccm_vpn_boundary_support,
                     "service_mode_v2": service_mode_v2,
@@ -252,6 +267,7 @@ class CustomResource(SyncAPIResource):
         self,
         *,
         account_id: str,
+        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -263,6 +279,8 @@ class CustomResource(SyncAPIResource):
         Fetches a list of the device settings profiles for an account.
 
         Args:
+          profile_type: Filter profiles by client type. When omitted, only WARP profiles are returned.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -277,7 +295,11 @@ class CustomResource(SyncAPIResource):
             path_template("/accounts/{account_id}/devices/policies", account_id=account_id),
             page=SyncSinglePage[SettingsPolicy],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"profile_type": profile_type}, custom_list_params.CustomListParams),
             ),
             model=SettingsPolicy,
         )
@@ -332,7 +354,9 @@ class CustomResource(SyncAPIResource):
         allow_updates: bool | Omit = omit,
         allowed_to_leave: bool | Omit = omit,
         auto_connect: float | Omit = omit,
+        browser_extension_config: Optional[custom_edit_params.BrowserExtensionConfig] | Omit = omit,
         captive_portal: float | Omit = omit,
+        default: bool | Omit = omit,
         description: str | Omit = omit,
         disable_auto_fallback: bool | Omit = omit,
         dns_search_suffixes: Iterable[custom_edit_params.DNSSearchSuffix] | Omit = omit,
@@ -346,6 +370,7 @@ class CustomResource(SyncAPIResource):
         match: str | Omit = omit,
         name: str | Omit = omit,
         precedence: float | Omit = omit,
+        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         register_interface_ip_with_dns: bool | Omit = omit,
         sccm_vpn_boundary_support: bool | Omit = omit,
         service_mode_v2: custom_edit_params.ServiceModeV2 | Omit = omit,
@@ -374,7 +399,13 @@ class CustomResource(SyncAPIResource):
 
           auto_connect: The amount of time in seconds to reconnect after having been disabled.
 
+          browser_extension_config: Browser extension proxy settings. Required when profile_type is
+              browser_extension and invalid for WARP profiles.
+
           captive_portal: Turn on the captive portal after the specified amount of time.
+
+          default: Whether the policy is the account default. WARP group profiles cannot set this
+              field.
 
           description: A description of the policy.
 
@@ -418,6 +449,8 @@ class CustomResource(SyncAPIResource):
           precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
               will be evaluated in ascending order of this field.
 
+          profile_type: The client type to which the device settings profile applies.
+
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
 
@@ -457,7 +490,9 @@ class CustomResource(SyncAPIResource):
                     "allow_updates": allow_updates,
                     "allowed_to_leave": allowed_to_leave,
                     "auto_connect": auto_connect,
+                    "browser_extension_config": browser_extension_config,
                     "captive_portal": captive_portal,
+                    "default": default,
                     "description": description,
                     "disable_auto_fallback": disable_auto_fallback,
                     "dns_search_suffixes": dns_search_suffixes,
@@ -471,6 +506,7 @@ class CustomResource(SyncAPIResource):
                     "match": match,
                     "name": name,
                     "precedence": precedence,
+                    "profile_type": profile_type,
                     "register_interface_ip_with_dns": register_interface_ip_with_dns,
                     "sccm_vpn_boundary_support": sccm_vpn_boundary_support,
                     "service_mode_v2": service_mode_v2,
@@ -571,14 +607,14 @@ class AsyncCustomResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        match: str,
         name: str,
-        precedence: float,
         allow_mode_switch: bool | Omit = omit,
         allow_updates: bool | Omit = omit,
         allowed_to_leave: bool | Omit = omit,
         auto_connect: float | Omit = omit,
+        browser_extension_config: Optional[custom_create_params.BrowserExtensionConfig] | Omit = omit,
         captive_portal: float | Omit = omit,
+        default: bool | Omit = omit,
         description: str | Omit = omit,
         disable_auto_fallback: bool | Omit = omit,
         dns_search_suffixes: Iterable[custom_create_params.DNSSearchSuffix] | Omit = omit,
@@ -589,6 +625,9 @@ class AsyncCustomResource(AsyncAPIResource):
         include: Iterable[SplitTunnelIncludeParam] | Omit = omit,
         lan_allow_minutes: float | Omit = omit,
         lan_allow_subnet_size: float | Omit = omit,
+        match: str | Omit = omit,
+        precedence: float | Omit = omit,
+        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         register_interface_ip_with_dns: bool | Omit = omit,
         sccm_vpn_boundary_support: bool | Omit = omit,
         service_mode_v2: custom_create_params.ServiceModeV2 | Omit = omit,
@@ -609,15 +648,7 @@ class AsyncCustomResource(AsyncAPIResource):
         criteria.
 
         Args:
-          match: The wirefilter expression to match devices. Available values: "identity.email",
-              "identity.groups.id", "identity.groups.name", "identity.groups.email",
-              "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name",
-              "os.version".
-
           name: The name of the device settings profile.
-
-          precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
-              will be evaluated in ascending order of this field.
 
           allow_mode_switch: Whether to allow the user to switch WARP between modes.
 
@@ -628,7 +659,13 @@ class AsyncCustomResource(AsyncAPIResource):
 
           auto_connect: The amount of time in seconds to reconnect after having been disabled.
 
+          browser_extension_config: Browser extension proxy settings. Required when profile_type is
+              browser_extension and invalid for WARP profiles.
+
           captive_portal: Turn on the captive portal after the specified amount of time.
+
+          default: Whether the policy is the account default. WARP group profiles cannot set this
+              field.
 
           description: A description of the policy.
 
@@ -662,6 +699,16 @@ class AsyncCustomResource(AsyncAPIResource):
           lan_allow_subnet_size: The size of the subnet for the local access network. Note that this field is
               omitted from the response if null or unset.
 
+          match: The wirefilter expression to match devices. Available values: "identity.email",
+              "identity.groups.id", "identity.groups.name", "identity.groups.email",
+              "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name",
+              "os.version".
+
+          precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
+              will be evaluated in ascending order of this field.
+
+          profile_type: The client type to which the device settings profile applies.
+
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
 
@@ -693,14 +740,14 @@ class AsyncCustomResource(AsyncAPIResource):
             path_template("/accounts/{account_id}/devices/policy", account_id=account_id),
             body=await async_maybe_transform(
                 {
-                    "match": match,
                     "name": name,
-                    "precedence": precedence,
                     "allow_mode_switch": allow_mode_switch,
                     "allow_updates": allow_updates,
                     "allowed_to_leave": allowed_to_leave,
                     "auto_connect": auto_connect,
+                    "browser_extension_config": browser_extension_config,
                     "captive_portal": captive_portal,
+                    "default": default,
                     "description": description,
                     "disable_auto_fallback": disable_auto_fallback,
                     "dns_search_suffixes": dns_search_suffixes,
@@ -711,6 +758,9 @@ class AsyncCustomResource(AsyncAPIResource):
                     "include": include,
                     "lan_allow_minutes": lan_allow_minutes,
                     "lan_allow_subnet_size": lan_allow_subnet_size,
+                    "match": match,
+                    "precedence": precedence,
+                    "profile_type": profile_type,
                     "register_interface_ip_with_dns": register_interface_ip_with_dns,
                     "sccm_vpn_boundary_support": sccm_vpn_boundary_support,
                     "service_mode_v2": service_mode_v2,
@@ -736,6 +786,7 @@ class AsyncCustomResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
+        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -747,6 +798,8 @@ class AsyncCustomResource(AsyncAPIResource):
         Fetches a list of the device settings profiles for an account.
 
         Args:
+          profile_type: Filter profiles by client type. When omitted, only WARP profiles are returned.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -761,7 +814,11 @@ class AsyncCustomResource(AsyncAPIResource):
             path_template("/accounts/{account_id}/devices/policies", account_id=account_id),
             page=AsyncSinglePage[SettingsPolicy],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"profile_type": profile_type}, custom_list_params.CustomListParams),
             ),
             model=SettingsPolicy,
         )
@@ -816,7 +873,9 @@ class AsyncCustomResource(AsyncAPIResource):
         allow_updates: bool | Omit = omit,
         allowed_to_leave: bool | Omit = omit,
         auto_connect: float | Omit = omit,
+        browser_extension_config: Optional[custom_edit_params.BrowserExtensionConfig] | Omit = omit,
         captive_portal: float | Omit = omit,
+        default: bool | Omit = omit,
         description: str | Omit = omit,
         disable_auto_fallback: bool | Omit = omit,
         dns_search_suffixes: Iterable[custom_edit_params.DNSSearchSuffix] | Omit = omit,
@@ -830,6 +889,7 @@ class AsyncCustomResource(AsyncAPIResource):
         match: str | Omit = omit,
         name: str | Omit = omit,
         precedence: float | Omit = omit,
+        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         register_interface_ip_with_dns: bool | Omit = omit,
         sccm_vpn_boundary_support: bool | Omit = omit,
         service_mode_v2: custom_edit_params.ServiceModeV2 | Omit = omit,
@@ -858,7 +918,13 @@ class AsyncCustomResource(AsyncAPIResource):
 
           auto_connect: The amount of time in seconds to reconnect after having been disabled.
 
+          browser_extension_config: Browser extension proxy settings. Required when profile_type is
+              browser_extension and invalid for WARP profiles.
+
           captive_portal: Turn on the captive portal after the specified amount of time.
+
+          default: Whether the policy is the account default. WARP group profiles cannot set this
+              field.
 
           description: A description of the policy.
 
@@ -902,6 +968,8 @@ class AsyncCustomResource(AsyncAPIResource):
           precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
               will be evaluated in ascending order of this field.
 
+          profile_type: The client type to which the device settings profile applies.
+
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
 
@@ -941,7 +1009,9 @@ class AsyncCustomResource(AsyncAPIResource):
                     "allow_updates": allow_updates,
                     "allowed_to_leave": allowed_to_leave,
                     "auto_connect": auto_connect,
+                    "browser_extension_config": browser_extension_config,
                     "captive_portal": captive_portal,
+                    "default": default,
                     "description": description,
                     "disable_auto_fallback": disable_auto_fallback,
                     "dns_search_suffixes": dns_search_suffixes,
@@ -955,6 +1025,7 @@ class AsyncCustomResource(AsyncAPIResource):
                     "match": match,
                     "name": name,
                     "precedence": precedence,
+                    "profile_type": profile_type,
                     "register_interface_ip_with_dns": register_interface_ip_with_dns,
                     "sccm_vpn_boundary_support": sccm_vpn_boundary_support,
                     "service_mode_v2": service_mode_v2,

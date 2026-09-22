@@ -63,6 +63,7 @@ class BotManagementResource(SyncAPIResource):
         enable_js: bool | Omit = omit,
         fight_mode: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -167,6 +168,9 @@ class BotManagementResource(SyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -193,6 +197,7 @@ class BotManagementResource(SyncAPIResource):
         crawler_protection: Literal["enabled", "disabled"] | Omit = omit,
         enable_js: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         optimize_wordpress: bool | Omit = omit,
         sbfm_definitely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
         sbfm_static_resource_protection: bool | Omit = omit,
@@ -299,6 +304,9 @@ class BotManagementResource(SyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           optimize_wordpress: Whether to optimize Super Bot Fight Mode protections for Wordpress.
 
           sbfm_definitely_automated: Super Bot Fight Mode (SBFM) action to take on definitely automated requests.
@@ -335,6 +343,7 @@ class BotManagementResource(SyncAPIResource):
         crawler_protection: Literal["enabled", "disabled"] | Omit = omit,
         enable_js: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         optimize_wordpress: bool | Omit = omit,
         sbfm_definitely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
         sbfm_likely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
@@ -442,6 +451,9 @@ class BotManagementResource(SyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           optimize_wordpress: Whether to optimize Super Bot Fight Mode protections for Wordpress.
 
           sbfm_definitely_automated: Super Bot Fight Mode (SBFM) action to take on definitely automated requests.
@@ -482,6 +494,7 @@ class BotManagementResource(SyncAPIResource):
         crawler_protection: Literal["enabled", "disabled"] | Omit = omit,
         enable_js: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         suppress_session_score: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -592,6 +605,9 @@ class BotManagementResource(SyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           suppress_session_score: Whether to disable tracking the highest bot score for a session in the Bot
               Management cookie.
 
@@ -622,6 +638,7 @@ class BotManagementResource(SyncAPIResource):
         enable_js: bool | Omit = omit,
         fight_mode: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         optimize_wordpress: bool | Omit = omit,
         sbfm_definitely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
         sbfm_static_resource_protection: bool | Omit = omit,
@@ -657,6 +674,7 @@ class BotManagementResource(SyncAPIResource):
                         "enable_js": enable_js,
                         "fight_mode": fight_mode,
                         "is_robots_txt_managed": is_robots_txt_managed,
+                        "jsd_api_results_enabled": jsd_api_results_enabled,
                         "optimize_wordpress": optimize_wordpress,
                         "sbfm_definitely_automated": sbfm_definitely_automated,
                         "sbfm_static_resource_protection": sbfm_static_resource_protection,
@@ -763,6 +781,7 @@ class AsyncBotManagementResource(AsyncAPIResource):
         enable_js: bool | Omit = omit,
         fight_mode: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -867,6 +886,9 @@ class AsyncBotManagementResource(AsyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -893,6 +915,7 @@ class AsyncBotManagementResource(AsyncAPIResource):
         crawler_protection: Literal["enabled", "disabled"] | Omit = omit,
         enable_js: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         optimize_wordpress: bool | Omit = omit,
         sbfm_definitely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
         sbfm_static_resource_protection: bool | Omit = omit,
@@ -999,6 +1022,9 @@ class AsyncBotManagementResource(AsyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           optimize_wordpress: Whether to optimize Super Bot Fight Mode protections for Wordpress.
 
           sbfm_definitely_automated: Super Bot Fight Mode (SBFM) action to take on definitely automated requests.
@@ -1035,6 +1061,7 @@ class AsyncBotManagementResource(AsyncAPIResource):
         crawler_protection: Literal["enabled", "disabled"] | Omit = omit,
         enable_js: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         optimize_wordpress: bool | Omit = omit,
         sbfm_definitely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
         sbfm_likely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
@@ -1142,6 +1169,9 @@ class AsyncBotManagementResource(AsyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           optimize_wordpress: Whether to optimize Super Bot Fight Mode protections for Wordpress.
 
           sbfm_definitely_automated: Super Bot Fight Mode (SBFM) action to take on definitely automated requests.
@@ -1182,6 +1212,7 @@ class AsyncBotManagementResource(AsyncAPIResource):
         crawler_protection: Literal["enabled", "disabled"] | Omit = omit,
         enable_js: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         suppress_session_score: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1292,6 +1323,9 @@ class AsyncBotManagementResource(AsyncAPIResource):
           is_robots_txt_managed: Enable cloudflare managed robots.txt. If an existing robots.txt is detected,
               then managed robots.txt will be prepended to the existing robots.txt.
 
+          jsd_api_results_enabled: Whether to use JavaScript Detection results submitted through the API for this
+              zone.
+
           suppress_session_score: Whether to disable tracking the highest bot score for a session in the Bot
               Management cookie.
 
@@ -1322,6 +1356,7 @@ class AsyncBotManagementResource(AsyncAPIResource):
         enable_js: bool | Omit = omit,
         fight_mode: bool | Omit = omit,
         is_robots_txt_managed: bool | Omit = omit,
+        jsd_api_results_enabled: bool | Omit = omit,
         optimize_wordpress: bool | Omit = omit,
         sbfm_definitely_automated: Literal["allow", "block", "managed_challenge"] | Omit = omit,
         sbfm_static_resource_protection: bool | Omit = omit,
@@ -1357,6 +1392,7 @@ class AsyncBotManagementResource(AsyncAPIResource):
                         "enable_js": enable_js,
                         "fight_mode": fight_mode,
                         "is_robots_txt_managed": is_robots_txt_managed,
+                        "jsd_api_results_enabled": jsd_api_results_enabled,
                         "optimize_wordpress": optimize_wordpress,
                         "sbfm_definitely_automated": sbfm_definitely_automated,
                         "sbfm_static_resource_protection": sbfm_static_resource_protection,
