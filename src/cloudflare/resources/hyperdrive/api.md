@@ -17,6 +17,7 @@ from cloudflare.types.hyperdrive import (
     ConfigListResponse,
     ConfigEditResponse,
     ConfigGetResponse,
+    ConfigRestartResponse,
 )
 ```
 
@@ -28,3 +29,4 @@ Methods:
 - <code title="delete /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}">client.hyperdrive.configs.<a href="./src/cloudflare/resources/hyperdrive/configs.py">delete</a>(hyperdrive_id, \*, account_id) -> object</code>
 - <code title="patch /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}">client.hyperdrive.configs.<a href="./src/cloudflare/resources/hyperdrive/configs.py">edit</a>(hyperdrive_id, \*, account_id, \*\*<a href="src/cloudflare/types/hyperdrive/config_edit_params.py">params</a>) -> <a href="./src/cloudflare/types/hyperdrive/config_edit_response.py">ConfigEditResponse</a></code>
 - <code title="get /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}">client.hyperdrive.configs.<a href="./src/cloudflare/resources/hyperdrive/configs.py">get</a>(hyperdrive_id, \*, account_id) -> <a href="./src/cloudflare/types/hyperdrive/config_get_response.py">ConfigGetResponse</a></code>
+- <code title="post /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}/restart">client.hyperdrive.configs.<a href="./src/cloudflare/resources/hyperdrive/configs.py">restart</a>(hyperdrive_id, \*, account_id) -> <a href="./src/cloudflare/types/hyperdrive/config_restart_response.py">ConfigRestartResponse</a></code>

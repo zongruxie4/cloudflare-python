@@ -26,6 +26,7 @@ from ...types.hyperdrive.config_edit_response import ConfigEditResponse
 from ...types.hyperdrive.config_list_response import ConfigListResponse
 from ...types.hyperdrive.config_create_response import ConfigCreateResponse
 from ...types.hyperdrive.config_update_response import ConfigUpdateResponse
+from ...types.hyperdrive.config_restart_response import ConfigRestartResponse
 
 __all__ = ["ConfigsResource", "AsyncConfigsResource"]
 
@@ -522,6 +523,56 @@ class ConfigsResource(SyncAPIResource):
             cast_to=cast(Type[ConfigGetResponse], ResultWrapper[ConfigGetResponse]),
         )
 
+    def restart(
+        self,
+        hyperdrive_id: str,
+        *,
+        account_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConfigRestartResponse:
+        """
+        Restarts the connection pool for the specified Hyperdrive configuration without
+        changing its configuration. Existing connections are drained and a new pool is
+        established at the edge.
+
+        Args:
+          account_id: Define configurations using a unique string identifier.
+
+          hyperdrive_id: Define configurations using a unique string identifier.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not hyperdrive_id:
+            raise ValueError(f"Expected a non-empty value for `hyperdrive_id` but received {hyperdrive_id!r}")
+        return self._post(
+            path_template(
+                "/accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}/restart",
+                account_id=account_id,
+                hyperdrive_id=hyperdrive_id,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=ResultWrapper[ConfigRestartResponse]._unwrapper,
+            ),
+            cast_to=cast(Type[ConfigRestartResponse], ResultWrapper[ConfigRestartResponse]),
+        )
+
 
 class AsyncConfigsResource(AsyncAPIResource):
     @cached_property
@@ -1015,6 +1066,56 @@ class AsyncConfigsResource(AsyncAPIResource):
             cast_to=cast(Type[ConfigGetResponse], ResultWrapper[ConfigGetResponse]),
         )
 
+    async def restart(
+        self,
+        hyperdrive_id: str,
+        *,
+        account_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConfigRestartResponse:
+        """
+        Restarts the connection pool for the specified Hyperdrive configuration without
+        changing its configuration. Existing connections are drained and a new pool is
+        established at the edge.
+
+        Args:
+          account_id: Define configurations using a unique string identifier.
+
+          hyperdrive_id: Define configurations using a unique string identifier.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not account_id:
+            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not hyperdrive_id:
+            raise ValueError(f"Expected a non-empty value for `hyperdrive_id` but received {hyperdrive_id!r}")
+        return await self._post(
+            path_template(
+                "/accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}/restart",
+                account_id=account_id,
+                hyperdrive_id=hyperdrive_id,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=ResultWrapper[ConfigRestartResponse]._unwrapper,
+            ),
+            cast_to=cast(Type[ConfigRestartResponse], ResultWrapper[ConfigRestartResponse]),
+        )
+
 
 class ConfigsResourceWithRawResponse:
     def __init__(self, configs: ConfigsResource) -> None:
@@ -1037,6 +1138,9 @@ class ConfigsResourceWithRawResponse:
         )
         self.get = to_raw_response_wrapper(
             configs.get,
+        )
+        self.restart = to_raw_response_wrapper(
+            configs.restart,
         )
 
 
@@ -1062,6 +1166,9 @@ class AsyncConfigsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             configs.get,
         )
+        self.restart = async_to_raw_response_wrapper(
+            configs.restart,
+        )
 
 
 class ConfigsResourceWithStreamingResponse:
@@ -1086,6 +1193,9 @@ class ConfigsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             configs.get,
         )
+        self.restart = to_streamed_response_wrapper(
+            configs.restart,
+        )
 
 
 class AsyncConfigsResourceWithStreamingResponse:
@@ -1109,4 +1219,7 @@ class AsyncConfigsResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             configs.get,
+        )
+        self.restart = async_to_streamed_response_wrapper(
+            configs.restart,
         )

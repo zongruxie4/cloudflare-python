@@ -12,3 +12,4 @@ from .config_list_response import ConfigListResponse as ConfigListResponse
 from .config_update_params import ConfigUpdateParams as ConfigUpdateParams
 from .config_create_response import ConfigCreateResponse as ConfigCreateResponse
 from .config_update_response import ConfigUpdateResponse as ConfigUpdateResponse
+from .config_restart_response import ConfigRestartResponse as ConfigRestartResponse
