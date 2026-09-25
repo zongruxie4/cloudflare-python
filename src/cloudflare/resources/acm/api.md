@@ -5,7 +5,12 @@
 Types:
 
 ```python
-from cloudflare.types.acm import TotalTLSUpdateResponse, TotalTLSEditResponse, TotalTLSGetResponse
+from cloudflare.types.acm import (
+    CertificateAuthority,
+    TotalTLSUpdateResponse,
+    TotalTLSEditResponse,
+    TotalTLSGetResponse,
+)
 ```
 
 Methods:

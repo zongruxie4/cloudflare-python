@@ -63,3 +63,15 @@ Methods:
 
 - <code title="get /accounts/{account_id}/registrar/extensions">client.registrar.extensions.<a href="./src/cloudflare/resources/registrar/extensions.py">list</a>(\*, account_id, \*\*<a href="src/cloudflare/types/registrar/extension_list_params.py">params</a>) -> <a href="./src/cloudflare/types/registrar/extension_list_response.py">SyncCursorPagination[ExtensionListResponse]</a></code>
 - <code title="get /accounts/{account_id}/registrar/extensions/{extension}">client.registrar.extensions.<a href="./src/cloudflare/resources/registrar/extensions.py">get</a>(extension, \*, account_id) -> <a href="./src/cloudflare/types/registrar/extension_get_response.py">ExtensionGetResponse</a></code>
+
+## TransferIn
+
+Methods:
+
+- <code title="post /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in">client.registrar.transfer_in.<a href="./src/cloudflare/resources/registrar/transfer_in.py">create</a>(domain_name, \*, account_id, \*\*<a href="src/cloudflare/types/registrar/transfer_in_create_params.py">params</a>) -> <a href="./src/cloudflare/types/registrar/workflow_status.py">WorkflowStatus</a></code>
+
+## TransferInStatus
+
+Methods:
+
+- <code title="get /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in-status">client.registrar.transfer_in_status.<a href="./src/cloudflare/resources/registrar/transfer_in_status.py">get</a>(domain_name, \*, account_id) -> <a href="./src/cloudflare/types/registrar/workflow_status.py">WorkflowStatus</a></code>

@@ -43,12 +43,6 @@ Methods:
 
 ## Clip
 
-Types:
-
-```python
-from cloudflare.types.stream import Clip
-```
-
 Methods:
 
 - <code title="post /accounts/{account_id}/stream/clip">client.stream.clip.<a href="./src/cloudflare/resources/stream/clip.py">create</a>(\*, account_id, \*\*<a href="src/cloudflare/types/stream/clip_create_params.py">params</a>) -> <a href="./src/cloudflare/types/stream/video.py">Optional[Video]</a></code>

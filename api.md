@@ -267,6 +267,8 @@ Methods:
 
 # [MoQ](src/cloudflare/resources/moq/api.md)
 
+# [ManagedDefense](src/cloudflare/resources/managed_defense/api.md)
+
 # [CloudforceOne](src/cloudflare/resources/cloudforce_one/api.md)
 
 # [AIGateway](src/cloudflare/resources/ai_gateway/api.md)
@@ -316,3 +318,5 @@ Methods:
 # [SchemaValidation](src/cloudflare/resources/schema_validation/api.md)
 
 # [TokenValidation](src/cloudflare/resources/token_validation/api.md)
+
+# [FieldExtractors](src/cloudflare/resources/field_extractors/api.md)

@@ -99,22 +99,16 @@ Methods:
 Types:
 
 ```python
-from cloudflare.types.firewall.waf import (
-    Override,
-    OverrideURL,
-    RewriteAction,
-    WAFRule,
-    OverrideDeleteResponse,
-)
+from cloudflare.types.firewall.waf import OverrideURL, RewriteAction, WAFRule
 ```
 
 Methods:
 
-- <code title="post /zones/{zone_id}/firewall/waf/overrides">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">create</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/firewall/waf/override_create_params.py">params</a>) -> <a href="./src/cloudflare/types/firewall/waf/override.py">Override</a></code>
-- <code title="put /zones/{zone_id}/firewall/waf/overrides/{overrides_id}">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">update</a>(overrides_id, \*, zone_id, \*\*<a href="src/cloudflare/types/firewall/waf/override_update_params.py">params</a>) -> <a href="./src/cloudflare/types/firewall/waf/override.py">Override</a></code>
-- <code title="get /zones/{zone_id}/firewall/waf/overrides">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">list</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/firewall/waf/override_list_params.py">params</a>) -> <a href="./src/cloudflare/types/firewall/waf/override.py">SyncV4PagePaginationArray[Override]</a></code>
-- <code title="delete /zones/{zone_id}/firewall/waf/overrides/{overrides_id}">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">delete</a>(overrides_id, \*, zone_id) -> <a href="./src/cloudflare/types/firewall/waf/override_delete_response.py">Optional[OverrideDeleteResponse]</a></code>
-- <code title="get /zones/{zone_id}/firewall/waf/overrides/{overrides_id}">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">get</a>(overrides_id, \*, zone_id) -> <a href="./src/cloudflare/types/firewall/waf/override.py">Override</a></code>
+- <code title="post /zones/{zone_id}/firewall/waf/overrides">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">create</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/firewall/waf/override_create_params.py">params</a>) -> None</code>
+- <code title="put /zones/{zone_id}/firewall/waf/overrides/{overrides_id}">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">update</a>(overrides_id, \*, zone_id, \*\*<a href="src/cloudflare/types/firewall/waf/override_update_params.py">params</a>) -> None</code>
+- <code title="get /zones/{zone_id}/firewall/waf/overrides">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">list</a>(\*, zone_id, \*\*<a href="src/cloudflare/types/firewall/waf/override_list_params.py">params</a>) -> None</code>
+- <code title="delete /zones/{zone_id}/firewall/waf/overrides/{overrides_id}">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">delete</a>(overrides_id, \*, zone_id) -> None</code>
+- <code title="get /zones/{zone_id}/firewall/waf/overrides/{overrides_id}">client.firewall.waf.overrides.<a href="./src/cloudflare/resources/firewall/waf/overrides.py">get</a>(overrides_id, \*, zone_id) -> None</code>
 
 ### Packages
 
