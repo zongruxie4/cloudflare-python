@@ -69,6 +69,8 @@ class LocationsResource(SyncAPIResource):
         Create a new Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the location name.
 
           client_default: Indicate whether this location is the default location.
@@ -148,6 +150,8 @@ class LocationsResource(SyncAPIResource):
         Update a configured Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the location name.
 
           client_default: Indicate whether this location is the default location.
@@ -227,6 +231,8 @@ class LocationsResource(SyncAPIResource):
         List Zero Trust Gateway locations for an account.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           direction: Sort direction. Only takes effect when `order_by` is also provided; it is
               ignored otherwise. When `direction` is omitted the effective direction is
               field-specific: `created_at` and `updated_at` default to descending (newest
@@ -310,6 +316,8 @@ class LocationsResource(SyncAPIResource):
         Delete a configured Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -352,6 +360,8 @@ class LocationsResource(SyncAPIResource):
         Get a single Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -421,6 +431,8 @@ class AsyncLocationsResource(AsyncAPIResource):
         Create a new Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the location name.
 
           client_default: Indicate whether this location is the default location.
@@ -500,6 +512,8 @@ class AsyncLocationsResource(AsyncAPIResource):
         Update a configured Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the location name.
 
           client_default: Indicate whether this location is the default location.
@@ -579,6 +593,8 @@ class AsyncLocationsResource(AsyncAPIResource):
         List Zero Trust Gateway locations for an account.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           direction: Sort direction. Only takes effect when `order_by` is also provided; it is
               ignored otherwise. When `direction` is omitted the effective direction is
               field-specific: `created_at` and `updated_at` default to descending (newest
@@ -662,6 +678,8 @@ class AsyncLocationsResource(AsyncAPIResource):
         Delete a configured Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -704,6 +722,8 @@ class AsyncLocationsResource(AsyncAPIResource):
         Get a single Zero Trust Gateway location.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

@@ -38,7 +38,7 @@ class CustomMetadata(BaseModel):
 class IndexMethod(BaseModel):
     """Controls which storage backends are used during indexing.
 
-    Defaults to vector-only.
+    Defaults to vector and keyword indexing for new instances.
     """
 
     keyword: bool
@@ -325,12 +325,15 @@ class InstanceDeleteResponse(BaseModel):
     fusion_method: Optional[Literal["max", "rrf"]] = None
 
     hybrid_search_enabled: Optional[bool] = None
-    """Deprecated — use index_method instead."""
+    """Deprecated — use index_method instead.
+
+    Defaults to true for new instances; set false to create a vector-only instance.
+    """
 
     index_method: Optional[IndexMethod] = None
     """Controls which storage backends are used during indexing.
 
-    Defaults to vector-only.
+    Defaults to vector and keyword indexing for new instances.
     """
 
     indexing_options: Optional[IndexingOptions] = None
@@ -383,3 +386,9 @@ class InstanceDeleteResponse(BaseModel):
     token_id: Optional[str] = None
 
     type: Optional[Literal["r2", "web-crawler"]] = None
+    """Source type.
+
+    When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and
+    existing R2 bucket names infer r2. A missing or blank source without a type uses
+    managed upload-only storage.
+    """

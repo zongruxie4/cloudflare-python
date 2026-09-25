@@ -11,6 +11,7 @@ __all__ = ["ListListParams"]
 
 class ListListParams(TypedDict, total=False):
     account_id: Required[str]
+    """Specify the Cloudflare account identifier."""
 
     direction: Literal["asc", "desc"]
     """Sort direction.

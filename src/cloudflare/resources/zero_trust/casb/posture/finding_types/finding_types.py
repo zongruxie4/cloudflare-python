@@ -84,6 +84,7 @@ class FindingTypesResource(SyncAPIResource):
                 "SALESFORCE",
                 "SERVICENOW",
                 "SLACK",
+                "ZOOM",
             ]
         ]
         | Omit = omit,
@@ -233,6 +234,7 @@ class AsyncFindingTypesResource(AsyncAPIResource):
                 "SALESFORCE",
                 "SERVICENOW",
                 "SLACK",
+                "ZOOM",
             ]
         ]
         | Omit = omit,

@@ -188,7 +188,8 @@ class CustomResource(SyncAPIResource):
           precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
               will be evaluated in ascending order of this field.
 
-          profile_type: The client type to which the device settings profile applies.
+          profile_type: The client type to which the device settings profile applies. This field is set
+              when the profile is created and cannot be changed.
 
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
@@ -370,7 +371,6 @@ class CustomResource(SyncAPIResource):
         match: str | Omit = omit,
         name: str | Omit = omit,
         precedence: float | Omit = omit,
-        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         register_interface_ip_with_dns: bool | Omit = omit,
         sccm_vpn_boundary_support: bool | Omit = omit,
         service_mode_v2: custom_edit_params.ServiceModeV2 | Omit = omit,
@@ -449,8 +449,6 @@ class CustomResource(SyncAPIResource):
           precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
               will be evaluated in ascending order of this field.
 
-          profile_type: The client type to which the device settings profile applies.
-
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
 
@@ -506,7 +504,6 @@ class CustomResource(SyncAPIResource):
                     "match": match,
                     "name": name,
                     "precedence": precedence,
-                    "profile_type": profile_type,
                     "register_interface_ip_with_dns": register_interface_ip_with_dns,
                     "sccm_vpn_boundary_support": sccm_vpn_boundary_support,
                     "service_mode_v2": service_mode_v2,
@@ -707,7 +704,8 @@ class AsyncCustomResource(AsyncAPIResource):
           precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
               will be evaluated in ascending order of this field.
 
-          profile_type: The client type to which the device settings profile applies.
+          profile_type: The client type to which the device settings profile applies. This field is set
+              when the profile is created and cannot be changed.
 
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
@@ -889,7 +887,6 @@ class AsyncCustomResource(AsyncAPIResource):
         match: str | Omit = omit,
         name: str | Omit = omit,
         precedence: float | Omit = omit,
-        profile_type: Literal["warp", "browser_extension"] | Omit = omit,
         register_interface_ip_with_dns: bool | Omit = omit,
         sccm_vpn_boundary_support: bool | Omit = omit,
         service_mode_v2: custom_edit_params.ServiceModeV2 | Omit = omit,
@@ -968,8 +965,6 @@ class AsyncCustomResource(AsyncAPIResource):
           precedence: The precedence of the policy. Lower values indicate higher precedence. Policies
               will be evaluated in ascending order of this field.
 
-          profile_type: The client type to which the device settings profile applies.
-
           register_interface_ip_with_dns: Determines if the operating system will register WARP's local interface IP with
               your on-premises DNS server.
 
@@ -1025,7 +1020,6 @@ class AsyncCustomResource(AsyncAPIResource):
                     "match": match,
                     "name": name,
                     "precedence": precedence,
-                    "profile_type": profile_type,
                     "register_interface_ip_with_dns": register_interface_ip_with_dns,
                     "sccm_vpn_boundary_support": sccm_vpn_boundary_support,
                     "service_mode_v2": service_mode_v2,

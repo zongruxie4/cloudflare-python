@@ -127,9 +127,6 @@ class CustomEditParams(TypedDict, total=False):
     order of this field.
     """
 
-    profile_type: Literal["warp", "browser_extension"]
-    """The client type to which the device settings profile applies."""
-
     register_interface_ip_with_dns: bool
     """
     Determines if the operating system will register WARP's local interface IP with

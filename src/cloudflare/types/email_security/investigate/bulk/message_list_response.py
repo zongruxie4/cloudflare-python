@@ -297,7 +297,8 @@ class MessageListResponse(BaseModel):
 
     retry_count: int
 
-    status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED", "SKIPPED"]
+    status: Literal["PENDING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED", "SKIPPED"]
+    """Status of a message within a bulk action job."""
 
     alert_id: Optional[str] = None
 

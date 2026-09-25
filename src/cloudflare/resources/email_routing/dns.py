@@ -57,7 +57,7 @@ class DNSResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Settings]:
-        """Enable you Email Routing zone.
+        """Enable your Email Routing zone.
 
         Add and lock the necessary MX and SPF records.
 
@@ -250,7 +250,7 @@ class AsyncDNSResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Settings]:
-        """Enable you Email Routing zone.
+        """Enable your Email Routing zone.
 
         Add and lock the necessary MX and SPF records.
 

@@ -45,6 +45,7 @@ from .block_page_settings import BlockPageSettings as BlockPageSettings
 from .fips_settings_param import FipsSettingsParam as FipsSettingsParam
 from .ipv4_endpoint_param import IPV4EndpointParam as IPV4EndpointParam
 from .ipv6_endpoint_param import IPV6EndpointParam as IPV6EndpointParam
+from .pacfile_list_params import PacfileListParams as PacfileListParams
 from .list_create_response import ListCreateResponse as ListCreateResponse
 from .location_list_params import LocationListParams as LocationListParams
 from .pacfile_get_response import PacfileGetResponse as PacfileGetResponse

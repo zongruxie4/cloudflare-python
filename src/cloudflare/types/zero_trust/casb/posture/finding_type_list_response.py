@@ -34,7 +34,7 @@ class FindingTypeListResponse(BaseModel):
     """The name of the finding."""
 
     severity: Literal["Critical", "High", "Medium", "Low"]
-    """The severity level of a finding."""
+    """Default severity used when no integration-specific severity override exists."""
 
     vendor: str
     """The SaaS/Cloud vendor of the platform with which the finding is associated."""

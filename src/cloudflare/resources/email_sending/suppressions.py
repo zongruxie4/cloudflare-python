@@ -64,6 +64,7 @@ class SuppressionsResource(SyncAPIResource):
         email: str,
         expires_at: Union[str, datetime, None] | Omit = omit,
         note: str | Omit = omit,
+        scope: suppression_create_params.Scope | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -71,10 +72,11 @@ class SuppressionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SuppressionCreateResponse:
-        """Creates an account-wide suppression.
-
-        If a mutable legacy zone-linked row already
-        exists, it is promoted without changing its identifier.
+        """
+        Creates a suppression for every sending domain of the account (default) or for
+        one sending domain (`scope.type = sending_domain`). Creating an existing active
+        suppression returns its identifier. If a mutable legacy zone-linked account row
+        already exists, it is promoted without changing its identifier.
 
         Args:
           account_id: Cloudflare account ID.
@@ -85,6 +87,9 @@ class SuppressionsResource(SyncAPIResource):
               suppression that never expires.
 
           note: Advisory note for this suppression. Not enforced or validated beyond length.
+
+          scope: Where the suppression applies. Omit for `{ "type": "account" }`, which blocks
+              the recipient for every sending domain of the account.
 
           extra_headers: Send extra headers
 
@@ -103,6 +108,7 @@ class SuppressionsResource(SyncAPIResource):
                     "email": email,
                     "expires_at": expires_at,
                     "note": note,
+                    "scope": scope,
                 },
                 suppression_create_params.SuppressionCreateParams,
             ),
@@ -124,6 +130,8 @@ class SuppressionsResource(SyncAPIResource):
         email: str | Omit = omit,
         per_page: int | Omit = omit,
         reason: Literal["manual", "complaint", "hard_bounce", "soft_bounce", "policy"] | Omit = omit,
+        scope_type: Literal["account", "sending_domain"] | Omit = omit,
+        scope_value: str | Omit = omit,
         search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -133,8 +141,9 @@ class SuppressionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPagination[SuppressionListResponse]:
         """
-        Lists every active Email Sending suppression owned by the account, including
-        legacy rows with internal zone memberships.
+        Lists every active Email Sending suppression owned by the account:
+        sending-domain suppressions first, then account-wide suppressions (including
+        legacy rows with internal zone memberships). Each group is newest first.
 
         Args:
           account_id: Cloudflare account ID.
@@ -147,6 +156,12 @@ class SuppressionsResource(SyncAPIResource):
           per_page: Maximum number of suppressions to return per page.
 
           reason: Filter to suppressions with this reason.
+
+          scope_type: Filter by scope: `account` returns only account-wide suppressions,
+              `sending_domain` only sending-domain suppressions. Omit to list both,
+              sending-domain suppressions first.
+
+          scope_value: Exact sending-domain filter. Requires `scope_type=sending_domain`.
 
           search: A complete address is an exact match; a value ending in `@` matches that
               username across every domain. Prefix searches may return short intermediate
@@ -176,6 +191,8 @@ class SuppressionsResource(SyncAPIResource):
                         "email": email,
                         "per_page": per_page,
                         "reason": reason,
+                        "scope_type": scope_type,
+                        "scope_value": scope_value,
                         "search": search,
                     },
                     suppression_list_params.SuppressionListParams,
@@ -240,6 +257,7 @@ class SuppressionsResource(SyncAPIResource):
         account_id: str,
         expires_at: Union[str, datetime, None] | Omit = omit,
         note: str | Omit = omit,
+        scope: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,7 +267,7 @@ class SuppressionsResource(SyncAPIResource):
     ) -> SuppressionEditResponse:
         """
         Updates expiry or advisory note fields without changing legacy internal zone
-        memberships.
+        memberships. Scope cannot be changed.
 
         Args:
           account_id: Cloudflare account ID.
@@ -261,6 +279,10 @@ class SuppressionsResource(SyncAPIResource):
 
           note: Replacement advisory note. Send an empty string to clear it; omit to leave it
               unchanged.
+
+          scope: Not editable. Scope is fixed when the suppression is created; any value returns
+              400 with code `scope_immutable`. Delete and recreate the suppression to change
+              it.
 
           extra_headers: Send extra headers
 
@@ -284,6 +306,7 @@ class SuppressionsResource(SyncAPIResource):
                 {
                     "expires_at": expires_at,
                     "note": note,
+                    "scope": scope,
                 },
                 suppression_edit_params.SuppressionEditParams,
             ),
@@ -357,14 +380,16 @@ class SuppressionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SuppressionImportResponse:
-        """
-        Imports up to 1,000 account-level Email Sending suppressions in one request.
+        """Imports up to 1,000 Email Sending suppressions in one request.
+
+        Each item applies
+        to every sending domain of the account (default) or to one sending domain.
 
         Args:
           account_id: Cloudflare account ID.
 
-          items: Suppressions to import. Items with a duplicate email address are deduplicated
-              before processing.
+          items: Suppressions to import. Items with the same email address and scope are
+              deduplicated before processing.
 
           extra_headers: Send extra headers
 
@@ -417,6 +442,7 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         email: str,
         expires_at: Union[str, datetime, None] | Omit = omit,
         note: str | Omit = omit,
+        scope: suppression_create_params.Scope | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -424,10 +450,11 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SuppressionCreateResponse:
-        """Creates an account-wide suppression.
-
-        If a mutable legacy zone-linked row already
-        exists, it is promoted without changing its identifier.
+        """
+        Creates a suppression for every sending domain of the account (default) or for
+        one sending domain (`scope.type = sending_domain`). Creating an existing active
+        suppression returns its identifier. If a mutable legacy zone-linked account row
+        already exists, it is promoted without changing its identifier.
 
         Args:
           account_id: Cloudflare account ID.
@@ -438,6 +465,9 @@ class AsyncSuppressionsResource(AsyncAPIResource):
               suppression that never expires.
 
           note: Advisory note for this suppression. Not enforced or validated beyond length.
+
+          scope: Where the suppression applies. Omit for `{ "type": "account" }`, which blocks
+              the recipient for every sending domain of the account.
 
           extra_headers: Send extra headers
 
@@ -456,6 +486,7 @@ class AsyncSuppressionsResource(AsyncAPIResource):
                     "email": email,
                     "expires_at": expires_at,
                     "note": note,
+                    "scope": scope,
                 },
                 suppression_create_params.SuppressionCreateParams,
             ),
@@ -477,6 +508,8 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         email: str | Omit = omit,
         per_page: int | Omit = omit,
         reason: Literal["manual", "complaint", "hard_bounce", "soft_bounce", "policy"] | Omit = omit,
+        scope_type: Literal["account", "sending_domain"] | Omit = omit,
+        scope_value: str | Omit = omit,
         search: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -486,8 +519,9 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[SuppressionListResponse, AsyncCursorPagination[SuppressionListResponse]]:
         """
-        Lists every active Email Sending suppression owned by the account, including
-        legacy rows with internal zone memberships.
+        Lists every active Email Sending suppression owned by the account:
+        sending-domain suppressions first, then account-wide suppressions (including
+        legacy rows with internal zone memberships). Each group is newest first.
 
         Args:
           account_id: Cloudflare account ID.
@@ -500,6 +534,12 @@ class AsyncSuppressionsResource(AsyncAPIResource):
           per_page: Maximum number of suppressions to return per page.
 
           reason: Filter to suppressions with this reason.
+
+          scope_type: Filter by scope: `account` returns only account-wide suppressions,
+              `sending_domain` only sending-domain suppressions. Omit to list both,
+              sending-domain suppressions first.
+
+          scope_value: Exact sending-domain filter. Requires `scope_type=sending_domain`.
 
           search: A complete address is an exact match; a value ending in `@` matches that
               username across every domain. Prefix searches may return short intermediate
@@ -529,6 +569,8 @@ class AsyncSuppressionsResource(AsyncAPIResource):
                         "email": email,
                         "per_page": per_page,
                         "reason": reason,
+                        "scope_type": scope_type,
+                        "scope_value": scope_value,
                         "search": search,
                     },
                     suppression_list_params.SuppressionListParams,
@@ -593,6 +635,7 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         account_id: str,
         expires_at: Union[str, datetime, None] | Omit = omit,
         note: str | Omit = omit,
+        scope: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -602,7 +645,7 @@ class AsyncSuppressionsResource(AsyncAPIResource):
     ) -> SuppressionEditResponse:
         """
         Updates expiry or advisory note fields without changing legacy internal zone
-        memberships.
+        memberships. Scope cannot be changed.
 
         Args:
           account_id: Cloudflare account ID.
@@ -614,6 +657,10 @@ class AsyncSuppressionsResource(AsyncAPIResource):
 
           note: Replacement advisory note. Send an empty string to clear it; omit to leave it
               unchanged.
+
+          scope: Not editable. Scope is fixed when the suppression is created; any value returns
+              400 with code `scope_immutable`. Delete and recreate the suppression to change
+              it.
 
           extra_headers: Send extra headers
 
@@ -637,6 +684,7 @@ class AsyncSuppressionsResource(AsyncAPIResource):
                 {
                     "expires_at": expires_at,
                     "note": note,
+                    "scope": scope,
                 },
                 suppression_edit_params.SuppressionEditParams,
             ),
@@ -710,14 +758,16 @@ class AsyncSuppressionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SuppressionImportResponse:
-        """
-        Imports up to 1,000 account-level Email Sending suppressions in one request.
+        """Imports up to 1,000 Email Sending suppressions in one request.
+
+        Each item applies
+        to every sending domain of the account (default) or to one sending domain.
 
         Args:
           account_id: Cloudflare account ID.
 
-          items: Suppressions to import. Items with a duplicate email address are deduplicated
-              before processing.
+          items: Suppressions to import. Items with the same email address and scope are
+              deduplicated before processing.
 
           extra_headers: Send extra headers
 

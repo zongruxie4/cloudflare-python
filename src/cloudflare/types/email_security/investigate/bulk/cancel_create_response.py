@@ -131,7 +131,8 @@ class CancelCreateResponse(BaseModel):
 
     search_params: SearchParams
 
-    status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED", "SKIPPED"]
+    status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED"]
+    """Status of a bulk action job."""
 
     total_messages_discovered: int
 

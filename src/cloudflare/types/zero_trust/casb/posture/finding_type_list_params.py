@@ -38,6 +38,7 @@ class FindingTypeListParams(TypedDict, total=False):
             "SALESFORCE",
             "SERVICENOW",
             "SLACK",
+            "ZOOM",
         ]
     ]
     """Filter finding types by vendor.

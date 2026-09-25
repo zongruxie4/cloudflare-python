@@ -245,9 +245,10 @@ class ScriptsResource(SyncAPIResource):
 
           script_name: Name of the script, used in URLs and route configuration.
 
-          force: If set to true, delete will not be stopped by associated service binding,
-              durable object, or other binding. Any of these associated bindings/durable
-              objects will be deleted along with the script.
+          force: If true, delete the script even when other Workers still reference it. Service
+              bindings in those Workers may be left broken. Durable Object namespaces
+              implemented by the deleted script are deleted even if other Workers reference
+              them.
 
           extra_headers: Send extra headers
 
@@ -499,9 +500,10 @@ class AsyncScriptsResource(AsyncAPIResource):
 
           script_name: Name of the script, used in URLs and route configuration.
 
-          force: If set to true, delete will not be stopped by associated service binding,
-              durable object, or other binding. Any of these associated bindings/durable
-              objects will be deleted along with the script.
+          force: If true, delete the script even when other Workers still reference it. Service
+              bindings in those Workers may be left broken. Durable Object namespaces
+              implemented by the deleted script are deleted even if other Workers reference
+              them.
 
           extra_headers: Send extra headers
 

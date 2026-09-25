@@ -68,6 +68,7 @@ class DevicesResource(SyncAPIResource):
         ]
         | Omit = omit,
         sort_order: Literal["asc", "desc"] | Omit = omit,
+        tag: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -107,6 +108,9 @@ class DevicesResource(SyncAPIResource):
 
           sort_order: Sort direction.
 
+          tag: Filter by one or more device tags in key:value format. Devices must match all
+              provided tags.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -140,6 +144,7 @@ class DevicesResource(SyncAPIResource):
                         "seen_before": seen_before,
                         "sort_by": sort_by,
                         "sort_order": sort_order,
+                        "tag": tag,
                     },
                     device_list_params.DeviceListParams,
                 ),
@@ -328,6 +333,7 @@ class AsyncDevicesResource(AsyncAPIResource):
         ]
         | Omit = omit,
         sort_order: Literal["asc", "desc"] | Omit = omit,
+        tag: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -367,6 +373,9 @@ class AsyncDevicesResource(AsyncAPIResource):
 
           sort_order: Sort direction.
 
+          tag: Filter by one or more device tags in key:value format. Devices must match all
+              provided tags.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -400,6 +409,7 @@ class AsyncDevicesResource(AsyncAPIResource):
                         "seen_before": seen_before,
                         "sort_by": sort_by,
                         "sort_order": sort_order,
+                        "tag": tag,
                     },
                     device_list_params.DeviceListParams,
                 ),

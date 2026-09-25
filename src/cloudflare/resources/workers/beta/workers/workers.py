@@ -28,7 +28,13 @@ from ....._response import (
 from ....._wrappers import ResultWrapper
 from .....pagination import SyncV4PagePaginationArray, AsyncV4PagePaginationArray
 from ....._base_client import AsyncPaginator, make_request_options
-from .....types.workers.beta import worker_edit_params, worker_list_params, worker_create_params, worker_update_params
+from .....types.workers.beta import (
+    worker_edit_params,
+    worker_list_params,
+    worker_create_params,
+    worker_delete_params,
+    worker_update_params,
+)
 from .....types.workers.beta.worker import Worker
 from .....types.workers.beta.worker_delete_response import WorkerDeleteResponse
 
@@ -278,6 +284,7 @@ class WorkersResource(SyncAPIResource):
         worker_id: str,
         *,
         account_id: str,
+        force: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,6 +299,11 @@ class WorkersResource(SyncAPIResource):
           account_id: Identifier.
 
           worker_id: Identifier for the Worker, which can be ID or name.
+
+          force: If true, delete the Worker even when other Workers still reference it. Service
+              bindings in those Workers may be left broken. Durable Object namespaces
+              implemented by the deleted Worker are deleted even if other Workers reference
+              them.
 
           extra_headers: Send extra headers
 
@@ -310,7 +322,11 @@ class WorkersResource(SyncAPIResource):
                 "/accounts/{account_id}/workers/workers/{worker_id}", account_id=account_id, worker_id=worker_id
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"force": force}, worker_delete_params.WorkerDeleteParams),
             ),
             cast_to=WorkerDeleteResponse,
         )
@@ -685,6 +701,7 @@ class AsyncWorkersResource(AsyncAPIResource):
         worker_id: str,
         *,
         account_id: str,
+        force: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -699,6 +716,11 @@ class AsyncWorkersResource(AsyncAPIResource):
           account_id: Identifier.
 
           worker_id: Identifier for the Worker, which can be ID or name.
+
+          force: If true, delete the Worker even when other Workers still reference it. Service
+              bindings in those Workers may be left broken. Durable Object namespaces
+              implemented by the deleted Worker are deleted even if other Workers reference
+              them.
 
           extra_headers: Send extra headers
 
@@ -717,7 +739,11 @@ class AsyncWorkersResource(AsyncAPIResource):
                 "/accounts/{account_id}/workers/workers/{worker_id}", account_id=account_id, worker_id=worker_id
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"force": force}, worker_delete_params.WorkerDeleteParams),
             ),
             cast_to=WorkerDeleteResponse,
         )

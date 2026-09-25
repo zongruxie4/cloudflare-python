@@ -66,6 +66,8 @@ class CertificatesResource(SyncAPIResource):
         Create a new Zero Trust certificate.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           validity_period_days: Sets the certificate validity period in days (range: 1-10,950 days / ~30 years).
               Defaults to 1,825 days (5 years). **Important**: This field is only settable
               during the certificate creation. Certificates becomes immutable after creation -
@@ -111,6 +113,8 @@ class CertificatesResource(SyncAPIResource):
         List all Zero Trust certificates for an account.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -148,6 +152,8 @@ class CertificatesResource(SyncAPIResource):
         certificate from the edge (inactive) before deleting it.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -194,6 +200,8 @@ class CertificatesResource(SyncAPIResource):
         Bind a single Zero Trust certificate to the edge.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -240,6 +248,8 @@ class CertificatesResource(SyncAPIResource):
         Unbind a single Zero Trust certificate from the edge.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -286,6 +296,8 @@ class CertificatesResource(SyncAPIResource):
         Get a single Zero Trust certificate.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -353,6 +365,8 @@ class AsyncCertificatesResource(AsyncAPIResource):
         Create a new Zero Trust certificate.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           validity_period_days: Sets the certificate validity period in days (range: 1-10,950 days / ~30 years).
               Defaults to 1,825 days (5 years). **Important**: This field is only settable
               during the certificate creation. Certificates becomes immutable after creation -
@@ -398,6 +412,8 @@ class AsyncCertificatesResource(AsyncAPIResource):
         List all Zero Trust certificates for an account.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -435,6 +451,8 @@ class AsyncCertificatesResource(AsyncAPIResource):
         certificate from the edge (inactive) before deleting it.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -481,6 +499,8 @@ class AsyncCertificatesResource(AsyncAPIResource):
         Bind a single Zero Trust certificate to the edge.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -527,6 +547,8 @@ class AsyncCertificatesResource(AsyncAPIResource):
         Unbind a single Zero Trust certificate from the edge.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers
@@ -573,6 +595,8 @@ class AsyncCertificatesResource(AsyncAPIResource):
         Get a single Zero Trust certificate.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           certificate_id: Identify the certificate with a UUID.
 
           extra_headers: Send extra headers

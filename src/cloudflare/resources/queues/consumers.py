@@ -118,55 +118,17 @@ class ConsumersResource(SyncAPIResource):
         """
         ...
 
-    @overload
-    def create(
-        self,
-        queue_id: str,
-        *,
-        account_id: str,
-        settings: consumer_create_params.MqNotificationConsumerRequestSettings,
-        type: Literal["notification"],
-        dead_letter_queue: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Consumer]:
-        """
-        Creates a consumer for a Queue.
-
-        Args:
-          account_id: A Resource identifier.
-
-          queue_id: A Resource identifier.
-
-          settings: Notification destinations for a Queue. At least one email, webhook, or PagerDuty
-              destination is required.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["account_id", "script_name", "type"], ["account_id", "type"], ["account_id", "settings", "type"])
+    @required_args(["account_id", "script_name", "type"], ["account_id", "type"])
     def create(
         self,
         queue_id: str,
         *,
         account_id: str,
         script_name: str | Omit = omit,
-        type: Literal["worker"] | Literal["http_pull"] | Literal["notification"],
+        type: Literal["worker"] | Literal["http_pull"],
         dead_letter_queue: str | Omit = omit,
         settings: consumer_create_params.MqWorkerConsumerRequestSettings
         | consumer_create_params.MqHTTPConsumerRequestSettings
-        | consumer_create_params.MqNotificationConsumerRequestSettings
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -284,51 +246,7 @@ class ConsumersResource(SyncAPIResource):
         """
         ...
 
-    @overload
-    def update(
-        self,
-        consumer_id: str,
-        *,
-        account_id: str,
-        queue_id: str,
-        settings: consumer_update_params.MqNotificationConsumerRequestSettings,
-        type: Literal["notification"],
-        dead_letter_queue: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Consumer]:
-        """
-        Replaces a Queue consumer, or creates it if it does not exist.
-
-        Args:
-          account_id: A Resource identifier.
-
-          queue_id: A Resource identifier.
-
-          consumer_id: A Resource identifier.
-
-          settings: Notification destinations for a Queue. At least one email, webhook, or PagerDuty
-              destination is required.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(
-        ["account_id", "queue_id", "script_name", "type"],
-        ["account_id", "queue_id", "type"],
-        ["account_id", "queue_id", "settings", "type"],
-    )
+    @required_args(["account_id", "queue_id", "script_name", "type"], ["account_id", "queue_id", "type"])
     def update(
         self,
         consumer_id: str,
@@ -336,11 +254,10 @@ class ConsumersResource(SyncAPIResource):
         account_id: str,
         queue_id: str,
         script_name: str | Omit = omit,
-        type: Literal["worker"] | Literal["http_pull"] | Literal["notification"],
+        type: Literal["worker"] | Literal["http_pull"],
         dead_letter_queue: str | Omit = omit,
         settings: consumer_update_params.MqWorkerConsumerRequestSettings
         | consumer_update_params.MqHTTPConsumerRequestSettings
-        | consumer_update_params.MqNotificationConsumerRequestSettings
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -630,55 +547,17 @@ class AsyncConsumersResource(AsyncAPIResource):
         """
         ...
 
-    @overload
-    async def create(
-        self,
-        queue_id: str,
-        *,
-        account_id: str,
-        settings: consumer_create_params.MqNotificationConsumerRequestSettings,
-        type: Literal["notification"],
-        dead_letter_queue: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Consumer]:
-        """
-        Creates a consumer for a Queue.
-
-        Args:
-          account_id: A Resource identifier.
-
-          queue_id: A Resource identifier.
-
-          settings: Notification destinations for a Queue. At least one email, webhook, or PagerDuty
-              destination is required.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["account_id", "script_name", "type"], ["account_id", "type"], ["account_id", "settings", "type"])
+    @required_args(["account_id", "script_name", "type"], ["account_id", "type"])
     async def create(
         self,
         queue_id: str,
         *,
         account_id: str,
         script_name: str | Omit = omit,
-        type: Literal["worker"] | Literal["http_pull"] | Literal["notification"],
+        type: Literal["worker"] | Literal["http_pull"],
         dead_letter_queue: str | Omit = omit,
         settings: consumer_create_params.MqWorkerConsumerRequestSettings
         | consumer_create_params.MqHTTPConsumerRequestSettings
-        | consumer_create_params.MqNotificationConsumerRequestSettings
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -796,51 +675,7 @@ class AsyncConsumersResource(AsyncAPIResource):
         """
         ...
 
-    @overload
-    async def update(
-        self,
-        consumer_id: str,
-        *,
-        account_id: str,
-        queue_id: str,
-        settings: consumer_update_params.MqNotificationConsumerRequestSettings,
-        type: Literal["notification"],
-        dead_letter_queue: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[Consumer]:
-        """
-        Replaces a Queue consumer, or creates it if it does not exist.
-
-        Args:
-          account_id: A Resource identifier.
-
-          queue_id: A Resource identifier.
-
-          consumer_id: A Resource identifier.
-
-          settings: Notification destinations for a Queue. At least one email, webhook, or PagerDuty
-              destination is required.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(
-        ["account_id", "queue_id", "script_name", "type"],
-        ["account_id", "queue_id", "type"],
-        ["account_id", "queue_id", "settings", "type"],
-    )
+    @required_args(["account_id", "queue_id", "script_name", "type"], ["account_id", "queue_id", "type"])
     async def update(
         self,
         consumer_id: str,
@@ -848,11 +683,10 @@ class AsyncConsumersResource(AsyncAPIResource):
         account_id: str,
         queue_id: str,
         script_name: str | Omit = omit,
-        type: Literal["worker"] | Literal["http_pull"] | Literal["notification"],
+        type: Literal["worker"] | Literal["http_pull"],
         dead_letter_queue: str | Omit = omit,
         settings: consumer_update_params.MqWorkerConsumerRequestSettings
         | consumer_update_params.MqHTTPConsumerRequestSettings
-        | consumer_update_params.MqNotificationConsumerRequestSettings
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

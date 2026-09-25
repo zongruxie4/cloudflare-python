@@ -114,8 +114,12 @@ class InstancesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InstanceCreateResponse:
-        """
-        Create a new AI Search instance with the given configuration.
+        """Create a new AI Search instance with the given configuration.
+
+        If type is omitted
+        or null, a non-blank HTTP(S) source infers web-crawler and an existing R2 bucket
+        source infers r2. A missing or blank source without a type creates a managed
+        upload-only instance. Search for Agents instances require the default namespace.
 
         Deprecated: use /accounts/{account_id}/ai-search/namespaces/{name}/instances
         (and descendant paths) instead.
@@ -130,16 +134,21 @@ class InstancesResource(SyncAPIResource):
               (1h), 7200 (2h), 21600 (6h), 43200 (12h), 86400 (24h), 172800 (48h), 259200
               (72h), 518400 (6d).
 
-          hybrid_search_enabled: Deprecated — use index_method instead.
+          hybrid_search_enabled: Deprecated — use index_method instead. Defaults to true for new instances; set
+              false to create a vector-only instance.
 
-          index_method: Controls which storage backends are used during indexing. Defaults to
-              vector-only.
+          index_method: Controls which storage backends are used during indexing. Defaults to vector and
+              keyword indexing for new instances.
 
           rewrite_model: A Workers AI model ID or an AI Gateway model ID compatible with the OpenAI Chat
               Completions API. An empty string uses the configured or default model.
 
           sync_interval: Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800
               (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h).
+
+          type: Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer
+              web-crawler and existing R2 bucket names infer r2. A missing or blank source
+              without a type uses managed upload-only storage.
 
           extra_headers: Send extra headers
 
@@ -243,8 +252,12 @@ class InstancesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InstanceUpdateResponse:
-        """
-        Update the configuration of an AI Search instance.
+        """Update an AI Search instance.
+
+        Submitting Search for Agents metadata requires the
+        default namespace; omitting or removing it is allowed elsewhere. Submit Search
+        for Agents metadata and restrictive or unknown public endpoint changes or custom
+        domains in separate PUT requests, even when resubmitting unchanged metadata.
 
         Deprecated: use /accounts/{account_id}/ai-search/namespaces/{name}/instances
         (and descendant paths) instead.
@@ -257,8 +270,8 @@ class InstancesResource(SyncAPIResource):
               (1h), 7200 (2h), 21600 (6h), 43200 (12h), 86400 (24h), 172800 (48h), 259200
               (72h), 518400 (6d).
 
-          index_method: Controls which storage backends are used during indexing. Defaults to
-              vector-only.
+          index_method: Controls which storage backends are used during indexing. Defaults to vector and
+              keyword indexing for new instances.
 
           rewrite_model: A Workers AI model ID or an AI Gateway model ID compatible with the OpenAI Chat
               Completions API. An empty string uses the configured or default model.
@@ -332,6 +345,7 @@ class InstancesResource(SyncAPIResource):
         self,
         *,
         account_id: str,
+        hostname: str | Omit = omit,
         namespace: str | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         order_by_direction: Literal["asc", "desc"] | Omit = omit,
@@ -352,6 +366,8 @@ class InstancesResource(SyncAPIResource):
         (and descendant paths) instead.
 
         Args:
+          hostname: Filter by exact Search for Agents hostname (case-insensitive).
+
           namespace: Filter by namespace.
 
           order_by: Field to order results by.
@@ -384,6 +400,7 @@ class InstancesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "hostname": hostname,
                         "namespace": namespace,
                         "order_by": order_by,
                         "order_by_direction": order_by_direction,
@@ -726,8 +743,12 @@ class AsyncInstancesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InstanceCreateResponse:
-        """
-        Create a new AI Search instance with the given configuration.
+        """Create a new AI Search instance with the given configuration.
+
+        If type is omitted
+        or null, a non-blank HTTP(S) source infers web-crawler and an existing R2 bucket
+        source infers r2. A missing or blank source without a type creates a managed
+        upload-only instance. Search for Agents instances require the default namespace.
 
         Deprecated: use /accounts/{account_id}/ai-search/namespaces/{name}/instances
         (and descendant paths) instead.
@@ -742,16 +763,21 @@ class AsyncInstancesResource(AsyncAPIResource):
               (1h), 7200 (2h), 21600 (6h), 43200 (12h), 86400 (24h), 172800 (48h), 259200
               (72h), 518400 (6d).
 
-          hybrid_search_enabled: Deprecated — use index_method instead.
+          hybrid_search_enabled: Deprecated — use index_method instead. Defaults to true for new instances; set
+              false to create a vector-only instance.
 
-          index_method: Controls which storage backends are used during indexing. Defaults to
-              vector-only.
+          index_method: Controls which storage backends are used during indexing. Defaults to vector and
+              keyword indexing for new instances.
 
           rewrite_model: A Workers AI model ID or an AI Gateway model ID compatible with the OpenAI Chat
               Completions API. An empty string uses the configured or default model.
 
           sync_interval: Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800
               (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h).
+
+          type: Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer
+              web-crawler and existing R2 bucket names infer r2. A missing or blank source
+              without a type uses managed upload-only storage.
 
           extra_headers: Send extra headers
 
@@ -855,8 +881,12 @@ class AsyncInstancesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InstanceUpdateResponse:
-        """
-        Update the configuration of an AI Search instance.
+        """Update an AI Search instance.
+
+        Submitting Search for Agents metadata requires the
+        default namespace; omitting or removing it is allowed elsewhere. Submit Search
+        for Agents metadata and restrictive or unknown public endpoint changes or custom
+        domains in separate PUT requests, even when resubmitting unchanged metadata.
 
         Deprecated: use /accounts/{account_id}/ai-search/namespaces/{name}/instances
         (and descendant paths) instead.
@@ -869,8 +899,8 @@ class AsyncInstancesResource(AsyncAPIResource):
               (1h), 7200 (2h), 21600 (6h), 43200 (12h), 86400 (24h), 172800 (48h), 259200
               (72h), 518400 (6d).
 
-          index_method: Controls which storage backends are used during indexing. Defaults to
-              vector-only.
+          index_method: Controls which storage backends are used during indexing. Defaults to vector and
+              keyword indexing for new instances.
 
           rewrite_model: A Workers AI model ID or an AI Gateway model ID compatible with the OpenAI Chat
               Completions API. An empty string uses the configured or default model.
@@ -944,6 +974,7 @@ class AsyncInstancesResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
+        hostname: str | Omit = omit,
         namespace: str | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         order_by_direction: Literal["asc", "desc"] | Omit = omit,
@@ -964,6 +995,8 @@ class AsyncInstancesResource(AsyncAPIResource):
         (and descendant paths) instead.
 
         Args:
+          hostname: Filter by exact Search for Agents hostname (case-insensitive).
+
           namespace: Filter by namespace.
 
           order_by: Field to order results by.
@@ -996,6 +1029,7 @@ class AsyncInstancesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "hostname": hostname,
                         "namespace": namespace,
                         "order_by": order_by,
                         "order_by_direction": order_by_direction,

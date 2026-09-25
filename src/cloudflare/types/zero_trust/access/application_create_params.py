@@ -25,12 +25,17 @@ __all__ = [
     "SelfHostedApplication",
     "SelfHostedApplicationDestination",
     "SelfHostedApplicationDestinationPublicDestination",
+    "SelfHostedApplicationDestinationPublicDestinationOverride",
     "SelfHostedApplicationDestinationPrivateDestination",
     "SelfHostedApplicationDestinationViaMcpServerPortalDestination",
     "SelfHostedApplicationDestinationWorkerDestination",
+    "SelfHostedApplicationDestinationWorkerDestinationOverride",
     "SelfHostedApplicationDestinationPreviewWorkerDestination",
+    "SelfHostedApplicationDestinationPreviewWorkerDestinationOverride",
     "SelfHostedApplicationDestinationAllWorkersDestination",
+    "SelfHostedApplicationDestinationAllWorkersDestinationOverride",
     "SelfHostedApplicationDestinationAllPreviewWorkersDestination",
+    "SelfHostedApplicationDestinationAllPreviewWorkersDestinationOverride",
     "SelfHostedApplicationMfaConfig",
     "SelfHostedApplicationOAuthConfiguration",
     "SelfHostedApplicationOAuthConfigurationDynamicClientRegistration",
@@ -62,12 +67,17 @@ __all__ = [
     "BrowserSSHApplication",
     "BrowserSSHApplicationDestination",
     "BrowserSSHApplicationDestinationPublicDestination",
+    "BrowserSSHApplicationDestinationPublicDestinationOverride",
     "BrowserSSHApplicationDestinationPrivateDestination",
     "BrowserSSHApplicationDestinationViaMcpServerPortalDestination",
     "BrowserSSHApplicationDestinationWorkerDestination",
+    "BrowserSSHApplicationDestinationWorkerDestinationOverride",
     "BrowserSSHApplicationDestinationPreviewWorkerDestination",
+    "BrowserSSHApplicationDestinationPreviewWorkerDestinationOverride",
     "BrowserSSHApplicationDestinationAllWorkersDestination",
+    "BrowserSSHApplicationDestinationAllWorkersDestinationOverride",
     "BrowserSSHApplicationDestinationAllPreviewWorkersDestination",
+    "BrowserSSHApplicationDestinationAllPreviewWorkersDestinationOverride",
     "BrowserSSHApplicationMfaConfig",
     "BrowserSSHApplicationOAuthConfiguration",
     "BrowserSSHApplicationOAuthConfigurationDynamicClientRegistration",
@@ -86,12 +96,17 @@ __all__ = [
     "BrowserVNCApplication",
     "BrowserVNCApplicationDestination",
     "BrowserVNCApplicationDestinationPublicDestination",
+    "BrowserVNCApplicationDestinationPublicDestinationOverride",
     "BrowserVNCApplicationDestinationPrivateDestination",
     "BrowserVNCApplicationDestinationViaMcpServerPortalDestination",
     "BrowserVNCApplicationDestinationWorkerDestination",
+    "BrowserVNCApplicationDestinationWorkerDestinationOverride",
     "BrowserVNCApplicationDestinationPreviewWorkerDestination",
+    "BrowserVNCApplicationDestinationPreviewWorkerDestinationOverride",
     "BrowserVNCApplicationDestinationAllWorkersDestination",
+    "BrowserVNCApplicationDestinationAllWorkersDestinationOverride",
     "BrowserVNCApplicationDestinationAllPreviewWorkersDestination",
+    "BrowserVNCApplicationDestinationAllPreviewWorkersDestinationOverride",
     "BrowserVNCApplicationMfaConfig",
     "BrowserVNCApplicationOAuthConfiguration",
     "BrowserVNCApplicationOAuthConfigurationDynamicClientRegistration",
@@ -167,12 +182,17 @@ __all__ = [
     "BrowserRDPApplicationTargetCriterionRequireTargetAttributes",
     "BrowserRDPApplicationDestination",
     "BrowserRDPApplicationDestinationPublicDestination",
+    "BrowserRDPApplicationDestinationPublicDestinationOverride",
     "BrowserRDPApplicationDestinationPrivateDestination",
     "BrowserRDPApplicationDestinationViaMcpServerPortalDestination",
     "BrowserRDPApplicationDestinationWorkerDestination",
+    "BrowserRDPApplicationDestinationWorkerDestinationOverride",
     "BrowserRDPApplicationDestinationPreviewWorkerDestination",
+    "BrowserRDPApplicationDestinationPreviewWorkerDestinationOverride",
     "BrowserRDPApplicationDestinationAllWorkersDestination",
+    "BrowserRDPApplicationDestinationAllWorkersDestinationOverride",
     "BrowserRDPApplicationDestinationAllPreviewWorkersDestination",
+    "BrowserRDPApplicationDestinationAllPreviewWorkersDestinationOverride",
     "BrowserRDPApplicationMfaConfig",
     "BrowserRDPApplicationOAuthConfiguration",
     "BrowserRDPApplicationOAuthConfigurationDynamicClientRegistration",
@@ -191,12 +211,17 @@ __all__ = [
     "McpServerApplication",
     "McpServerApplicationDestination",
     "McpServerApplicationDestinationPublicDestination",
+    "McpServerApplicationDestinationPublicDestinationOverride",
     "McpServerApplicationDestinationPrivateDestination",
     "McpServerApplicationDestinationViaMcpServerPortalDestination",
     "McpServerApplicationDestinationWorkerDestination",
+    "McpServerApplicationDestinationWorkerDestinationOverride",
     "McpServerApplicationDestinationPreviewWorkerDestination",
+    "McpServerApplicationDestinationPreviewWorkerDestinationOverride",
     "McpServerApplicationDestinationAllWorkersDestination",
+    "McpServerApplicationDestinationAllWorkersDestinationOverride",
     "McpServerApplicationDestinationAllPreviewWorkersDestination",
+    "McpServerApplicationDestinationAllPreviewWorkersDestinationOverride",
     "McpServerApplicationOAuthConfiguration",
     "McpServerApplicationOAuthConfigurationDynamicClientRegistration",
     "McpServerApplicationOAuthConfigurationGrant",
@@ -214,12 +239,17 @@ __all__ = [
     "McpServerPortalApplication",
     "McpServerPortalApplicationDestination",
     "McpServerPortalApplicationDestinationPublicDestination",
+    "McpServerPortalApplicationDestinationPublicDestinationOverride",
     "McpServerPortalApplicationDestinationPrivateDestination",
     "McpServerPortalApplicationDestinationViaMcpServerPortalDestination",
     "McpServerPortalApplicationDestinationWorkerDestination",
+    "McpServerPortalApplicationDestinationWorkerDestinationOverride",
     "McpServerPortalApplicationDestinationPreviewWorkerDestination",
+    "McpServerPortalApplicationDestinationPreviewWorkerDestinationOverride",
     "McpServerPortalApplicationDestinationAllWorkersDestination",
+    "McpServerPortalApplicationDestinationAllWorkersDestinationOverride",
     "McpServerPortalApplicationDestinationAllPreviewWorkersDestination",
+    "McpServerPortalApplicationDestinationAllPreviewWorkersDestinationOverride",
     "McpServerPortalApplicationOAuthConfiguration",
     "McpServerPortalApplicationOAuthConfigurationDynamicClientRegistration",
     "McpServerPortalApplicationOAuthConfigurationGrant",
@@ -429,10 +459,30 @@ class SelfHostedApplication(TypedDict, total=False):
     """
 
 
+class SelfHostedApplicationDestinationPublicDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class SelfHostedApplicationDestinationPublicDestination(TypedDict, total=False):
     """A public hostname that Access will secure.
 
     Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
+    overrides: Iterable[SelfHostedApplicationDestinationPublicDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
     """
 
     type: Literal["public"]
@@ -482,6 +532,19 @@ class SelfHostedApplicationDestinationViaMcpServerPortalDestination(TypedDict, t
     type: Literal["via_mcp_server_portal"]
 
 
+class SelfHostedApplicationDestinationWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class SelfHostedApplicationDestinationWorkerDestination(TypedDict, total=False):
     """A specific Cloudflare Worker that Access will secure.
 
@@ -492,6 +555,26 @@ class SelfHostedApplicationDestinationWorkerDestination(TypedDict, total=False):
 
     worker_id: Required[str]
     """The ID of the Cloudflare Worker to protect with Access."""
+
+    overrides: Iterable[SelfHostedApplicationDestinationWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class SelfHostedApplicationDestinationPreviewWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
 
 
 class SelfHostedApplicationDestinationPreviewWorkerDestination(TypedDict, total=False):
@@ -508,6 +591,26 @@ class SelfHostedApplicationDestinationPreviewWorkerDestination(TypedDict, total=
     Access.
     """
 
+    overrides: Iterable[SelfHostedApplicationDestinationPreviewWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class SelfHostedApplicationDestinationAllWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class SelfHostedApplicationDestinationAllWorkersDestination(TypedDict, total=False):
     """
@@ -516,6 +619,26 @@ class SelfHostedApplicationDestinationAllWorkersDestination(TypedDict, total=Fal
 
     type: Required[Literal["all_workers"]]
 
+    overrides: Iterable[SelfHostedApplicationDestinationAllWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class SelfHostedApplicationDestinationAllPreviewWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class SelfHostedApplicationDestinationAllPreviewWorkersDestination(TypedDict, total=False):
     """
@@ -523,6 +646,13 @@ class SelfHostedApplicationDestinationAllPreviewWorkersDestination(TypedDict, to
     """
 
     type: Required[Literal["all_preview_workers"]]
+
+    overrides: Iterable[SelfHostedApplicationDestinationAllPreviewWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
 
 
 SelfHostedApplicationDestination: TypeAlias = Union[
@@ -1307,10 +1437,30 @@ class BrowserSSHApplication(TypedDict, total=False):
     """
 
 
+class BrowserSSHApplicationDestinationPublicDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class BrowserSSHApplicationDestinationPublicDestination(TypedDict, total=False):
     """A public hostname that Access will secure.
 
     Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
+    overrides: Iterable[BrowserSSHApplicationDestinationPublicDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
     """
 
     type: Literal["public"]
@@ -1360,6 +1510,19 @@ class BrowserSSHApplicationDestinationViaMcpServerPortalDestination(TypedDict, t
     type: Literal["via_mcp_server_portal"]
 
 
+class BrowserSSHApplicationDestinationWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class BrowserSSHApplicationDestinationWorkerDestination(TypedDict, total=False):
     """A specific Cloudflare Worker that Access will secure.
 
@@ -1370,6 +1533,26 @@ class BrowserSSHApplicationDestinationWorkerDestination(TypedDict, total=False):
 
     worker_id: Required[str]
     """The ID of the Cloudflare Worker to protect with Access."""
+
+    overrides: Iterable[BrowserSSHApplicationDestinationWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserSSHApplicationDestinationPreviewWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
 
 
 class BrowserSSHApplicationDestinationPreviewWorkerDestination(TypedDict, total=False):
@@ -1386,6 +1569,26 @@ class BrowserSSHApplicationDestinationPreviewWorkerDestination(TypedDict, total=
     Access.
     """
 
+    overrides: Iterable[BrowserSSHApplicationDestinationPreviewWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserSSHApplicationDestinationAllWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class BrowserSSHApplicationDestinationAllWorkersDestination(TypedDict, total=False):
     """
@@ -1394,6 +1597,26 @@ class BrowserSSHApplicationDestinationAllWorkersDestination(TypedDict, total=Fal
 
     type: Required[Literal["all_workers"]]
 
+    overrides: Iterable[BrowserSSHApplicationDestinationAllWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserSSHApplicationDestinationAllPreviewWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class BrowserSSHApplicationDestinationAllPreviewWorkersDestination(TypedDict, total=False):
     """
@@ -1401,6 +1624,13 @@ class BrowserSSHApplicationDestinationAllPreviewWorkersDestination(TypedDict, to
     """
 
     type: Required[Literal["all_preview_workers"]]
+
+    overrides: Iterable[BrowserSSHApplicationDestinationAllPreviewWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
 
 
 BrowserSSHApplicationDestination: TypeAlias = Union[
@@ -1913,10 +2143,30 @@ class BrowserVNCApplication(TypedDict, total=False):
     """
 
 
+class BrowserVNCApplicationDestinationPublicDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class BrowserVNCApplicationDestinationPublicDestination(TypedDict, total=False):
     """A public hostname that Access will secure.
 
     Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
+    overrides: Iterable[BrowserVNCApplicationDestinationPublicDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
     """
 
     type: Literal["public"]
@@ -1966,6 +2216,19 @@ class BrowserVNCApplicationDestinationViaMcpServerPortalDestination(TypedDict, t
     type: Literal["via_mcp_server_portal"]
 
 
+class BrowserVNCApplicationDestinationWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class BrowserVNCApplicationDestinationWorkerDestination(TypedDict, total=False):
     """A specific Cloudflare Worker that Access will secure.
 
@@ -1976,6 +2239,26 @@ class BrowserVNCApplicationDestinationWorkerDestination(TypedDict, total=False):
 
     worker_id: Required[str]
     """The ID of the Cloudflare Worker to protect with Access."""
+
+    overrides: Iterable[BrowserVNCApplicationDestinationWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserVNCApplicationDestinationPreviewWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
 
 
 class BrowserVNCApplicationDestinationPreviewWorkerDestination(TypedDict, total=False):
@@ -1992,6 +2275,26 @@ class BrowserVNCApplicationDestinationPreviewWorkerDestination(TypedDict, total=
     Access.
     """
 
+    overrides: Iterable[BrowserVNCApplicationDestinationPreviewWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserVNCApplicationDestinationAllWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class BrowserVNCApplicationDestinationAllWorkersDestination(TypedDict, total=False):
     """
@@ -2000,6 +2303,26 @@ class BrowserVNCApplicationDestinationAllWorkersDestination(TypedDict, total=Fal
 
     type: Required[Literal["all_workers"]]
 
+    overrides: Iterable[BrowserVNCApplicationDestinationAllWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserVNCApplicationDestinationAllPreviewWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class BrowserVNCApplicationDestinationAllPreviewWorkersDestination(TypedDict, total=False):
     """
@@ -2007,6 +2330,13 @@ class BrowserVNCApplicationDestinationAllPreviewWorkersDestination(TypedDict, to
     """
 
     type: Required[Literal["all_preview_workers"]]
+
+    overrides: Iterable[BrowserVNCApplicationDestinationAllPreviewWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
 
 
 BrowserVNCApplicationDestination: TypeAlias = Union[
@@ -3739,10 +4069,30 @@ class BrowserRDPApplicationTargetCriterion(TypedDict, total=False):
     """Contains a map of target attribute keys to target attribute values."""
 
 
+class BrowserRDPApplicationDestinationPublicDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class BrowserRDPApplicationDestinationPublicDestination(TypedDict, total=False):
     """A public hostname that Access will secure.
 
     Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
+    overrides: Iterable[BrowserRDPApplicationDestinationPublicDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
     """
 
     type: Literal["public"]
@@ -3792,6 +4142,19 @@ class BrowserRDPApplicationDestinationViaMcpServerPortalDestination(TypedDict, t
     type: Literal["via_mcp_server_portal"]
 
 
+class BrowserRDPApplicationDestinationWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class BrowserRDPApplicationDestinationWorkerDestination(TypedDict, total=False):
     """A specific Cloudflare Worker that Access will secure.
 
@@ -3802,6 +4165,26 @@ class BrowserRDPApplicationDestinationWorkerDestination(TypedDict, total=False):
 
     worker_id: Required[str]
     """The ID of the Cloudflare Worker to protect with Access."""
+
+    overrides: Iterable[BrowserRDPApplicationDestinationWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserRDPApplicationDestinationPreviewWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
 
 
 class BrowserRDPApplicationDestinationPreviewWorkerDestination(TypedDict, total=False):
@@ -3818,6 +4201,26 @@ class BrowserRDPApplicationDestinationPreviewWorkerDestination(TypedDict, total=
     Access.
     """
 
+    overrides: Iterable[BrowserRDPApplicationDestinationPreviewWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserRDPApplicationDestinationAllWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class BrowserRDPApplicationDestinationAllWorkersDestination(TypedDict, total=False):
     """
@@ -3826,6 +4229,26 @@ class BrowserRDPApplicationDestinationAllWorkersDestination(TypedDict, total=Fal
 
     type: Required[Literal["all_workers"]]
 
+    overrides: Iterable[BrowserRDPApplicationDestinationAllWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class BrowserRDPApplicationDestinationAllPreviewWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class BrowserRDPApplicationDestinationAllPreviewWorkersDestination(TypedDict, total=False):
     """
@@ -3833,6 +4256,13 @@ class BrowserRDPApplicationDestinationAllPreviewWorkersDestination(TypedDict, to
     """
 
     type: Required[Literal["all_preview_workers"]]
+
+    overrides: Iterable[BrowserRDPApplicationDestinationAllPreviewWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
 
 
 BrowserRDPApplicationDestination: TypeAlias = Union[
@@ -4258,10 +4688,30 @@ class McpServerApplication(TypedDict, total=False):
     """
 
 
+class McpServerApplicationDestinationPublicDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class McpServerApplicationDestinationPublicDestination(TypedDict, total=False):
     """A public hostname that Access will secure.
 
     Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
+    overrides: Iterable[McpServerApplicationDestinationPublicDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
     """
 
     type: Literal["public"]
@@ -4311,6 +4761,19 @@ class McpServerApplicationDestinationViaMcpServerPortalDestination(TypedDict, to
     type: Literal["via_mcp_server_portal"]
 
 
+class McpServerApplicationDestinationWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class McpServerApplicationDestinationWorkerDestination(TypedDict, total=False):
     """A specific Cloudflare Worker that Access will secure.
 
@@ -4321,6 +4784,26 @@ class McpServerApplicationDestinationWorkerDestination(TypedDict, total=False):
 
     worker_id: Required[str]
     """The ID of the Cloudflare Worker to protect with Access."""
+
+    overrides: Iterable[McpServerApplicationDestinationWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class McpServerApplicationDestinationPreviewWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
 
 
 class McpServerApplicationDestinationPreviewWorkerDestination(TypedDict, total=False):
@@ -4337,6 +4820,26 @@ class McpServerApplicationDestinationPreviewWorkerDestination(TypedDict, total=F
     Access.
     """
 
+    overrides: Iterable[McpServerApplicationDestinationPreviewWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class McpServerApplicationDestinationAllWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class McpServerApplicationDestinationAllWorkersDestination(TypedDict, total=False):
     """
@@ -4345,6 +4848,26 @@ class McpServerApplicationDestinationAllWorkersDestination(TypedDict, total=Fals
 
     type: Required[Literal["all_workers"]]
 
+    overrides: Iterable[McpServerApplicationDestinationAllWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class McpServerApplicationDestinationAllPreviewWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class McpServerApplicationDestinationAllPreviewWorkersDestination(TypedDict, total=False):
     """
@@ -4352,6 +4875,13 @@ class McpServerApplicationDestinationAllPreviewWorkersDestination(TypedDict, tot
     """
 
     type: Required[Literal["all_preview_workers"]]
+
+    overrides: Iterable[McpServerApplicationDestinationAllPreviewWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
 
 
 McpServerApplicationDestination: TypeAlias = Union[
@@ -4763,10 +5293,30 @@ class McpServerPortalApplication(TypedDict, total=False):
     """
 
 
+class McpServerPortalApplicationDestinationPublicDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class McpServerPortalApplicationDestinationPublicDestination(TypedDict, total=False):
     """A public hostname that Access will secure.
 
     Public destinations support sub-domain and path. Wildcard '*' can be used in the definition.
+    """
+
+    overrides: Iterable[McpServerPortalApplicationDestinationPublicDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
     """
 
     type: Literal["public"]
@@ -4816,6 +5366,19 @@ class McpServerPortalApplicationDestinationViaMcpServerPortalDestination(TypedDi
     type: Literal["via_mcp_server_portal"]
 
 
+class McpServerPortalApplicationDestinationWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
+
 class McpServerPortalApplicationDestinationWorkerDestination(TypedDict, total=False):
     """A specific Cloudflare Worker that Access will secure.
 
@@ -4826,6 +5389,26 @@ class McpServerPortalApplicationDestinationWorkerDestination(TypedDict, total=Fa
 
     worker_id: Required[str]
     """The ID of the Cloudflare Worker to protect with Access."""
+
+    overrides: Iterable[McpServerPortalApplicationDestinationWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class McpServerPortalApplicationDestinationPreviewWorkerDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
 
 
 class McpServerPortalApplicationDestinationPreviewWorkerDestination(TypedDict, total=False):
@@ -4842,6 +5425,26 @@ class McpServerPortalApplicationDestinationPreviewWorkerDestination(TypedDict, t
     Access.
     """
 
+    overrides: Iterable[McpServerPortalApplicationDestinationPreviewWorkerDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class McpServerPortalApplicationDestinationAllWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class McpServerPortalApplicationDestinationAllWorkersDestination(TypedDict, total=False):
     """
@@ -4850,6 +5453,26 @@ class McpServerPortalApplicationDestinationAllWorkersDestination(TypedDict, tota
 
     type: Required[Literal["all_workers"]]
 
+    overrides: Iterable[McpServerPortalApplicationDestinationAllWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
+
+
+class McpServerPortalApplicationDestinationAllPreviewWorkersDestinationOverride(TypedDict, total=False):
+    behavior: Required[Literal["public"]]
+    """The behavior to apply to matching requests."""
+
+    path_pattern: Required[str]
+    """The request path pattern to match.
+
+    Wildcards (`*`) are supported, but each path segment may have at most one
+    wildcard. Unlike the `uri` in public destinations, override path patterns do not
+    implicitly cover subpaths; to do that, use a wildcard.
+    """
+
 
 class McpServerPortalApplicationDestinationAllPreviewWorkersDestination(TypedDict, total=False):
     """
@@ -4857,6 +5480,13 @@ class McpServerPortalApplicationDestinationAllPreviewWorkersDestination(TypedDic
     """
 
     type: Required[Literal["all_preview_workers"]]
+
+    overrides: Iterable[McpServerPortalApplicationDestinationAllPreviewWorkersDestinationOverride]
+    """Rules that override how Access handles requests to this destination.
+
+    Each rule can make a matching path public, bypassing Access authentication.
+    Overrides are supported for public destinations and Worker destinations.
+    """
 
 
 McpServerPortalApplicationDestination: TypeAlias = Union[

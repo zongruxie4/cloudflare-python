@@ -156,8 +156,7 @@ class BulkResource(SyncAPIResource):
         action_type: Literal["MOVE", "RELEASE"] | Omit = omit,
         page: int | Omit = omit,
         per_page: int | Omit = omit,
-        status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED", "SKIPPED"]
-        | Omit = omit,
+        status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -174,6 +173,8 @@ class BulkResource(SyncAPIResource):
           page: Current page within paginated list of results.
 
           per_page: The number of results per page. Maximum value is 1000.
+
+          status: Filter by job status.
 
           extra_headers: Send extra headers
 
@@ -221,9 +222,8 @@ class BulkResource(SyncAPIResource):
         """Deletes the job, removing it from all list and detail endpoints.
 
         Only jobs in a
-        terminal state (`COMPLETED`, `CANCELLED`, `FAILED`, or `SKIPPED`) can be
-        deleted. To stop an in-progress job without removing it, use the cancel endpoint
-        instead.
+        terminal state (`COMPLETED`, `CANCELLED`, or `FAILED`) can be deleted. To stop
+        an in-progress job without removing it, use the cancel endpoint instead.
 
         Args:
           account_id: Identifier.
@@ -410,8 +410,7 @@ class AsyncBulkResource(AsyncAPIResource):
         action_type: Literal["MOVE", "RELEASE"] | Omit = omit,
         page: int | Omit = omit,
         per_page: int | Omit = omit,
-        status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED", "SKIPPED"]
-        | Omit = omit,
+        status: Literal["PENDING", "DISCOVERING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -428,6 +427,8 @@ class AsyncBulkResource(AsyncAPIResource):
           page: Current page within paginated list of results.
 
           per_page: The number of results per page. Maximum value is 1000.
+
+          status: Filter by job status.
 
           extra_headers: Send extra headers
 
@@ -475,9 +476,8 @@ class AsyncBulkResource(AsyncAPIResource):
         """Deletes the job, removing it from all list and detail endpoints.
 
         Only jobs in a
-        terminal state (`COMPLETED`, `CANCELLED`, `FAILED`, or `SKIPPED`) can be
-        deleted. To stop an in-progress job without removing it, use the cancel endpoint
-        instead.
+        terminal state (`COMPLETED`, `CANCELLED`, or `FAILED`) can be deleted. To stop
+        an in-progress job without removing it, use the cancel endpoint instead.
 
         Args:
           account_id: Identifier.

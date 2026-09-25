@@ -127,6 +127,7 @@ if TYPE_CHECKING:
         cloud_connector,
         ddos_protection,
         durable_objects,
+        managed_defense,
         r2_data_catalog,
         request_tracers,
         security_center,
@@ -250,6 +251,7 @@ if TYPE_CHECKING:
     from .resources.cloud_connector.cloud_connector import CloudConnectorResource, AsyncCloudConnectorResource
     from .resources.ddos_protection.ddos_protection import DDoSProtectionResource, AsyncDDoSProtectionResource
     from .resources.durable_objects.durable_objects import DurableObjectsResource, AsyncDurableObjectsResource
+    from .resources.managed_defense.managed_defense import ManagedDefenseResource, AsyncManagedDefenseResource
     from .resources.r2_data_catalog.r2_data_catalog import R2DataCatalogResource, AsyncR2DataCatalogResource
     from .resources.request_tracers.request_tracers import RequestTracersResource, AsyncRequestTracersResource
     from .resources.security_center.security_center import SecurityCenterResource, AsyncSecurityCenterResource
@@ -1208,6 +1210,12 @@ class Cloudflare(SyncAPIClient):
         from .resources.moq import MoQResource
 
         return MoQResource(self)
+
+    @cached_property
+    def managed_defense(self) -> ManagedDefenseResource:
+        from .resources.managed_defense import ManagedDefenseResource
+
+        return ManagedDefenseResource(self)
 
     @cached_property
     def cloudforce_one(self) -> CloudforceOneResource:
@@ -2404,6 +2412,12 @@ class AsyncCloudflare(AsyncAPIClient):
         return AsyncMoQResource(self)
 
     @cached_property
+    def managed_defense(self) -> AsyncManagedDefenseResource:
+        from .resources.managed_defense import AsyncManagedDefenseResource
+
+        return AsyncManagedDefenseResource(self)
+
+    @cached_property
     def cloudforce_one(self) -> AsyncCloudforceOneResource:
         from .resources.cloudforce_one import AsyncCloudforceOneResource
 
@@ -3522,6 +3536,12 @@ class CloudflareWithRawResponse:
         return MoQResourceWithRawResponse(self._client.moq)
 
     @cached_property
+    def managed_defense(self) -> managed_defense.ManagedDefenseResourceWithRawResponse:
+        from .resources.managed_defense import ManagedDefenseResourceWithRawResponse
+
+        return ManagedDefenseResourceWithRawResponse(self._client.managed_defense)
+
+    @cached_property
     def cloudforce_one(self) -> cloudforce_one.CloudforceOneResourceWithRawResponse:
         from .resources.cloudforce_one import CloudforceOneResourceWithRawResponse
 
@@ -4467,6 +4487,12 @@ class AsyncCloudflareWithRawResponse:
         return AsyncMoQResourceWithRawResponse(self._client.moq)
 
     @cached_property
+    def managed_defense(self) -> managed_defense.AsyncManagedDefenseResourceWithRawResponse:
+        from .resources.managed_defense import AsyncManagedDefenseResourceWithRawResponse
+
+        return AsyncManagedDefenseResourceWithRawResponse(self._client.managed_defense)
+
+    @cached_property
     def cloudforce_one(self) -> cloudforce_one.AsyncCloudforceOneResourceWithRawResponse:
         from .resources.cloudforce_one import AsyncCloudforceOneResourceWithRawResponse
 
@@ -5410,6 +5436,12 @@ class CloudflareWithStreamedResponse:
         from .resources.moq import MoQResourceWithStreamingResponse
 
         return MoQResourceWithStreamingResponse(self._client.moq)
+
+    @cached_property
+    def managed_defense(self) -> managed_defense.ManagedDefenseResourceWithStreamingResponse:
+        from .resources.managed_defense import ManagedDefenseResourceWithStreamingResponse
+
+        return ManagedDefenseResourceWithStreamingResponse(self._client.managed_defense)
 
     @cached_property
     def cloudforce_one(self) -> cloudforce_one.CloudforceOneResourceWithStreamingResponse:
@@ -6363,6 +6395,12 @@ class AsyncCloudflareWithStreamedResponse:
         from .resources.moq import AsyncMoQResourceWithStreamingResponse
 
         return AsyncMoQResourceWithStreamingResponse(self._client.moq)
+
+    @cached_property
+    def managed_defense(self) -> managed_defense.AsyncManagedDefenseResourceWithStreamingResponse:
+        from .resources.managed_defense import AsyncManagedDefenseResourceWithStreamingResponse
+
+        return AsyncManagedDefenseResourceWithStreamingResponse(self._client.managed_defense)
 
     @cached_property
     def cloudforce_one(self) -> cloudforce_one.AsyncCloudforceOneResourceWithStreamingResponse:

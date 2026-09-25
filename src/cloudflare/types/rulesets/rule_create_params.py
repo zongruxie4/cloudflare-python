@@ -4124,6 +4124,20 @@ class SetConfigurationRuleActionParameters(TypedDict, total=False):
     sxg: bool
     """Whether to enable Signed Exchanges (SXG)."""
 
+    webmcp_enabled: bool
+    """
+    Whether to serve the WebMCP bridge script, which exposes the page's tools to
+    browser AI agents.
+    """
+
+    webmcp_packs: SequenceNotStr[str]
+    """Bundled WebMCP tool packs to activate for matching requests.
+
+    An empty array disables all packs. Omitting this parameter leaves the pack
+    selection unchanged. Does not enable the WebMCP bridge itself. Non-empty
+    selections require the WebMCP Configuration Rules entitlement.
+    """
+
 
 class SetConfigurationRuleExposedCredentialCheck(TypedDict, total=False):
     """Configuration for exposed credential checking."""

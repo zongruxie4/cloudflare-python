@@ -69,6 +69,8 @@ class ProxyEndpointsResource(SyncAPIResource):
         Create a new Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the name of the proxy endpoint.
 
           kind: The proxy endpoint kind
@@ -101,6 +103,8 @@ class ProxyEndpointsResource(SyncAPIResource):
         Create a new Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           kind: The proxy endpoint kind
 
           name: Specify the name of the proxy endpoint.
@@ -174,6 +178,8 @@ class ProxyEndpointsResource(SyncAPIResource):
         List all Zero Trust Gateway proxy endpoints for an account.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           direction: Sort direction. Only takes effect when `order_by` is also provided; it is
               ignored otherwise. When `direction` is omitted the effective direction is
               field-specific: `created_at` and `updated_at` default to descending (newest
@@ -256,6 +262,8 @@ class ProxyEndpointsResource(SyncAPIResource):
         Delete a configured Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -302,6 +310,8 @@ class ProxyEndpointsResource(SyncAPIResource):
         Update a configured Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           ips: Specify the list of CIDRs to restrict ingress connections.
 
           name: Specify the name of the proxy endpoint.
@@ -362,6 +372,8 @@ class ProxyEndpointsResource(SyncAPIResource):
         Get a single Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -434,6 +446,8 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         Create a new Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the name of the proxy endpoint.
 
           kind: The proxy endpoint kind
@@ -466,6 +480,8 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         Create a new Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           kind: The proxy endpoint kind
 
           name: Specify the name of the proxy endpoint.
@@ -539,6 +555,8 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         List all Zero Trust Gateway proxy endpoints for an account.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           direction: Sort direction. Only takes effect when `order_by` is also provided; it is
               ignored otherwise. When `direction` is omitted the effective direction is
               field-specific: `created_at` and `updated_at` default to descending (newest
@@ -621,6 +639,8 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         Delete a configured Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -667,6 +687,8 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         Update a configured Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           ips: Specify the list of CIDRs to restrict ingress connections.
 
           name: Specify the name of the proxy endpoint.
@@ -727,6 +749,8 @@ class AsyncProxyEndpointsResource(AsyncAPIResource):
         Get a single Zero Trust Gateway proxy endpoint.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

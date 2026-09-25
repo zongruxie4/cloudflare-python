@@ -128,7 +128,10 @@ class CustomCreateParams(TypedDict, total=False):
     """
 
     profile_type: Literal["warp", "browser_extension"]
-    """The client type to which the device settings profile applies."""
+    """The client type to which the device settings profile applies.
+
+    This field is set when the profile is created and cannot be changed.
+    """
 
     register_interface_ip_with_dns: bool
     """

@@ -108,8 +108,10 @@ class EmailRoutingResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Settings]:
-        """
-        Update the settings for your Email Routing zone.
+        """Apply the provided settings to your Email Routing zone.
+
+        Omitted settings retain
+        their current values, as with PATCH.
 
         Args:
           zone_id: Identifier.
@@ -429,8 +431,10 @@ class AsyncEmailRoutingResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Optional[Settings]:
-        """
-        Update the settings for your Email Routing zone.
+        """Apply the provided settings to your Email Routing zone.
+
+        Omitted settings retain
+        their current values, as with PATCH.
 
         Args:
           zone_id: Identifier.

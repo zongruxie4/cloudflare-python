@@ -93,6 +93,8 @@ class RulesResource(SyncAPIResource):
         Create a new Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           action: Specify the action to perform when the associated traffic, identity, and device
               posture expressions either absent or evaluate to `true`.
 
@@ -222,6 +224,8 @@ class RulesResource(SyncAPIResource):
         Update a configured Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           action: Specify the action to perform when the associated traffic, identity, and device
@@ -325,12 +329,13 @@ class RulesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncSinglePage[GatewayRule]:
-        """List Zero Trust Gateway rules for an account.
+        """
+        List Zero Trust Gateway rules for an account.
 
         Args:
-          direction: Sort direction.
+          account_id: Specify the Cloudflare account identifier.
 
-        When `order_by` is omitted, this controls the direction of the
+          direction: Sort direction. When `order_by` is omitted, this controls the direction of the
               existing precedence ordering. Shared rules remain first in either direction.
               Accepted values are `asc` and `desc`.
 
@@ -396,6 +401,8 @@ class RulesResource(SyncAPIResource):
         Delete a Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -438,6 +445,8 @@ class RulesResource(SyncAPIResource):
         Get a single Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -480,6 +489,8 @@ class RulesResource(SyncAPIResource):
         configuration.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -517,6 +528,8 @@ class RulesResource(SyncAPIResource):
         `expiration.expires_at` and `expiration.duration`.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -612,6 +625,8 @@ class AsyncRulesResource(AsyncAPIResource):
         Create a new Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           action: Specify the action to perform when the associated traffic, identity, and device
               posture expressions either absent or evaluate to `true`.
 
@@ -741,6 +756,8 @@ class AsyncRulesResource(AsyncAPIResource):
         Update a configured Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           action: Specify the action to perform when the associated traffic, identity, and device
@@ -844,12 +861,13 @@ class AsyncRulesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[GatewayRule, AsyncSinglePage[GatewayRule]]:
-        """List Zero Trust Gateway rules for an account.
+        """
+        List Zero Trust Gateway rules for an account.
 
         Args:
-          direction: Sort direction.
+          account_id: Specify the Cloudflare account identifier.
 
-        When `order_by` is omitted, this controls the direction of the
+          direction: Sort direction. When `order_by` is omitted, this controls the direction of the
               existing precedence ordering. Shared rules remain first in either direction.
               Accepted values are `asc` and `desc`.
 
@@ -915,6 +933,8 @@ class AsyncRulesResource(AsyncAPIResource):
         Delete a Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -957,6 +977,8 @@ class AsyncRulesResource(AsyncAPIResource):
         Get a single Zero Trust Gateway rule.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -999,6 +1021,8 @@ class AsyncRulesResource(AsyncAPIResource):
         configuration.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1036,6 +1060,8 @@ class AsyncRulesResource(AsyncAPIResource):
         `expiration.expires_at` and `expiration.duration`.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           rule_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers

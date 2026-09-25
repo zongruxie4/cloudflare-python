@@ -134,7 +134,10 @@ class DefaultGetResponse(BaseModel):
     policy_id: Optional[str] = None
 
     profile_type: Optional[Literal["warp", "browser_extension"]] = None
-    """The client type to which the device settings profile applies."""
+    """The client type to which the device settings profile applies.
+
+    This field is set when the profile is created and cannot be changed.
+    """
 
     register_interface_ip_with_dns: Optional[bool] = None
     """

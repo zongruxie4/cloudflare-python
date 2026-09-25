@@ -78,6 +78,8 @@ class ListsResource(SyncAPIResource):
         Creates a new Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the list name.
 
           type: Specify the list type.
@@ -138,6 +140,8 @@ class ListsResource(SyncAPIResource):
         in the payload. A non empty list items will overwrite the existing list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           name: Specify the list name.
@@ -195,12 +199,13 @@ class ListsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncSinglePage[GatewayList]:
-        """Fetch all Zero Trust lists for an account.
+        """
+        Fetch all Zero Trust lists for an account.
 
         Args:
-          direction: Sort direction.
+          account_id: Specify the Cloudflare account identifier.
 
-        Applies to the field named in `order_by`; when `order_by` is
+          direction: Sort direction. Applies to the field named in `order_by`; when `order_by` is
               omitted it applies to the default `created_at` ordering. When `direction` is
               omitted the default is field-specific: explicitly choosing `created_at` or
               `updated_at` defaults to descending (newest first); `name` and `item_count`
@@ -291,6 +296,8 @@ class ListsResource(SyncAPIResource):
         Deletes a Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -335,6 +342,8 @@ class ListsResource(SyncAPIResource):
         Appends or removes an item from a configured Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           append: Add items to the list.
@@ -388,6 +397,8 @@ class ListsResource(SyncAPIResource):
         Fetch a single Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -458,6 +469,8 @@ class AsyncListsResource(AsyncAPIResource):
         Creates a new Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           name: Specify the list name.
 
           type: Specify the list type.
@@ -518,6 +531,8 @@ class AsyncListsResource(AsyncAPIResource):
         in the payload. A non empty list items will overwrite the existing list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           name: Specify the list name.
@@ -575,12 +590,13 @@ class AsyncListsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[GatewayList, AsyncSinglePage[GatewayList]]:
-        """Fetch all Zero Trust lists for an account.
+        """
+        Fetch all Zero Trust lists for an account.
 
         Args:
-          direction: Sort direction.
+          account_id: Specify the Cloudflare account identifier.
 
-        Applies to the field named in `order_by`; when `order_by` is
+          direction: Sort direction. Applies to the field named in `order_by`; when `order_by` is
               omitted it applies to the default `created_at` ordering. When `direction` is
               omitted the default is field-specific: explicitly choosing `created_at` or
               `updated_at` defaults to descending (newest first); `name` and `item_count`
@@ -671,6 +687,8 @@ class AsyncListsResource(AsyncAPIResource):
         Deletes a Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers
@@ -715,6 +733,8 @@ class AsyncListsResource(AsyncAPIResource):
         Appends or removes an item from a configured Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           append: Add items to the list.
@@ -768,6 +788,8 @@ class AsyncListsResource(AsyncAPIResource):
         Fetch a single Zero Trust list.
 
         Args:
+          account_id: Specify the Cloudflare account identifier.
+
           list_id: Identify the API resource with a UUID.
 
           extra_headers: Send extra headers

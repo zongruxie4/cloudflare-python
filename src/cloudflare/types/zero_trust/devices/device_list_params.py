@@ -67,6 +67,12 @@ class DeviceListParams(TypedDict, total=False):
     sort_order: Literal["asc", "desc"]
     """Sort direction."""
 
+    tag: SequenceNotStr[str]
+    """Filter by one or more device tags in key:value format.
+
+    Devices must match all provided tags.
+    """
+
 
 class LastSeenRegistration(TypedDict, total=False):
     policy: str

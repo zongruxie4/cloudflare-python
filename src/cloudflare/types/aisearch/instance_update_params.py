@@ -66,7 +66,7 @@ class InstanceUpdateParams(TypedDict, total=False):
     index_method: IndexMethod
     """Controls which storage backends are used during indexing.
 
-    Defaults to vector-only.
+    Defaults to vector and keyword indexing for new instances.
     """
 
     indexing_options: Optional[IndexingOptions]
@@ -128,7 +128,7 @@ class CustomMetadata(TypedDict, total=False):
 class IndexMethod(TypedDict, total=False):
     """Controls which storage backends are used during indexing.
 
-    Defaults to vector-only.
+    Defaults to vector and keyword indexing for new instances.
     """
 
     keyword: Required[bool]

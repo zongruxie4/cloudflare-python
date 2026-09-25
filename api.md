@@ -267,6 +267,8 @@ Methods:
 
 # [MoQ](src/cloudflare/resources/moq/api.md)
 
+# [ManagedDefense](src/cloudflare/resources/managed_defense/api.md)
+
 # [CloudforceOne](src/cloudflare/resources/cloudforce_one/api.md)
 
 # [AIGateway](src/cloudflare/resources/ai_gateway/api.md)
