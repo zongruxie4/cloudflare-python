@@ -1,5 +1,129 @@
 # Changelog
 
+## 5.8.0 (2026-09-25)
+
+Full Changelog: [v5.7.0...v5.8.0](https://github.com/cloudflare/cloudflare-python/compare/v5.7.0...v5.8.0)
+
+This release adds Managed Defense vulnerability discovery, Field Extractors, billing and subscription APIs, Magic
+Transit BGP filter profiles, registrar transfer APIs, Zero Trust posture policies, and zone observability tracing.
+It also includes generated signature and response-model corrections. Review the breaking changes before upgrading.
+
+See the [v5.8.0 Migration Guide](./docs/migration-guides/v5.8.0-migration-guide.md) for upgrade examples.
+
+### Breaking Changes
+
+* **addressing:** `client.addressing.address_maps.accounts.update()` and `delete()` now take
+  `member_account_id` as the positional identifier and `address_map_id` as a keyword argument.
+* **request bodies:** unused `body` parameters were removed from token value updates, Address Maps IP and zone
+  updates, Cache Reserve clear, DNS scan and zone transfer actions, Email Routing enable/disable, Access bookmarks,
+  and Gateway certificate activation/deactivation.
+* **r2:** request keyword `jurisdiction` was renamed to `cf_r2_jurisdiction` across bucket, object, domain,
+  lifecycle, lock, CORS, event-notification, and Sippy operations. The new keyword also accepts `fedramp-high`.
+* **firewall and rate_limits:** legacy WAF override and rate-limit methods now return `None`. The `Override`,
+  `OverrideDeleteResponse`, `RateLimit`, `RateLimitDeleteResponse`, `WAFRule`, and `RewriteAction` exports were
+  removed. Firewall bulk edit/update now require an `id` instead of a `body` collection, and WAF package retrieval
+  now returns a raw string/object union.
+* **cloud_connector:** `RuleUpdateParams.rules` is now required.
+* **response models:** Hyperdrive configs, cache origin cloud regions, and Zero Trust organizations now use
+  corrected operation-specific or shared response types. mTLS certificate `list()`, `delete()`, and `get()` now use
+  the shared `MTLSCertificate` type; `create()` still returns `Optional[MTLSCertificateCreateResponse]`. Hyperdrive
+  create parameters are now origin/integration variants, replacing direct `Origin`, `Caching`, and `MTLS` helper
+  imports.
+* **pagination:** Workers deployment listing now returns `SyncV4PagePagination` and adds page/date filters; Gateway
+  list items and PAC files now return `SyncV4PagePaginationArray` and add page controls; device override-code
+  listing now returns `Optional[OverrideCodeListResponse]`.
+* **email_routing:** `client.email_routing.dns.delete()` now uses `DELETE` and returns `Optional[Settings]` instead
+  of a page of DNS records. `dns.get()` is now optional and returns `List[DNSRecord]` rather than an envelope union.
+* **waiting_rooms:** waiting-room, event, page-preview, status, details, and settings operations now return
+  `Optional[...]`; callers must handle `None`.
+* **browser_rendering:** create parameter types for URL/HTML-based rendering endpoints are now unions requiring
+  either `url` or `html`. Session endpoints such as `devtools.browser.create()` are unaffected. Nested `Viewport`,
+  `Cookie`, and `PDFOptions` imports moved under generated variant types.
+* **pipelines:** per-response schema field exports were replaced by shared `SourceField`, `SourceFieldParam`,
+  `ListField`, `ListFieldParam`, `StructField`, and `StructFieldParam` types.
+* **zero_trust:** `ApplicationCreateParams` for Resource Library applications is now a union requiring either
+  `hostnames` or `ip_subnets`. Access Browser RDP and Infrastructure `target_attributes` response fields are now
+  optional.
+* **rulesets:** generated nested rule symbols were normalized, including `BlockRule` to `RuleBlockRule`,
+  `CompressResponseRule` to `RuleResponseCompressionRule`, and `SetConfigRule` to `RuleSetConfigurationRule`;
+  several response rule fields are now required.
+* **required fields:** Calls SFU/TURN fields, Flagship response `type`, and Workers domain `environment` are now
+  required.
+* **magic_transit:** connector create/edit/update parameters and connector responses no longer contain `primary`
+  or `site_id`.
+* **email_security:** bulk-job statuses no longer include `SKIPPED`, message status no longer includes
+  `DISCOVERING`, and bulk responses add required cancellation/skip counts.
+* **zero_trust:** CASB remediation vendors no longer include `Okta` or `Workday`.
+* **optional fields:** AI Search namespace `created_at`, selected billing usage fields, and Workers observability
+  `request_id` fields are now optional.
+* **radar and realtime_kit:** selected date/time and numeric response fields now use `date`/`datetime` and `int`
+  instead of `str` and `float`; session participant `per_page` is now an `int`.
+* **response shapes:** URL Scanner robots rules now use a dictionary shape, and DLS prefix-binding response
+  messages/errors now use shared `ResponseInfo` entries.
+* **removed types:** `stream.Clip`, `stream.Playback`, `stream.Watermark`, and `cache.State` were removed, along with
+  nested types from the removed legacy rate-limit models.
+
+### Features
+
+* **managed_defense:** add `client.managed_defense.vulnerability_discovery` with repository, scan, and report APIs
+* **field_extractors:** add top-level `client.field_extractors` with `update()`, `delete()`, and `get()` methods
+* **abuse_reports:** add submitted-report listing and retrieval, including submitted email listing
+* **accounts:** add entitlements, payment methods, invoice payment, bad-debt payment, receipts, invoices, and client
+  secret APIs
+* **subscriptions:** add cancel-downgrade, identifier lookup, cancel reasons, actions, and bulk operations
+* **billing:** add address validation, credits, history, bad debt, unpaid invoices, rate plans, expanded profiles,
+  and profile payment methods
+* **magic_transit:** add BGP filter profile CRUD methods
+* **registrar:** add transfer-in creation and transfer status retrieval
+* **zero_trust:** add CASB posture policy CRUD methods
+* **zones:** add entitlement listing and observability tracing settings and rule methods
+* **hyperdrive:** add `client.hyperdrive.configs.restart()`
+* **workers:** add `force` to beta worker deletion and pagination/date filters to deployment listing
+* **zero_trust:** add search, filter, ordering, and direction controls to Gateway locations, proxy endpoints, and
+  rules; add pagination controls to Gateway list items and PAC files
+* **devices:** add a `profile_type` filter for custom policy listing
+* **snippets:** rule methods now return typed paginator responses instead of `object`
+* **ssl:** add reusable `Host`, `Status`, and `ValidationMethod` aliases
+* **aisearch:** add OCR, custom metadata, hostname filtering, and updated hybrid-search options
+* **accounts:** add `standalone` and `Idempotency-Key` account creation options
+* **bot_management:** add AI training, AI user, AI search, migration opt-out, and JavaScript detection policy fields
+* **workers:** add K2 bindings, observability issues, asset base paths, preview configuration, and version author
+  fields
+* **zero_trust:** add Access destination path overrides, infrastructure/device tags, identity-provider login options,
+  and organization service-token inactivity settings
+* **model additions:** add CASB AWS, ServiceNow, and Zoom vendors; Spectrum Worker traffic; registrar
+  `transfer_pending`; Waiting Rooms Latvian locale; zone upload limits through 5000; Queues jurisdiction; AI Gateway
+  BYOK-only mode; Logpush attack-traffic filtering; Resource Tagging CWS variants; and Rulesets WebMCP settings
+
+#### New Resources
+
+**Managed Defense Vulnerability Discovery** (`client.managed_defense.vulnerability_discovery`)
+
+- `repositories.create()`, `repositories.list()`, and `repositories.get()`
+- `scans.create()`, `scans.list()`, `scans.get()`, and `scans.get_report()`
+- `reports.get()`
+
+**Field Extractors** (`client.field_extractors`)
+
+- `update()`
+- `delete()`
+- `get()`
+
+**Magic Transit BGP Filter Profiles** (`client.magic_transit.bgp_filter_profiles`)
+
+- `create()`, `update()`, `list()`, `delete()`, and `get()`
+
+**Zero Trust CASB Posture Policies** (`client.zero_trust.casb.posture.policies`)
+
+- `create()`, `update()`, `list()`, `delete()`, and `get()`
+
+**Zone Observability Tracing** (`client.zones.observability.tracing`)
+
+- `settings.update()`, `settings.delete()`, and `settings.get()`
+- `rules.update()`, `rules.delete()`, and `rules.get()`
+
+---
+
 ## 5.7.0 (2026-09-03)
 
 Full Changelog: [v5.6.0...v5.7.0](https://github.com/cloudflare/cloudflare-python/compare/v5.6.0...v5.7.0)
